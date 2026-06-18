@@ -1,0 +1,79 @@
+﻿---
+import Layout from "../../layouts/Layout.astro";
+import { posts } from "../../data/posts.js";
+
+export function getStaticPaths() {
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
+const idx = sorted.findIndex((p) => p.slug === post.slug);
+const next = sorted[idx + 1];
+function fmt(d) {
+  return new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+---
+<Layout title={post.title + " — Daniel Vega"} description={post.excerpt}>
+  <div class="bl-progress" id="blProgress"></div>
+  <article class="post">
+    <div class="container post-inner">
+      <a href="/blog" class="post-back"><span class="ba">&larr;</span> All posts</a>
+      <span class="post-tag">{post.tag}</span>
+      <h1 class="post-title">{post.title}</h1>
+      <p class="post-meta">{fmt(post.date)} · {post.readingTime}</p>
+      <div class="post-body">
+        {post.body.map((para) => <p>{para}</p>)}
+      </div>
+
+      <div class="post-foot">
+        <a href="/blog" class="post-back"><span class="ba">&larr;</span> Back to all posts</a>
+        {next && (
+          <a href={"/blog/" + next.slug} class="post-next">
+            <span class="pn-label">Next read</span>
+            <span class="pn-title">{next.title} <span class="pn-arrow">&rarr;</span></span>
+          </a>
+        )}
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .bl-progress { position: fixed; top: 0; left: 0; height: 4px; width: 0%; background: var(--accent); z-index: 60; }
+
+  .post { padding: 40px 0 80px; }
+  .post-inner { max-width: 680px; margin: 0 auto; }
+  .post-back { font-size: 14.5px; font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: 7px; }
+  .post-back .ba { transition: transform .2s ease; }
+  .post-back:hover .ba { transform: translateX(-4px); }
+
+  .post-tag { display: block; font-size: 12.5px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .5px; margin-top: 30px; }
+  .post-title { font-size: 38px; line-height: 1.18; margin: 12px 0 12px; }
+  .post-meta { font-size: 14px; color: var(--ink-soft); font-weight: 600; margin: 0 0 32px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+
+  .post-body p { font-size: 18px; line-height: 1.85; color: var(--ink); margin: 0 0 24px; }
+
+  .post-foot { margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 24px; }
+  .post-next { background: var(--bg-peach); border-radius: 16px; padding: 20px 24px; transition: transform .2s ease, box-shadow .2s ease; }
+  .post-next:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(80,60,40,.12); }
+  .pn-label { display: block; font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; }
+  .pn-title { font-size: 18px; font-weight: 700; color: var(--ink); display: inline-flex; align-items: center; gap: 7px; }
+  .pn-arrow { transition: transform .2s ease; }
+  .post-next:hover .pn-arrow { transform: translateX(4px); }
+
+  @media (max-width: 600px) { .post-title { font-size: 29px; } .post-body p { font-size: 16.5px; } }
+</style>
+
+<script>
+  const bar = document.getElementById("blProgress");
+  function update() {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    if (bar) bar.style.width = pct + "%";
+  }
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+</script>

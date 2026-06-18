@@ -1,0 +1,27 @@
+﻿---
+---
+<section class="about">
+  <div class="container">
+    <div class="about-block reveal">
+      <span class="about-eyebrow">About Daniel</span>
+      <h2>I wrote the books I needed at fifteen.</h2>
+      <p>I was the kid with the racing heart before every class, certain everyone could tell. It took me years — and a lot of help — to learn that anxiety isn't a flaw to fix, but a feeling to understand.</p>
+      <p>Now I write calm, honest books for teens who feel the same way. No lectures, no toxic positivity — just the tools and the company I wish I'd had back then.</p>
+      <a href="/about" class="about-link">More about me <span class="ar">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about { background: var(--bg-peach); padding: 84px 0; }
+  .about-block { max-width: 640px; margin: 0 auto; text-align: center; }
+  .about-eyebrow { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .6px; }
+  .about-block h2 { font-size: 32px; margin: 12px 0 20px; }
+  .about-block p { font-size: 18px; line-height: 1.75; color: var(--ink-soft); margin: 0 0 18px; }
+  .about-link { font-size: 16px; font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: 7px; margin-top: 8px; }
+  .about-link .ar { transition: transform .2s ease; }
+  .about-link:hover .ar { transform: translateX(4px); }
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.revealed { opacity: 1; transform: none; }
+  @media (max-width: 760px) { .about-block h2 { font-size: 27px; } .about-block p { font-size: 16px; } }
+</style>

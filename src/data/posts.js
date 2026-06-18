@@ -1,0 +1,47 @@
+export const posts = [
+  {
+    slug: "be-boring-on-purpose",
+    date: "2026-06-12",
+    readingTime: "4 min read",
+    tag: "Social anxiety",
+    title: `Try being the most boring person in the room`,
+    excerpt: `The spotlight feeling insists everyone's watching and judging. Here's a strange little experiment that proves they're not.`,
+    body: [
+      `Walk into a room a little late, say the wrong thing in class, trip on a step — and suddenly it feels like a stadium of eyes swung over and locked onto you. Everyone saw. Everyone's still thinking about it. That feeling has a name, the spotlight effect, and it's one of the most convincing lies your brain tells.`,
+      `Here's what researchers keep finding: people notice and remember far less about us than we assume — often a small fraction of what we're certain they clocked. The reason is almost funny. Everyone around you is starring in their own movie, running their own spotlight, worrying about their own walk into the room. The audience you're so scared of is busy being scared of their own audience.`,
+      `So here's the experiment, and it's the exact opposite of what anxiety wants. Instead of trying to be impressive or interesting or smooth — which keeps you up on stage, monitoring every move — try being the most boring person in the room on purpose. Give the short, plain answer. Order the unremarkable thing. Don't perform. Let yourself be a little forgettable.`,
+      `Then watch what happens: almost nothing. No one comments. No one's keeping score. And the part of your brain that was working overtime to manage your image finally gets to clock out, because there's nothing left to manage. The spotlight runs on your effort to dodge it. Stop feeding it and it dims on its own.`,
+      `One honest note: this is a tool, not a personality you're stuck with. The point isn't to be boring forever — it's to feel, in your actual body, that the watching eyes were never really there. And if that spotlight feeling is on you all the time, heavy and constant, that's not something you have to white-knuckle alone. Telling someone you trust isn't failure. It's just the next smart move.`,
+    ],
+  },
+  {
+    slug: "borrow-the-adrenaline",
+    date: "2026-06-05",
+    readingTime: "3 min read",
+    tag: "Anxiety",
+    title: `Your racing heart is just borrowed energy`,
+    excerpt: `Pounding chest, shallow breath, jittery hands — your body isn't betraying you. It's handing you fuel. Here's how to take it.`,
+    body: [
+      `Right before something that matters — a test, a tryout, raising your hand — your heart starts slamming, your breath goes shallow, your hands maybe shake a little. The story your brain attaches to that is almost always: something is wrong, I can't do this, I'm about to fall apart. But here's a secret your body has been keeping: that exact physical state is also what excitement feels like.`,
+      `Fear and excitement are nearly identical under the hood — same racing heart, same rush, same wide-awake buzz. The main difference is the label your mind slaps on it: "danger" or "let's go." And labels can be swapped. Researchers have found that people who tell themselves "I'm excited" before a stressful moment tend to do better than people who try to force themselves calm.`,
+      `That part matters, because "just calm down" is nearly impossible when your system is already revved. Trying to slam the brakes on a body that's flooring it usually just adds a layer of frustration on top of the nerves. It's far easier to take the energy you already have and aim it at the thing in front of you than to try to make it vanish.`,
+      `So next time your heart takes off, try saying it — out loud or in your head: "This is my body getting ready, not breaking down. I'll borrow it." Reframe the pounding as fuel for the moment instead of proof you should run. You don't have to believe it all the way. You just have to hand your brain a second, truer story to hold next to the scary one.`,
+      `One real note: if your heart races out of nowhere with no trigger, or it frightens you in a way that won't settle, it's worth mentioning to a doctor or someone you trust — not because anything's wrong with you, but because you deserve to actually know what's going on in your own body.`,
+    ],
+  },
+  {
+    slug: "3am-brain-closing-time",
+    date: "2026-05-26",
+    readingTime: "4 min read",
+    tag: "Sleep",
+    title: `Give your 3 a.m. brain a closing time`,
+    excerpt: `Why your worries get loudest in the dark — and a counterintuitive way to tell them to come back later.`,
+    body: [
+      `There's a specific kind of awful that mostly lives at 3 a.m.: lying in the dark while your brain lines up every cringe memory, unfinished worry, and worst-case scenario it can dig up, and plays them at full volume. During the day you could barely hear these thoughts. At night they're the only thing on.`,
+      `There's a reason for the timing, and it's not that the thoughts suddenly got more important. During the day your mind has a hundred places to point — school, people, your phone, constant noise. At night all of that goes quiet, and your brain reads the silence as free time to bring up everything it's been holding. It isn't attacking you. It just finally has the floor.`,
+      `Fighting it doesn't work — you can't out-argue a tired, anxious brain at 3 a.m., and trying just wakes you up more. So instead of solving the worry, postpone it. Tell it, plainly: "Not now. I'll deal with you tomorrow at 5." It sounds way too simple to do anything, but giving a worry an actual appointment tells your brain it won't be forgotten — which is half of what it was panicking about. Keep a notepad by the bed and write it down if that helps: a way of saying "I've got it, you can let go now."`,
+      `Then give your body something boring and steady to land on, because it needs a different channel than the loop. Slow breathing with a long, slow exhale. Feeling your feet against the sheets. Naming the quietest sounds in the room. Not to force sleep — chasing sleep just scares it off — but to take your mind off the replay and let tired do its job.`,
+      `And the thing to hold onto: a 3 a.m. thought isn't more true just because it's louder. Anxiety turns up the volume, not the accuracy. Your only job at 3 a.m. is to get to morning, where the same worry is almost always a fraction of its midnight size — and where, if it still matters, you'll have daylight and real tools to handle it. If the sleepless nights start stacking up, that's worth telling someone too. You shouldn't have to keep doing 3 a.m. alone.`,
+    ],
+  },
+];

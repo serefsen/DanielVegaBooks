@@ -1,0 +1,77 @@
+﻿---
+---
+<section class="news">
+  <div class="container">
+    <div class="news-card reveal">
+      <span class="news-eyebrow">Stay in touch</span>
+      <h2>A little calm, in your inbox.</h2>
+      <p>Once in a while I send a quiet note — news about new books, gentle reminders, and the odd small thing that helped me breathe. That's all.</p>
+      <form class="news-form" id="newsForm" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate><input type="hidden" name="form-name" value="newsletter" /><p hidden><label>Leave this empty: <input name="bot-field" /></label></p>
+        <input type="email" id="newsEmail" name="email" class="news-input" placeholder="you@email.com" aria-label="Email address" required />
+        <button type="submit" class="news-btn">Subscribe</button>
+      </form>
+      <p class="news-fine" id="newsFine">No spam, ever. Just a few good words — and full permission to exhale.</p>
+      <p class="news-thanks" id="newsThanks" hidden></p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .news { background: var(--bg-peach); padding: 84px 0; }
+  .news-card {
+    max-width: 600px; margin: 0 auto; text-align: center;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+    padding: 46px 40px; box-shadow: 0 20px 50px rgba(80,60,40,.10);
+  }
+  .news-eyebrow { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .6px; }
+  .news-card h2 { font-size: 30px; margin: 12px 0 14px; }
+  .news-card > p:first-of-type { font-size: 17px; line-height: 1.65; color: var(--ink-soft); margin: 0 auto 26px; max-width: 460px; }
+
+  .news-form { display: flex; gap: 10px; max-width: 440px; margin: 0 auto; }
+  .news-input {
+    flex: 1; font-family: var(--font-sans); font-size: 15px; color: var(--ink);
+    background: var(--bg); border: 1.5px solid var(--border); border-radius: 12px;
+    padding: 13px 16px; outline: none; transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .news-input::placeholder { color: #B7A99C; }
+  .news-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(92,111,156,.16); }
+  .news-btn {
+    font-family: var(--font-sans); font-size: 15px; font-weight: 600; color: #fff; cursor: pointer;
+    background: var(--accent); border: none; border-radius: 12px; padding: 13px 22px;
+    transition: transform .18s ease, background .18s ease; white-space: nowrap;
+  }
+  .news-btn:hover { background: var(--accent-dark); transform: translateY(-2px); }
+
+  .news-fine { font-size: 13.5px; color: var(--ink-soft); margin: 16px auto 0; }
+  .news-fine[hidden], .news-thanks[hidden] { display: none; }
+  .news-thanks { font-family: var(--font-serif); font-size: 20px; color: var(--ink); margin: 10px 0 0; animation: pop .4s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes pop { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: scale(1); } }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.revealed { opacity: 1; transform: none; }
+
+  @media (max-width: 560px) {
+    .news-card { padding: 36px 24px; }
+    .news-card h2 { font-size: 25px; }
+    .news-form { flex-direction: column; }
+    .news-btn { width: 100%; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById("newsForm");
+  const email = document.getElementById("newsEmail");
+  const fine = document.getElementById("newsFine");
+  const thanks = document.getElementById("newsThanks");
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const val = email.value.trim();
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    if (!ok) { email.focus(); email.style.borderColor = "#D98B53"; return; }
+    fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(new FormData(form)).toString() }).catch(function(){}); form.hidden = true;
+    fine.hidden = true;
+    thanks.hidden = false;
+    thanks.textContent = "You're in. Take a deep breath \u{1F33F}";
+  });
+</script>
+

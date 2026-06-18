@@ -1,0 +1,113 @@
+﻿---
+import Layout from "../layouts/Layout.astro";
+---
+<Layout title="About — Daniel Vega" description="The story behind the books — calm, honest writing about anxiety for teens.">
+  <section class="ab-intro">
+    <div class="container ab-intro-inner">
+      <div class="ab-portrait-col">
+        <span class="ab-portrait-sticker">&#9749;</span>
+        <div class="ab-portrait" id="heroAvatar">
+          <img src="/image/104404.png" alt="Illustrated portrait of Daniel Vega" />
+        </div>
+        <div class="ab-bubble"><span class="ab-wave">&#128075;</span> Glad you're here</div>
+      </div>
+      <div class="ab-intro-text">
+        <span class="ab-eyebrow">About Daniel</span>
+        <h1>I wrote the books I needed at fifteen.</h1>
+        <p>Hi — I'm Daniel. I write short, honest books about anxiety for teenagers, because I spent most of mine convinced something was deeply wrong with me.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ab-story">
+    <div class="container ab-story-inner">
+      <p class="reveal">I was the kid with the racing heart before every class, the one rehearsing how to say "here" during attendance. From the outside I looked fine. Inside, my brain ran worst-case scenarios on a loop, and I was certain everyone could tell.</p>
+      <p class="reveal">It took me years — and a lot of help — to learn that anxiety isn't a character flaw or something to "snap out of." It's a feeling to understand, work with, and slowly turn the volume down on.</p>
+
+      <blockquote class="ab-quote reveal">"Nobody handed me the plain, honest version when I needed it. So I wrote it."</blockquote>
+
+      <p class="reveal">So that's what these books are: the plain, honest version. No lectures, no toxic positivity, no promising that one deep breath fixes everything. Just the tools, the stories, and the company I wish I'd had back then — written to actually be finished, even on a low-focus day.</p>
+      <p class="reveal">When I'm not writing, I'm usually over-caffeinated, re-reading the same comfort books, and reminding myself to take my own advice.</p>
+
+      <div class="ab-cta reveal">
+        <span>Not sure where to start?</span>
+        <a href="/books" class="ab-cta-link">Start with the books <span class="ar">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .ab-intro { padding: 50px 0 34px; }
+  .ab-intro-inner { display: flex; align-items: center; gap: 56px; }
+  .ab-portrait-col { flex: 0 0 auto; position: relative; }
+  .ab-portrait {
+    width: 280px; height: 280px; border-radius: 50%; background: var(--bg-peach); overflow: hidden;
+    box-shadow: 0 18px 40px rgba(80,60,40,.14); animation: breathe 6s ease-in-out infinite;
+    transition: box-shadow .3s ease;
+  }
+  .ab-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; display: block; }
+  .ab-portrait-col:hover .ab-portrait { box-shadow: 0 26px 50px rgba(80,60,40,.22); }
+
+  .ab-portrait-sticker {
+    position: absolute; bottom: 8px; left: -16px; z-index: 3; font-size: 30px;
+    transform: scale(0) rotate(-20deg); opacity: 0;
+    transition: transform .35s cubic-bezier(.34,1.7,.5,1), opacity .25s ease; pointer-events: none;
+  }
+  .ab-portrait-col:hover .ab-portrait-sticker { transform: scale(1) rotate(8deg); opacity: 1; }
+
+  .ab-bubble {
+    position: absolute; top: 16px; right: -22px;
+    background: var(--badge); color: var(--badge-ink); font-size: 14px; font-weight: 700;
+    padding: 9px 15px; border-radius: 999px; box-shadow: 0 8px 20px rgba(80,60,40,.16);
+    transform: scale(0); opacity: 0; animation: bubble-in .5s .4s cubic-bezier(.34,1.56,.64,1) forwards;
+  }
+  .ab-wave { display: inline-block; transform-origin: 70% 70%; animation: wave 2.6s ease-in-out infinite; }
+
+  .ab-intro-text { flex: 1; }
+  .ab-eyebrow { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .6px; }
+  .ab-intro-text h1 { font-size: 38px; margin: 12px 0 16px; max-width: 480px; }
+  .ab-intro-text p { font-size: 18px; line-height: 1.7; color: var(--ink-soft); margin: 0; max-width: 480px; }
+
+  .ab-story { padding: 30px 0 90px; }
+  .ab-story-inner { max-width: 680px; margin: 0 auto; }
+  .ab-story-inner p { font-size: 17.5px; line-height: 1.8; color: var(--ink); margin: 0 0 22px; }
+  .ab-quote {
+    font-family: var(--font-serif); font-size: 25px; line-height: 1.5; color: var(--accent);
+    border-left: 3px solid var(--badge); padding-left: 24px; margin: 34px 0; font-style: italic;
+  }
+
+  .ab-cta {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;
+    background: var(--bg-peach); border-radius: 18px; padding: 24px 30px; margin-top: 40px;
+  }
+  .ab-cta span { font-size: 17px; font-weight: 600; color: var(--ink); }
+  .ab-cta-link { font-size: 16px; font-weight: 700; color: var(--accent); display: inline-flex; align-items: center; gap: 7px; }
+  .ab-cta-link .ar { transition: transform .2s ease; }
+  .ab-cta-link:hover .ar { transform: translateX(5px); }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.revealed { opacity: 1; transform: none; }
+
+  @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.035); } }
+  @keyframes wave { 0%, 65%, 100% { transform: rotate(0deg); } 10% { transform: rotate(14deg); } 20% { transform: rotate(-8deg); } 30% { transform: rotate(14deg); } 40% { transform: rotate(-4deg); } 50% { transform: rotate(10deg); } }
+  @keyframes bubble-in { to { transform: scale(1); opacity: 1; } }
+
+  @media (max-width: 780px) {
+    .ab-intro-inner { flex-direction: column; text-align: center; gap: 30px; }
+    .ab-intro-text h1, .ab-intro-text p { margin-left: auto; margin-right: auto; }
+    .ab-portrait { width: 220px; height: 220px; }
+    .ab-bubble { right: -6px; top: 6px; font-size: 13px; padding: 8px 13px; }
+    .ab-cta { flex-direction: column; text-align: center; }
+  }
+</style>
+
+<script>
+  const items = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("revealed"); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    items.forEach((el) => io.observe(el));
+  } else { items.forEach((el) => el.classList.add("revealed")); }
+</script>

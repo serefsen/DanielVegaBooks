@@ -1,0 +1,30 @@
+﻿---
+const lines = [
+  "You are doing better than you think.",
+  "It is okay to not be okay.",
+  "One breath at a time is enough.",
+  "Anxious does not mean broken.",
+  "You have survived every hard day so far.",
+];
+---
+<section class="affirm">
+  <div class="affirm-inner container">
+    <span class="affirm-quote" id="affirmText">{lines[0]}</span>
+  </div>
+</section>
+
+<style>
+  .affirm { background: var(--bg-peach); padding: 32px 0; }
+  .affirm-inner { text-align: center; }
+  .affirm-quote { font-family: var(--font-serif); font-size: 24px; font-weight: 500; color: var(--ink); transition: opacity .5s ease; display: inline-block; }
+  @media (max-width: 600px) { .affirm-quote { font-size: 20px; } }
+</style>
+
+<script define:vars={{ lines }}>
+  const el = document.getElementById("affirmText");
+  let i = 0;
+  setInterval(() => {
+    el.style.opacity = "0";
+    setTimeout(() => { i = (i + 1) % lines.length; el.textContent = lines[i]; el.style.opacity = "1"; }, 500);
+  }, 4500);
+</script>

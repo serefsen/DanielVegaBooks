@@ -1,0 +1,63 @@
+﻿---
+const year = new Date().getFullYear();
+const explore = [
+  { label: "Books", href: "/books" },
+  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
+];
+const connect = [
+  { label: "Newsletter", href: "/newsletter" },
+  { label: "Contact", href: "/contact" },
+  { label: "Say hello", href: "mailto:hello@danielvegabooks.com" },
+];
+---
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="/image/logo-white.png" alt="Daniel Vega" class="footer-logo" />
+      <p class="footer-tag">Calming, honest books about anxiety — for teens learning to breathe through it all.</p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <span class="footer-col-head">Explore</span>
+        {explore.map((l) => <a href={l.href}>{l.label}</a>)}
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-head">Connect</span>
+        {connect.map((l) => <a href={l.href}>{l.label}</a>)}
+      </div>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>&copy; {year} Daniel Vega</span>
+    <span class="footer-made">Made with care <span class="footer-heart">&#9829;</span> and a few deep breaths.</span>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--nav); color: var(--nav-ink); padding: 56px 0 30px; }
+  .footer-inner { display: flex; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
+  .footer-brand { max-width: 320px; }
+  .footer-logo { height: 30px; width: auto; display: block; margin-bottom: 16px; }
+  .footer-tag { font-size: 14.5px; line-height: 1.6; color: #CFC3B8; margin: 0; }
+
+  .footer-cols { display: flex; gap: 64px; }
+  .footer-col { display: flex; flex-direction: column; gap: 11px; }
+  .footer-col-head { font-size: 13px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: #8C8076; margin-bottom: 3px; }
+  .footer-col a { font-size: 14.5px; color: #CFC3B8; transition: color .2s ease; }
+  .footer-col a:hover { color: var(--nav-ink); }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    margin-top: 44px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.10);
+    font-size: 13.5px; color: #9A8E84;
+  }
+  .footer-heart { color: #E89B73; display: inline-block; animation: heartbeat 1.8s ease-in-out infinite; }
+  @keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.25); } 30% { transform: scale(1); } 45% { transform: scale(1.18); } }
+
+  @media (max-width: 680px) {
+    .footer-inner { flex-direction: column; gap: 32px; }
+    .footer-cols { gap: 48px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>

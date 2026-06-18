@@ -1,0 +1,45 @@
+﻿---
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = "Daniel Vega — Books for anxious teens",
+  description = "Honest, calming books about anxiety, written for teens figuring it all out.",
+} = Astro.props;
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import Breather from "../components/Breather.astro";
+import "../styles/global.css";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <Breather />
+    <script>
+      const revealEls = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        const ro = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) { entry.target.classList.add("revealed"); ro.unobserve(entry.target); }
+          });
+        }, { threshold: 0.12 });
+        revealEls.forEach((el) => ro.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add("revealed"));
+      }
+    </script>
+  </body>
+</html>

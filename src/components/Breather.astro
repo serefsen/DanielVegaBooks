@@ -1,0 +1,113 @@
+﻿---
+---
+<button class="breather-btn" id="breatherOpen" aria-label="Take a breathing break">Need a breather?</button>
+
+<div class="peek" id="peekBuddy" role="button" tabindex="0" aria-label="Take a breathing break">
+  <div class="peek-bubble">Need a Breath?</div>
+  <img src="/image/104404.png" alt="" class="peek-img" />
+</div>
+
+<div class="breather-overlay" id="breatherOverlay" hidden>
+  <button class="breather-close" id="breatherClose" aria-label="Close">&times;</button>
+  <div class="breather-stage">
+    <div class="breather-circle"><span id="breatherText">Breathe in</span></div>
+    <p class="breather-hint">Follow the circle. In as it grows, out as it shrinks.</p>
+  </div>
+</div>
+
+<style>
+  .breather-btn {
+    position: fixed; right: 22px; bottom: 22px; z-index: 60;
+    background: var(--nav); color: var(--nav-ink); border: none; cursor: pointer;
+    font-family: var(--font-sans); font-size: 14px; font-weight: 600;
+    padding: 12px 18px; border-radius: 999px; box-shadow: 0 8px 24px rgba(40,30,20,.22);
+    transition: transform .18s ease, opacity .3s ease;
+  }
+  .breather-btn:hover { transform: translateY(-2px); }
+  .breather-btn.hide { opacity: 0; pointer-events: none; }
+
+  .peek {
+    position: fixed; right: -36px; top: 50%; z-index: 70;
+    display: flex; align-items: center;
+    transform: translateY(-50%) translateX(125%); opacity: 0;
+    transition: transform .55s cubic-bezier(.2,.85,.3,1), opacity .4s ease;
+    cursor: pointer;
+  }
+  .peek.show { transform: translateY(-50%) translateX(0); opacity: 1; }
+  .peek-img {
+    width: 165px; height: auto; display: block;
+    transform: rotate(-28deg); transform-origin: center;
+    transition: transform .25s ease;
+  }
+  .peek:hover .peek-img { transform: rotate(-28deg) translateY(-6px); }
+  .peek-bubble {
+    position: relative; background: var(--badge); color: var(--badge-ink);
+    font-size: 14px; font-weight: 600; white-space: nowrap;
+    padding: 9px 15px; border-radius: 16px; margin-right: 6px;
+    box-shadow: 0 8px 20px rgba(120,80,40,.18);
+  }
+  .peek-bubble::after {
+    content: ""; position: absolute; right: -6px; top: 50%; margin-top: -7px;
+    width: 14px; height: 14px; background: var(--badge); transform: rotate(45deg);
+  }
+
+  .breather-overlay {
+    position: fixed; inset: 0; z-index: 100; background: rgba(43,39,36,.82);
+    display: flex; align-items: center; justify-content: center; backdrop-filter: blur(3px);
+    animation: bfade .3s ease;
+  }
+  .breather-overlay[hidden] { display: none; }
+  .breather-close { position: absolute; top: 16px; right: 22px; background: none; border: none; color: #fff; opacity: .8; font-size: 34px; line-height: 1; cursor: pointer; }
+  .breather-stage { text-align: center; }
+  .breather-circle {
+    width: 180px; height: 180px; border-radius: 50%; margin: 0 auto 26px;
+    background: radial-gradient(circle at 50% 40%, var(--badge), #E9A86A);
+    display: flex; align-items: center; justify-content: center;
+    color: #4A2E12; font-weight: 600; font-size: 17px;
+    animation: breath 8s ease-in-out infinite;
+  }
+  .breather-hint { color: rgba(255,255,255,.82); font-size: 15px; max-width: 280px; margin: 0 auto; }
+
+  @keyframes breath { 0% { transform: scale(.7); } 45% { transform: scale(1.25); } 55% { transform: scale(1.25); } 100% { transform: scale(.7); } }
+  @keyframes bfade { from { opacity: 0; } to { opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) { .breather-circle { animation: none; } .peek { transition: opacity .3s ease; } }
+  @media (max-width: 760px) {
+    .peek { display: none; }
+    .breather-btn.hide { opacity: 1; pointer-events: auto; }
+  }
+</style>
+
+<script>
+  const overlay = document.getElementById("breatherOverlay");
+  const closeBtn = document.getElementById("breatherClose");
+  const text = document.getElementById("breatherText");
+  const openBtn = document.getElementById("breatherOpen");
+  const peek = document.getElementById("peekBuddy");
+  const heroAvatar = document.getElementById("heroAvatar");
+  let timer = null;
+
+  function start() {
+    overlay.hidden = false;
+    let phase = 0; const phases = ["Breathe in", "Breathe out"];
+    text.textContent = phases[0];
+    timer = setInterval(() => { phase = (phase + 1) % 2; text.textContent = phases[phase]; }, 4000);
+  }
+  function stop() { overlay.hidden = true; if (timer) clearInterval(timer); }
+
+  openBtn?.addEventListener("click", start);
+  peek?.addEventListener("click", start);
+  peek?.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); start(); } });
+  closeBtn?.addEventListener("click", stop);
+  overlay?.addEventListener("click", (e) => { if (e.target === overlay) stop(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") stop(); });
+
+  if (heroAvatar && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) { peek?.classList.remove("show"); openBtn?.classList.remove("hide"); }
+      else { peek?.classList.add("show"); openBtn?.classList.add("hide"); }
+    }, { threshold: 0 });
+    io.observe(heroAvatar);
+  } else if (!heroAvatar) { peek?.remove(); }
+</script>
+

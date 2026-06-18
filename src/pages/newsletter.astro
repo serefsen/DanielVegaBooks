@@ -1,0 +1,115 @@
+﻿---
+import Layout from "../layouts/Layout.astro";
+
+const perks = [
+  "News when a new book is on the way — plus the occasional early peek.",
+  "Short, gentle reminders for the harder days.",
+  "Now and then, a resource or tool that actually helped me.",
+];
+---
+<Layout title="Newsletter — Daniel Vega" description="A little calm in your inbox — occasional notes on new books, gentle reminders, and things that help.">
+  <section class="nl">
+    <div class="container">
+      <header class="nl-head reveal">
+        <span class="nl-eyebrow">Newsletter</span>
+        <h1>A little calm, in your inbox.</h1>
+        <p>Once in a while I send a quiet note — nothing noisy, nothing daily. Just the good stuff, when there's good stuff.</p>
+      </header>
+
+      <div class="nl-grid">
+        <ul class="nl-perks">
+          {perks.map((p) => (
+            <li class="nl-perk reveal">
+              <svg class="nl-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13 l4 4 L19 7" /></svg>
+              <span>{p}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="nl-card reveal">
+          <h2>Join the list</h2>
+          <p class="nl-card-sub">Free, and you can leave any time.</p>
+          <form class="nl-form" id="nlForm" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate><input type="hidden" name="form-name" value="newsletter" /><p hidden><label>Leave this empty: <input name="bot-field" /></label></p>
+            <input type="email" id="nlEmail" name="email" class="nl-input" placeholder="you@email.com" aria-label="Email address" required />
+            <button type="submit" class="nl-btn">Subscribe</button>
+          </form>
+          <p class="nl-fine" id="nlFine">No spam, ever — just a few good words and full permission to exhale.</p>
+          <p class="nl-thanks" id="nlThanks" hidden></p>
+        </div>
+      </div>
+
+      <p class="nl-foot reveal">One email every week or two. No pressure, no guilt — unsubscribe with a single click, no hard feelings.</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .nl { padding: 56px 0 90px; }
+  .nl-head { text-align: center; max-width: 600px; margin: 0 auto 50px; }
+  .nl-eyebrow { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .6px; }
+  .nl-head h1 { font-size: 40px; margin: 12px 0 14px; }
+  .nl-head p { font-size: 18px; line-height: 1.6; color: var(--ink-soft); margin: 0; }
+
+  .nl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; max-width: 920px; margin: 0 auto; }
+
+  .nl-perks { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 22px; }
+  .nl-perk { display: flex; align-items: flex-start; gap: 14px; font-size: 17px; line-height: 1.55; color: var(--ink); }
+  .nl-check { width: 26px; height: 26px; flex-shrink: 0; margin-top: 1px; }
+  .nl-check path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 30; stroke-dashoffset: 30; }
+  .nl-perk.revealed .nl-check path { animation: draw .5s ease forwards; }
+  .nl-perk:nth-child(2).revealed .nl-check path { animation-delay: .12s; }
+  .nl-perk:nth-child(3).revealed .nl-check path { animation-delay: .24s; }
+
+  .nl-card { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 34px 30px; box-shadow: 0 20px 50px rgba(80,60,40,.10); }
+  .nl-card h2 { font-size: 24px; margin: 0 0 6px; }
+  .nl-card-sub { font-size: 15px; color: var(--ink-soft); margin: 0 0 20px; }
+
+  .nl-form { display: flex; flex-direction: column; gap: 10px; }
+  .nl-input {
+    font-family: var(--font-sans); font-size: 15px; color: var(--ink);
+    background: var(--bg); border: 1.5px solid var(--border); border-radius: 12px; padding: 13px 16px;
+    outline: none; transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .nl-input::placeholder { color: #B7A99C; }
+  .nl-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(92,111,156,.16); }
+  .nl-btn {
+    font-family: var(--font-sans); font-size: 15px; font-weight: 600; color: #fff; cursor: pointer;
+    background: var(--accent); border: none; border-radius: 12px; padding: 13px 22px;
+    transition: transform .18s ease, background .18s ease;
+  }
+  .nl-btn:hover { background: var(--accent-dark); transform: translateY(-2px); }
+
+  .nl-fine { font-size: 13.5px; color: var(--ink-soft); margin: 14px 0 0; }
+  .nl-fine[hidden], .nl-thanks[hidden] { display: none; }
+  .nl-thanks { font-family: var(--font-serif); font-size: 20px; color: var(--ink); margin: 14px 0 0; animation: pop .4s cubic-bezier(.34,1.56,.64,1); }
+
+  .nl-foot { text-align: center; max-width: 520px; margin: 46px auto 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.revealed { opacity: 1; transform: none; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes pop { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: scale(1); } }
+
+  @media (max-width: 760px) {
+    .nl-head h1 { font-size: 31px; }
+    .nl-grid { grid-template-columns: 1fr; gap: 30px; max-width: 480px; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById("nlForm");
+  const email = document.getElementById("nlEmail");
+  const fine = document.getElementById("nlFine");
+  const thanks = document.getElementById("nlThanks");
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const val = email.value.trim();
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    if (!ok) { email.focus(); email.style.borderColor = "#D98B53"; return; }
+    fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(new FormData(form)).toString() }).catch(function(){}); form.hidden = true;
+    fine.hidden = true;
+    thanks.hidden = false;
+    thanks.textContent = "You're in. Take a deep breath \u{1F33F}";
+  });
+</script>
+

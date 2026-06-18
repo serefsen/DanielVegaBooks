@@ -1,0 +1,66 @@
+﻿---
+import Layout from "../../layouts/Layout.astro";
+import { posts } from "../../data/posts.js";
+
+const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
+function fmt(d) {
+  return new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+---
+<Layout title="Blog — Daniel Vega" description="Short, honest notes on anxiety, pressure, and growing up.">
+  <section class="blog">
+    <div class="container">
+      <header class="bl-head reveal">
+        <span class="bl-eyebrow">Notes</span>
+        <h1>Short, honest notes.</h1>
+        <p>Thoughts on anxiety, pressure, and figuring things out — written the same way as the books: plainly, and like a friend.</p>
+      </header>
+
+      <div class="bl-list">
+        {sorted.map((post) => (
+          <a href={"/blog/" + post.slug} class="bl-card reveal">
+            <span class="bl-tag">{post.tag}</span>
+            <h2 class="bl-title"><span class="bl-title-inner">{post.title}</span></h2>
+            <p class="bl-meta">{fmt(post.date)} · {post.readingTime}</p>
+            <p class="bl-excerpt">{post.excerpt}</p>
+            <span class="bl-more">Read post <span class="bl-arrow">&rarr;</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .blog { padding: 56px 0 90px; }
+  .bl-head { text-align: center; max-width: 600px; margin: 0 auto 54px; }
+  .bl-eyebrow { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .6px; }
+  .bl-head h1 { font-size: 40px; margin: 12px 0 14px; }
+  .bl-head p { font-size: 18px; line-height: 1.6; color: var(--ink-soft); margin: 0; }
+
+  .bl-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+  .bl-card {
+    display: block; background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+    padding: 26px 30px; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .bl-card:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(80,60,40,.10); border-color: #E0CDB8; }
+
+  .bl-tag { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .5px; }
+  .bl-title { font-size: 24px; margin: 8px 0 8px; line-height: 1.25; }
+  .bl-title-inner {
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0% 2px; background-position: 0 100%; background-repeat: no-repeat;
+    transition: background-size .35s ease; padding-bottom: 2px;
+  }
+  .bl-card:hover .bl-title-inner { background-size: 100% 2px; }
+  .bl-meta { font-size: 13px; color: var(--ink-soft); margin: 0 0 12px; font-weight: 600; }
+  .bl-excerpt { font-size: 16px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 16px; }
+  .bl-more { font-size: 14.5px; font-weight: 700; color: var(--accent); display: inline-flex; align-items: center; gap: 7px; }
+  .bl-arrow { transition: transform .2s ease; }
+  .bl-card:hover .bl-arrow { transform: translateX(5px); }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.revealed { opacity: 1; transform: none; }
+
+  @media (max-width: 600px) { .bl-head h1 { font-size: 31px; } .bl-card { padding: 22px 22px; } .bl-title { font-size: 21px; } }
+</style>

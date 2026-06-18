@@ -1,0 +1,104 @@
+﻿---
+import Layout from "../layouts/Layout.astro";
+import { books } from "../data/books.js";
+---
+<Layout title="The Books — Daniel Vega" description="The Response Training Series — honest anxiety workbooks for teens who hate workbooks.">
+  <section class="bookspage">
+    <div class="container">
+      <header class="bp-head reveal">
+        <span class="bp-eyebrow">The Response Training Series</span>
+        <h1>A trilogy for anxious minds.</h1>
+        <p>Short, honest workbooks for teens who can't stand workbooks — no lectures, no therapy-speak. Here's what's inside each one.</p>
+      </header>
+
+      <div class="bp-list">
+        {books.map((book, i) => (
+          <article class={"bp-book reveal" + (i % 2 === 1 ? " flip" : "")}>
+            <div class="bp-cover-wrap">
+              {book.cover
+                ? <img class="bp-cover-img" src={book.cover} alt={book.title + " cover"} />
+                : <div class="bp-cover-ph"><span class="bp-ph-label">Book 3</span><span class="bp-ph-soon">Coming<br/>Soon</span></div>}
+            </div>
+            <div class="bp-text">
+              <span class="bp-tag">{book.series}</span>
+              <h2>{book.title}</h2>
+              <p class="bp-sub">{book.subtitle}</p>
+              {book.blurb.map((d) => <p class="bp-desc">{d}</p>)}
+              {book.learn.length > 0 && (
+                <ul class="bp-learn">
+                  {book.learn.map((l) => <li>{l}</li>)}
+                </ul>
+              )}
+              {book.published
+                ? <div class="bp-buy">
+                    <div class="bp-prices">
+                      {book.pricePaperback && <span class="bp-price"><span class="bp-price-label">Paperback</span><span class="bp-price-val">{book.pricePaperback}</span></span>}
+                      {book.priceEbook && <span class="bp-price"><span class="bp-price-label">Kindle E-Book</span><span class="bp-price-val">{book.priceEbook}</span></span>}
+                    </div>
+                    <a href={book.buyPaperback || book.amazon} class="bp-amazon" target="_blank" rel="noopener" aria-label={"Buy " + book.title + " on Amazon"}>
+                      <span class="bp-amazon-label">Buy from</span><img src="/image/0148.png" alt="Amazon" />
+                    </a>
+                  </div>
+                : <span class="bp-soon">Coming soon — join the newsletter</span>}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .bookspage { padding: 60px 0 90px; }
+  .bp-head { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+  .bp-eyebrow { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .6px; }
+  .bp-head h1 { font-size: 40px; margin: 12px 0 16px; }
+  .bp-head p { font-size: 18px; line-height: 1.65; color: var(--ink-soft); margin: 0; }
+
+  .bp-book { display: flex; align-items: center; gap: 56px; margin-bottom: 72px; }
+  .bp-book.flip { flex-direction: row-reverse; }
+  .bp-cover-wrap { flex: 0 0 auto; }
+  .bp-text { flex: 1; }
+
+  .bp-cover-img { width: 260px; height: auto; border-radius: 12px; box-shadow: 0 22px 44px rgba(60,40,20,.24); display: block; }
+  .bp-cover-ph { width: 260px; aspect-ratio: 4/5; border-radius: 12px; background: linear-gradient(155deg,#d6c9b7,#b6a999); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #463d31; box-shadow: 0 22px 44px rgba(60,40,20,.24); }
+  .bp-ph-label { font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; opacity: .85; }
+  .bp-ph-soon { font-family: var(--font-serif); font-size: 30px; line-height: 1.05; color: #3a3228; margin-top: 6px; text-align: center; }
+
+  .bp-tag { font-size: 12.5px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .6px; }
+  .bp-text h2 { font-size: 30px; margin: 9px 0 6px; }
+  .bp-sub { font-size: 15px; color: var(--ink-soft); margin: 0 0 18px; font-weight: 600; }
+  .bp-desc { font-size: 16.5px; line-height: 1.7; color: var(--ink-soft); margin: 0 0 14px; max-width: 520px; }
+
+  .bp-learn { margin: 18px 0 0; padding: 0; list-style: none; max-width: 520px; }
+  .bp-learn li { position: relative; padding-left: 26px; margin-bottom: 10px; font-size: 15.5px; line-height: 1.55; color: var(--ink); }
+  .bp-learn li::before { content: "\2713"; position: absolute; left: 0; top: 0; color: var(--accent); font-weight: 700; }
+
+  .bp-buy { margin-top: 26px; }
+  .bp-prices { display: flex; gap: 32px; margin-bottom: 18px; }
+  .bp-price { display: flex; flex-direction: column; }
+  .bp-price-label { font-size: 11.5px; font-weight: 700; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .5px; }
+  .bp-price-val { font-size: 21px; font-weight: 700; color: var(--ink); font-family: var(--font-serif); margin-top: 3px; }
+
+  .bp-amazon { display: inline-flex; align-items: center; gap: 10px; transition: transform .18s ease; }
+  .bp-amazon-label { font-size: 15px; font-weight: 700; color: var(--ink); }
+  .bp-amazon img { height: 44px; width: auto; display: block; border-radius: 7px; box-shadow: 0 5px 16px rgba(0,0,0,.16); transition: box-shadow .18s ease; }
+  .bp-amazon:hover { transform: translateY(-2px); }
+  .bp-amazon:hover img { box-shadow: 0 10px 24px rgba(0,0,0,.26); }
+
+  .bp-soon { display: inline-block; background: var(--badge); color: var(--badge-ink); font-size: 13.5px; font-weight: 700; padding: 9px 18px; border-radius: 999px; margin-top: 8px; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.revealed { opacity: 1; transform: none; }
+
+  @media (max-width: 800px) {
+    .bp-head h1 { font-size: 31px; }
+    .bp-book, .bp-book.flip { flex-direction: column; text-align: center; gap: 28px; margin-bottom: 56px; }
+    .bp-desc, .bp-learn { margin-left: auto; margin-right: auto; }
+    .bp-learn li { text-align: left; }
+    .bp-prices { justify-content: center; }
+  }
+</style>
+
+
+

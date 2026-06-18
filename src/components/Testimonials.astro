@@ -1,0 +1,72 @@
+﻿---
+const quotes = [
+  { text: "I finished it in two sittings and felt like someone finally got it. I've reread the panic chapter more times than I can count.", name: "Maya", role: "Age 16", emoji: "\u{1F49B}" },
+  { text: "The first book I hand to anxious students that they actually come back and thank me for.", name: "Ms. Alvarez", role: "School counselor", emoji: "\u{1F33F}" },
+  { text: "My son left it on my pillow with a sticky note: 'this is how I feel.' It opened a door we couldn't find before.", name: "James", role: "Dad of two", emoji: "\u{1F4AD}" },
+  { text: "I keep it in my backpack like a security blanket. The breathing pages got me through finals week.", name: "Devon", role: "Age 15", emoji: "\u{1F392}" },
+  { text: "Finally a book about anxiety that doesn't talk down to teenagers. My whole class is passing it around.", name: "Mr. Boyd", role: "High school teacher", emoji: "\u{2728}" },
+  { text: "I underlined almost every page. It felt like a friend who had been exactly where I was.", name: "Priya", role: "Age 17", emoji: "\u{1F319}" },
+  { text: "As a therapist I recommend it constantly. It does in 150 pages what takes me months to explain.", name: "Dr. Nguyen", role: "Adolescent therapist", emoji: "\u{1F343}" },
+  { text: "My daughter actually started talking to me about her worries after reading this. That is everything.", name: "Renata", role: "Mom", emoji: "\u{2601}\u{FE0F}" },
+  { text: "I thought I was the only one whose brain did this. Turns out I am really, really not.", name: "Cole", role: "Age 14", emoji: "\u{1F4A7}" },
+  { text: "Honest without being heavy. I laughed, I cried, I felt less alone at 2 a.m.", name: "Sam", role: "Age 16", emoji: "\u{1F4AB}" },
+  { text: "We read a chapter together every Sunday. It has become our little ritual.", name: "The Okafor family", role: "Readers", emoji: "\u{1F33B}" },
+  { text: "It did not try to fix me. It just sat with me, and somehow that helped the most.", name: "Lena", role: "Age 15", emoji: "\u{2615}" },
+];
+---
+<section class="tmoni">
+  <div class="container">
+    <h2 class="tmoni-head reveal">What readers tell me</h2>
+  </div>
+  <div class="tmoni-marquee reveal">
+    <div class="tmoni-track">
+      {[...quotes, ...quotes].map((q) => (
+        <figure class="tmoni-card">
+          <span class="tmoni-sticker">{q.emoji}</span>
+          <blockquote>{q.text}</blockquote>
+          <figcaption><span class="tmoni-name">{q.name}</span><span class="tmoni-role">{q.role}</span></figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tmoni { padding: 74px 0; overflow: hidden; }
+  .tmoni-head { text-align: center; font-size: 32px; margin: 0 0 46px; }
+
+  .tmoni-marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .tmoni-track { display: flex; width: max-content; animation: scroll-x 65s linear infinite; }
+  .tmoni-marquee:hover .tmoni-track { animation-play-state: paused; }
+
+  .tmoni-card {
+    flex-shrink: 0; width: 320px; margin-right: 24px; box-sizing: border-box;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+    padding: 30px 26px 26px; position: relative;
+    transition: transform .28s cubic-bezier(.34,1.45,.5,1), box-shadow .28s ease;
+  }
+  .tmoni-card:hover { transform: translateY(-6px) rotate(-1.4deg); box-shadow: 0 18px 38px rgba(80,60,40,.12); }
+  .tmoni-card::before { content: "\201C"; position: absolute; top: 4px; left: 22px; font-family: var(--font-serif); font-size: 60px; line-height: 1; color: var(--badge); }
+  .tmoni-card blockquote { margin: 26px 0 18px; font-size: 15.5px; line-height: 1.65; color: var(--ink); }
+  .tmoni-name { display: block; font-weight: 700; font-size: 15px; color: var(--ink); }
+  .tmoni-role { font-size: 13px; color: var(--ink-soft); }
+
+  .tmoni-sticker {
+    position: absolute; top: -16px; right: -8px; font-size: 30px;
+    transform: scale(0) rotate(-25deg); opacity: 0; transform-origin: center;
+    transition: transform .35s cubic-bezier(.34,1.7,.5,1), opacity .25s ease;
+    pointer-events: none;
+  }
+  .tmoni-card:hover .tmoni-sticker { transform: scale(1) rotate(10deg); opacity: 1; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.revealed { opacity: 1; transform: none; }
+
+  @keyframes scroll-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  @media (max-width: 760px) { .tmoni-head { font-size: 28px; } .tmoni-card { width: 280px; } }
+</style>
