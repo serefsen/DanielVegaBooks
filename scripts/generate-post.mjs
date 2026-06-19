@@ -138,4 +138,4 @@ ${bodyStr}
   console.log('Tag    : '    + post.tag + ' | ' + rt);
 }
 
-main().catch(e => { console.error(e.message); process.exit(1); });
+main().catch(e => { console.error('--- TAM HATA ---'); console.error('status:', e.status); console.error('code:', e.code); console.error('message:', e.message); if (e.response) console.error('response:', JSON.stringify(e.response?.data)); console.error(e); process.exit(1); });
