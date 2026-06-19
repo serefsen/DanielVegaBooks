@@ -1,4 +1,4 @@
-name: Auto Blog Post
+﻿name: Auto Blog Post
 
 on:
   schedule:
@@ -6,38 +6,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate-post:
+  generate:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Install dependencies
-        working-directory: scripts
-        run: npm install
-
-      - name: Generate post
+      - name: Run post generator
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/generate-post.mjs
-
-      - name: Commit and push
-        run: |
-          git config user.name "Blog Bot"
-          git config user.email "bot@noreply.github.com"
-          git add src/data/posts.js
-          if git diff --staged --quiet; then
-            echo "Degisiklik yok"
-          else
-            git commit -m "blog: auto post $(date +%Y-%m-%d)"
-            git fetch origin main
-            git rebase origin/main || git rebase --abort
-            git push origin main
-          fi

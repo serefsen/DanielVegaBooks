@@ -1,141 +1,241 @@
-import OpenAI from 'openai';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { readFileSync, writeFileSync } from "fs";
+import { createRequire } from "module";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
 
-// Windows konsol/dosya kodlamasini UTF-8'e sabitle
-if (process.stdout.isTTY) { try { process.stdout.setEncoding('utf8'); } catch {} }
+// ── Config ──────────────────────────────────────────────────────────────────
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const GITHUB_TOKEN   = process.env.GITHUB_TOKEN;        // Actions provides this automatically
+const REPO_OWNER     = "serefsen";
+const REPO_NAME      = "DanielVegaBooks";
+const FILE_PATH      = "src/data/posts.js";             // path inside the repo
+const BRANCH         = "main";
 
-const MODEL    = 'gpt-4o';
-const POSTS_JS = path.join(__dirname, '..', 'src', 'data', 'posts.js');
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function slugify(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-")
+    .slice(0, 60);
+}
 
-function slugify(t) {
-  return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60);
+function readingTime(text) {
+  const words = text.trim().split(/\s+/).length;
+  return Math.max(3, Math.ceil(words / 130));
 }
-function readingTime(body) {
-  const w = body.join(' ').split(/\s+/).length;
-  return `${Math.max(3, Math.round(w / 130))} min read`;
+
+function todayISO() {
+  return new Date().toISOString().split("T")[0];
 }
-function esc(s) {
-  return s.replace(/\\/g, '\\\\').replace(/`/g, "'").replace(/\$\{/g, '\\${');
-}
-function pickTopic(topics, used) {
-  const fresh = topics.filter(t => !used.includes(slugify(t)));
-  const pool  = fresh.length ? fresh : topics;
+
+// ── Topic selection ──────────────────────────────────────────────────────────
+function pickTopic(topics, existingPosts) {
+  const usedTitles = new Set(existingPosts.map((p) => p.title?.toLowerCase()));
+  const unused = topics.filter((t) => !usedTitles.has(t.topic.toLowerCase()));
+  const pool   = unused.length > 0 ? unused : topics;
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
-const SYSTEM = `You are the writer behind Daniel Vega Books — a brand publishing CBT workbooks for teenagers struggling with anxiety, depression, and other mental health challenges. Your blog is the brand's voice, and people come back for it.
+// ── OpenAI call ──────────────────────────────────────────────────────────────
+async function generatePost(topic) {
+  const systemPrompt = `You write blog posts for a website called DanielVegaBooks. 
+The site sells CBT workbooks for teenagers. Your audience is parents, school counselors, and teachers.
 
-WHO READS THIS: Parents, school counselors, and teachers. They are worried, tired, and skeptical. They have read a hundred generic mental-health articles. Yours must not feel like the hundred-and-first.
+BRAND VOICE RULES:
+- Open with a scene (a moment a parent or counselor would recognize)
+- Name and reframe the anxiety without clinical jargon
+- Explain ONE concrete CBT tool clearly
+- Close softly — no hard sell
+- Tone: warm, direct, practical. Never preachy.
 
-YOUR MISSION: Every post must do two things at once — pull the reader in like a great piece of writing, AND give them something that genuinely helps. By the end, the reader should feel slightly relieved, a little more equipped, and curious about what you will say next.
+EXAMPLE OPENING 1:
+"It's 11 PM and your teenager is still awake, heart pounding, convinced they'll blank on tomorrow's exam. Sound familiar?"
 
-────────────────────────────────────────
-THE VOICE — study these three real examples. Match this exact texture.
+EXAMPLE OPENING 2:
+"She walked into the cafeteria, scanned the room for a friendly face, and turned around. Again."
 
-EXAMPLE A (opening of a post):
-"Walk into a room a little late, say the wrong thing in class, trip on a step — and suddenly it feels like a stadium of eyes swung over and locked onto you. Everyone saw. Everyone's still thinking about it. That feeling has a name, the spotlight effect, and it's one of the most convincing lies your brain tells."
+EXAMPLE OPENING 3:
+"He knew the answer. He just couldn't make himself raise his hand."
 
-EXAMPLE B (opening of a post):
-"Right before something that matters — a test, a tryout, raising your hand — your heart starts slamming, your breath goes shallow, your hands maybe shake a little. The story your brain attaches to that is almost always: something is wrong, I can't do this, I'm about to fall apart. But here's a secret your body has been keeping: that exact physical state is also what excitement feels like."
-
-EXAMPLE C (opening of a post):
-"There's a specific kind of awful that mostly lives at 3 a.m.: lying in the dark while your brain lines up every cringe memory, unfinished worry, and worst-case scenario it can dig up, and plays them at full volume. During the day you could barely hear these thoughts. At night they're the only thing on."
-
-────────────────────────────────────────
-WHAT MAKES THESE WORK — replicate every one of these:
-
-1. OPEN INSIDE THE MOMENT. Never open with "Anxiety is common" or "Many teens experience." Drop the reader straight into a scene they recognize from their own body. Use the concrete: the late entrance, the slammed heart, the 3 a.m. ceiling.
-
-2. NAME THE LIE, THEN BREAK IT. Anxiety tells a story ("everyone's watching," "I'm falling apart"). State that story plainly, then pivot — "but here's the secret" — and hand over a truer one. This turn is the engine of every post.
-
-3. EXPLAIN THE WHY. Give one real, jargon-free reason it works the way it does (the brain has nothing to point at, fear and excitement share the same wiring). Understanding is itself calming.
-
-4. GIVE ONE REAL TOOL. Not a list of five. One concrete, doable thing the reader can try today — and make it specific enough to actually attempt tonight.
-
-5. WRITE LIKE A PERSON, NOT A PAMPHLET. Use dashes, rhythm, the occasional dry humor ("almost funny," "too simple to do anything"). Vary sentence length. Let it breathe. Second person throughout — "you," "your brain," "your teen."
-
-6. LAND SOFT. The final paragraph always widens out: this is a tool not a life sentence, the loud thought isn't the true one, and — gently, never preachy — if it's heavy and constant, telling a trusted person or professional isn't failure, it's the next smart move.
-
-────────────────────────────────────────
-HARD RULES:
-- 5 paragraphs. Each 4-6 real sentences. Aim for a 3-4 minute read — fuller than a thin 2-minute post.
-- NO headers, NO bullet points, NO numbered lists. Flowing prose only.
-- NO clichés: "clever way of disguising," "the mind-body connection," "it's important to remember," "incredibly empowering," "sense of agency." If a phrase could appear in any generic article, delete it.
-- Every paragraph must earn the next one. No filler, no restating.
-- The reader is often the parent/counselor, but write so a teen could read it over their shoulder and feel seen, not lectured.
-- CRITICAL SPACING: Always put a space before and after every dash, and a space after every period and comma. Never let two words run together. Write 'one period at a time' not 'oneperiod', write 'stay alive, even if' not 'alive,even'.
-
-VALID TAGS (pick the closest): "Social anxiety" | "Anxiety" | "Sleep" | "Performance anxiety" | "Academic stress" | "Panic" | "Self-esteem" | "Depression"
-
-Return ONLY valid JSON, nothing else:
+FORMAT: Return ONLY a JSON object — no markdown fences, no preamble — with these exact keys:
 {
-  "tag": "<one tag from list>",
-  "title": "<use the assigned topic, lightly polished if needed>",
-  "excerpt": "<a hook with a hint of intrigue, 20-30 words, in the brand voice — make them want to read on>",
-  "body": ["<para 1 — open inside the moment>", "<para 2 — name the lie>", "<para 3 — explain the why>", "<para 4 — the one real tool>", "<para 5 — land soft>"]
+  "title": "string (compelling, 6-10 words, SEO-friendly for parents searching teen anxiety help)",
+  "excerpt": "string (2 sentences, what the post covers)",
+  "content": "string (full post, 400-550 words, plain text paragraphs separated by \\n\\n)"
 }`;
 
-async function main() {
-  if (!process.env.OPENAI_API_KEY) {
-    console.error('OPENAI_API_KEY bulunamadi'); process.exit(1);
-  }
+  const userPrompt = `Write a blog post about: ${topic.topic}
+SEO keywords to naturally include: ${topic.keywords || topic.topic}`;
 
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-  const today  = new Date().toISOString().split('T')[0];
-
-  const topics = JSON.parse(fs.readFileSync(path.join(__dirname, 'topics.json'), 'utf-8'));
-  const src    = fs.readFileSync(POSTS_JS, 'utf-8');
-  const used   = [...src.matchAll(/slug:\s*"([^"]+)"/g)].map(m => m[1]);
-  const topic  = pickTopic(topics, used);
-
-  console.log('Konu: ' + topic);
-  console.log('Yazi uretiliyor...');
-
-  const { choices } = await openai.chat.completions.create({
-    model: MODEL, temperature: 0.8, max_tokens: 1800,
-    messages: [
-      { role: 'system', content: SYSTEM },
-      { role: 'user',   content: `Write the post for this exact topic: "${topic}"` }
-    ]
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${OPENAI_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: "gpt-4o",
+      temperature: 0.7,
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user",   content: userPrompt },
+      ],
+    }),
   });
 
-  let raw = choices[0].message.content
-    .replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`OpenAI error ${res.status}: ${err}`);
+  }
 
-  let post;
-  try { post = JSON.parse(raw); }
-  catch { console.error('JSON parse hatasi:\n', raw); process.exit(1); }
+  const data = await res.json();
+  const raw  = data.choices[0].message.content.trim();
 
-  const slug    = slugify(post.title);
-  const rt      = readingTime(post.body);
-  const bodyStr = post.body.map(p => `    \`${esc(p)}\``).join(',\n');
-
-  const entry = `  {
-    slug: "${slug}",
-    date: "${today}",
-    readingTime: "${rt}",
-    tag: "${post.tag}",
-    title: \`${esc(post.title)}\`,
-    excerpt: \`${esc(post.excerpt)}\`,
-    body: [
-${bodyStr}
-    ],
-  }`;
-
-  const m = 'export const posts = [';
-  const i = src.indexOf(m);
-  if (i === -1) { console.error('posts.js formati taninamadi'); process.exit(1); }
-
-  const updated = src.slice(0, i + m.length) + '\n' + entry + ',' + src.slice(i + m.length);
-  fs.writeFileSync(POSTS_JS, Buffer.from(updated, 'utf-8'));
-
-  console.log('TAMAMLANDI: ' + slug);
-  console.log('Baslik : '    + post.title);
-  console.log('Tag    : '    + post.tag + ' | ' + rt);
+  // Strip accidental markdown fences
+  const clean = raw.replace(/^```(?:json)?/i, "").replace(/```$/, "").trim();
+  return JSON.parse(clean);
 }
 
-main().catch(e => { console.error('--- TAM HATA ---'); console.error('status:', e.status); console.error('code:', e.code); console.error('message:', e.message); if (e.response) console.error('response:', JSON.stringify(e.response?.data)); console.error(e); process.exit(1); });
+// ── GitHub Contents API ───────────────────────────────────────────────────────
+async function getFileFromGitHub() {
+  const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?ref=${BRANCH}`;
+  const res = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      Accept: "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+    },
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`GitHub GET error ${res.status}: ${err}`);
+  }
+
+  const data = await res.json();
+  const content = Buffer.from(data.content, "base64").toString("utf-8");
+  return { content, sha: data.sha };
+}
+
+async function putFileToGitHub(newContent, sha, commitMessage) {
+  const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+  const encoded = Buffer.from(newContent, "utf-8").toString("base64");
+
+  const res = await fetch(url, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      Accept: "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      message: commitMessage,
+      content: encoded,
+      sha,
+      branch: BRANCH,
+    }),
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`GitHub PUT error ${res.status}: ${err}`);
+  }
+
+  return await res.json();
+}
+
+// ── Parse existing posts array from posts.js ──────────────────────────────────
+function parseExistingPosts(fileContent) {
+  // Extract the array literal from:  export const posts = [ ... ];
+  const match = fileContent.match(/export\s+const\s+posts\s*=\s*(\[[\s\S]*\])\s*;?\s*$/);
+  if (!match) throw new Error("Could not find posts array in posts.js");
+  // eslint-disable-next-line no-eval
+  return eval(match[1]); // safe: we control this file
+}
+
+// ── Inject new post into file content ────────────────────────────────────────
+function injectPost(fileContent, newPost) {
+  // Find the opening bracket of the array and insert after it
+  const insertPoint = fileContent.indexOf("[");
+  if (insertPoint === -1) throw new Error("Could not find array opening bracket in posts.js");
+
+  const postEntry = `
+  {
+    id: "${newPost.id}",
+    title: ${JSON.stringify(newPost.title)},
+    slug: "${newPost.slug}",
+    date: "${newPost.date}",
+    excerpt: ${JSON.stringify(newPost.excerpt)},
+    readingTime: ${newPost.readingTime},
+    content: ${JSON.stringify(newPost.content)},
+  },`;
+
+  return (
+    fileContent.slice(0, insertPoint + 1) +
+    postEntry +
+    fileContent.slice(insertPoint + 1)
+  );
+}
+
+// ── Main ─────────────────────────────────────────────────────────────────────
+async function main() {
+  if (!OPENAI_API_KEY) throw new Error("OPENAI_API_KEY is not set");
+  if (!GITHUB_TOKEN)   throw new Error("GITHUB_TOKEN is not set");
+
+  // 1. Load topics
+  const topicsPath = path.join(__dirname, "topics.json");
+  const topics     = JSON.parse(readFileSync(topicsPath, "utf-8"));
+
+  // 2. Fetch current posts.js from GitHub (gets latest SHA — no stale clone issues)
+  console.log("Fetching current posts.js from GitHub...");
+  const { content: fileContent, sha } = await getFileFromGitHub();
+
+  // 3. Parse existing posts to avoid topic repetition
+  const existingPosts = parseExistingPosts(fileContent);
+  console.log(`Found ${existingPosts.length} existing posts.`);
+
+  // 4. Pick a topic
+  const topic = pickTopic(topics, existingPosts);
+  console.log(`Selected topic: ${topic.topic}`);
+
+  // 5. Generate post via OpenAI
+  console.log("Calling OpenAI...");
+  const generated = await generatePost(topic);
+
+  // 6. Build post object
+  const slug = slugify(generated.title);
+  const id   = `post-${Date.now()}`;
+  const newPost = {
+    id,
+    title:       generated.title,
+    slug,
+    date:        todayISO(),
+    excerpt:     generated.excerpt,
+    readingTime: readingTime(generated.content),
+    content:     generated.content,
+  };
+  console.log(`Generated: "${newPost.title}" (${newPost.readingTime} min read)`);
+
+  // 7. Inject into file content
+  const updatedContent = injectPost(fileContent, newPost);
+
+  // 8. Push via GitHub Contents API (no git, no fast-forward conflicts)
+  console.log("Pushing to GitHub via Contents API...");
+  const result = await putFileToGitHub(
+    updatedContent,
+    sha,
+    `chore: add post — ${newPost.title}`
+  );
+  console.log(`Success! Commit: ${result.commit.sha}`);
+}
+
+main().catch((err) => {
+  console.error("FATAL:", err.message);
+  process.exit(1);
+});
