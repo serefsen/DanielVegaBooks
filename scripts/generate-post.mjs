@@ -1,20 +1,26 @@
-import { readFileSync, writeFileSync } from "fs";
-import { createRequire } from "module";
+import { readFileSync } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const require = createRequire(import.meta.url);
 
-// ── Config ──────────────────────────────────────────────────────────────────
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const GITHUB_TOKEN   = process.env.GITHUB_TOKEN;        // Actions provides this automatically
+const GITHUB_TOKEN   = process.env.GITHUB_TOKEN;
 const REPO_OWNER     = "serefsen";
 const REPO_NAME      = "DanielVegaBooks";
-const FILE_PATH      = "src/data/posts.js";             // path inside the repo
+const FILE_PATH      = "src/data/posts.js";
 const BRANCH         = "main";
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+const TAGS = [
+  "Anxiety",
+  "Social anxiety",
+  "Sleep",
+  "Depression",
+  "Academic stress",
+  "Self-esteem",
+  "Communication",
+];
+
 function slugify(title) {
   return title
     .toLowerCase()
@@ -24,26 +30,18 @@ function slugify(title) {
     .slice(0, 60);
 }
 
-function readingTime(text) {
-  const words = text.trim().split(/\s+/).length;
-  return Math.max(3, Math.ceil(words / 130));
+function readingTime(paragraphs) {
+  const words = paragraphs.join(" ").trim().split(/\s+/).length;
+  const mins  = Math.max(3, Math.ceil(words / 130));
+  return `${mins} min read`;
 }
 
 function todayISO() {
   return new Date().toISOString().split("T")[0];
 }
 
-// ── Topic selection ──────────────────────────────────────────────────────────
-function pickTopic(topics, existingPosts) {
-  const usedTitles = new Set(existingPosts.map((p) => p.title?.toLowerCase()));
-  const unused = topics.filter((t) => !usedTitles.has(t.topic.toLowerCase()));
-  const pool   = unused.length > 0 ? unused : topics;
-  return pool[Math.floor(Math.random() * pool.length)];
-}
-
-// ── OpenAI call ──────────────────────────────────────────────────────────────
 async function generatePost(topic) {
-  const systemPrompt = `You write blog posts for a website called DanielVegaBooks. 
+  const systemPrompt = `You write blog posts for a website called DanielVegaBooks.
 The site sells CBT workbooks for teenagers. Your audience is parents, school counselors, and teachers.
 
 BRAND VOICE RULES:
@@ -54,23 +52,23 @@ BRAND VOICE RULES:
 - Tone: warm, direct, practical. Never preachy.
 
 EXAMPLE OPENING 1:
-"It's 11 PM and your teenager is still awake, heart pounding, convinced they'll blank on tomorrow's exam. Sound familiar?"
+"Walk into a room a little late, say the wrong thing in class, trip on a step — and suddenly it feels like a stadium of eyes swung over and locked onto you."
 
 EXAMPLE OPENING 2:
-"She walked into the cafeteria, scanned the room for a friendly face, and turned around. Again."
+"Right before something that matters — a test, a tryout, raising your hand — your heart starts slamming, your breath goes shallow."
 
 EXAMPLE OPENING 3:
-"He knew the answer. He just couldn't make himself raise his hand."
+"There's a specific kind of awful that mostly lives at 3 a.m.: lying in the dark while your brain lines up every cringe memory."
 
-FORMAT: Return ONLY a JSON object — no markdown fences, no preamble — with these exact keys:
+OUTPUT — return ONLY a JSON object with these exact keys:
 {
-  "title": "string (compelling, 6-10 words, SEO-friendly for parents searching teen anxiety help)",
-  "excerpt": "string (2 sentences, what the post covers)",
-  "content": "string (full post, 400-550 words, plain text paragraphs separated by \\n\\n)"
+  "title": "string (compelling, 6-10 words, no quotation marks around it)",
+  "excerpt": "string (1-2 sentences summarizing the post)",
+  "tag": "string (choose exactly one of: ${TAGS.join(", ")})",
+  "content": "string (the full post, 400-550 words, paragraphs separated by a blank line / double newline)"
 }`;
 
-  const userPrompt = `Write a blog post about: ${topic.topic}
-SEO keywords to naturally include: ${topic.keywords || topic.topic}`;
+  const userPrompt = `Write a blog post on this idea: "${topic}"`;
 
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
@@ -81,6 +79,7 @@ SEO keywords to naturally include: ${topic.keywords || topic.topic}`;
     body: JSON.stringify({
       model: "gpt-4o",
       temperature: 0.7,
+      response_format: { type: "json_object" },
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user",   content: userPrompt },
@@ -94,14 +93,9 @@ SEO keywords to naturally include: ${topic.keywords || topic.topic}`;
   }
 
   const data = await res.json();
-  const raw  = data.choices[0].message.content.trim();
-
-  // Strip accidental markdown fences
-  const clean = raw.replace(/^```(?:json)?/i, "").replace(/```$/, "").trim();
-  return JSON.parse(clean);
+  return JSON.parse(data.choices[0].message.content);
 }
 
-// ── GitHub Contents API ───────────────────────────────────────────────────────
 async function getFileFromGitHub() {
   const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?ref=${BRANCH}`;
   const res = await fetch(url, {
@@ -150,30 +144,25 @@ async function putFileToGitHub(newContent, sha, commitMessage) {
   return await res.json();
 }
 
-// ── Parse existing posts array from posts.js ──────────────────────────────────
-function parseExistingPosts(fileContent) {
-  // Extract the array literal from:  export const posts = [ ... ];
-  const match = fileContent.match(/export\s+const\s+posts\s*=\s*(\[[\s\S]*\])\s*;?\s*$/);
-  if (!match) throw new Error("Could not find posts array in posts.js");
-  // eslint-disable-next-line no-eval
-  return eval(match[1]); // safe: we control this file
-}
-
-// ── Inject new post into file content ────────────────────────────────────────
-function injectPost(fileContent, newPost) {
-  // Find the opening bracket of the array and insert after it
+function injectPost(fileContent, post) {
   const insertPoint = fileContent.indexOf("[");
   if (insertPoint === -1) throw new Error("Could not find array opening bracket in posts.js");
 
+  const bodyEntries = post.body
+    .map((p) => `      ${JSON.stringify(p)},`)
+    .join("\n");
+
   const postEntry = `
   {
-    id: "${newPost.id}",
-    title: ${JSON.stringify(newPost.title)},
-    slug: "${newPost.slug}",
-    date: "${newPost.date}",
-    excerpt: ${JSON.stringify(newPost.excerpt)},
-    readingTime: ${newPost.readingTime},
-    content: ${JSON.stringify(newPost.content)},
+    slug: ${JSON.stringify(post.slug)},
+    date: ${JSON.stringify(post.date)},
+    readingTime: ${JSON.stringify(post.readingTime)},
+    tag: ${JSON.stringify(post.tag)},
+    title: ${JSON.stringify(post.title)},
+    excerpt: ${JSON.stringify(post.excerpt)},
+    body: [
+${bodyEntries}
+    ],
   },`;
 
   return (
@@ -183,54 +172,51 @@ function injectPost(fileContent, newPost) {
   );
 }
 
-// ── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
   if (!OPENAI_API_KEY) throw new Error("OPENAI_API_KEY is not set");
   if (!GITHUB_TOKEN)   throw new Error("GITHUB_TOKEN is not set");
 
-  // 1. Load topics
   const topicsPath = path.join(__dirname, "topics.json");
   const topics     = JSON.parse(readFileSync(topicsPath, "utf-8"));
+  if (!Array.isArray(topics) || topics.length === 0) {
+    throw new Error("topics.json is empty or not an array");
+  }
 
-  // 2. Fetch current posts.js from GitHub (gets latest SHA — no stale clone issues)
+  const topic = topics[Math.floor(Math.random() * topics.length)];
+  console.log(`Selected topic: ${topic}`);
+
   console.log("Fetching current posts.js from GitHub...");
   const { content: fileContent, sha } = await getFileFromGitHub();
 
-  // 3. Parse existing posts to avoid topic repetition
-  const existingPosts = parseExistingPosts(fileContent);
-  console.log(`Found ${existingPosts.length} existing posts.`);
-
-  // 4. Pick a topic
-  const topic = pickTopic(topics, existingPosts);
-  console.log(`Selected topic: ${topic.topic}`);
-
-  // 5. Generate post via OpenAI
   console.log("Calling OpenAI...");
   const generated = await generatePost(topic);
 
-  // 6. Build post object
-  const slug = slugify(generated.title);
-  const id   = `post-${Date.now()}`;
-  const newPost = {
-    id,
-    title:       generated.title,
-    slug,
+  const tag  = TAGS.includes(generated.tag) ? generated.tag : "Anxiety";
+  const body = String(generated.content)
+    .split(/\n\s*\n/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  if (body.length === 0) throw new Error("Generated content was empty");
+
+  const post = {
+    slug:        slugify(generated.title),
     date:        todayISO(),
+    readingTime: readingTime(body),
+    tag,
+    title:       generated.title,
     excerpt:     generated.excerpt,
-    readingTime: readingTime(generated.content),
-    content:     generated.content,
+    body,
   };
-  console.log(`Generated: "${newPost.title}" (${newPost.readingTime} min read)`);
+  console.log(`Generated: "${post.title}" — ${post.tag}, ${post.readingTime}, ${body.length} paragraphs`);
 
-  // 7. Inject into file content
-  const updatedContent = injectPost(fileContent, newPost);
+  const updatedContent = injectPost(fileContent, post);
 
-  // 8. Push via GitHub Contents API (no git, no fast-forward conflicts)
   console.log("Pushing to GitHub via Contents API...");
   const result = await putFileToGitHub(
     updatedContent,
     sha,
-    `chore: add post — ${newPost.title}`
+    `chore: add post — ${post.title}`
   );
   console.log(`Success! Commit: ${result.commit.sha}`);
 }
