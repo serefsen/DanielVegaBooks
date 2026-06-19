@@ -1,5 +1,23 @@
 export const posts = [
   {
+    slug: "why-just-relax-backfires-with-teens",
+    date: "2026-06-19",
+    readingTime: "3 min read",
+    tag: "Anxiety",
+    title: "Why 'Just Relax' Backfires with Teens",
+    excerpt: "Telling teens to 'just relax' often exacerbates their anxiety. Discover how a simple CBT tool can help them manage stress more effectively.",
+    body: [
+      "It's the night before a big presentation. Your teenager is pacing the room, reciting lines under their breath. You see the tension in their shoulders, the way they keep checking the clock. You want to help, so you say, \"Just relax, you'll do fine.\" But instead of calming down, they snap back, \"You don't understand!\"",
+      "Why does this well-meaning advice often backfire? For many teens, anxiety isn't a switch they can flip off. When they're told to \"just relax,\" it can feel dismissive, as if the very real knot of worries twisting in their stomach isn't valid. Instead of helping them breathe easier, it often adds another layer of stress: the pressure to not feel stressed.",
+      "Instead of telling them to relax, try teaching them a simple CBT tool called \"Thought Diffusion.\" This technique helps them distance themselves from their anxious thoughts rather than getting caught up in them. Here's how it works:",
+      "Ask your teen to visualize their anxious thoughts as leaves floating down a stream. Each thought, no matter how big or small, is a leaf. Encourage them to watch these leaves drift by without trying to stop them or push them away. Whenever they notice themselves getting swept up in a thought, they can gently bring their focus back to the stream and continue watching the leaves pass.",
+      "This practice helps them understand that thoughts are not commands; they are just mental events that come and go. By observing their thoughts without judgment, they can reduce the emotional impact and gain a sense of calm.",
+      "The next time you see your teen caught in a loop of anxiety, skip the \"just relax\" and instead guide them through Thought Diffusion. It may take a few tries for them to get the hang of it, but with practice, they'll learn to navigate their thoughts more skillfully.",
+      "Remember, the goal isn't to eliminate anxiety—an impossible task—but to equip them with tools to manage it. In offering them a practical method like Thought Diffusion, you empower them to face their fears with greater resilience.",
+      "So, the next time your teen is pacing, take a moment to sit with them, acknowledge their worries, and gently introduce this new way of looking at their thoughts. It's a small shift that can make a big difference in their ability to handle stress.",
+    ],
+  },
+  {
     slug: "helping-teens-navigate-social-anxiety",
     date: "2026-06-19",
     readingTime: "3 min read",
