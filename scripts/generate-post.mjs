@@ -11,6 +11,8 @@ const REPO_NAME      = "DanielVegaBooks";
 const FILE_PATH      = "src/data/posts.js";
 const BRANCH         = "main";
 
+const SEED_COUNT = 3;
+
 const TAGS = [
   "Anxiety",
   "Social anxiety",
@@ -182,11 +184,19 @@ async function main() {
     throw new Error("topics.json is empty or not an array");
   }
 
-  const topic = topics[Math.floor(Math.random() * topics.length)];
-  console.log(`Selected topic: ${topic}`);
-
   console.log("Fetching current posts.js from GitHub...");
   const { content: fileContent, sha } = await getFileFromGitHub();
+
+  const totalPosts = (fileContent.match(/^\s{4}slug:\s*/gm) || []).length;
+  const index = Math.max(0, totalPosts - SEED_COUNT);
+
+  if (index >= topics.length) {
+    console.log(`All ${topics.length} topics have been published. Nothing to do.`);
+    return;
+  }
+
+  const topic = topics[index];
+  console.log(`Topic ${index + 1} of ${topics.length}: ${topic}`);
 
   console.log("Calling OpenAI...");
   const generated = await generatePost(topic);
@@ -216,7 +226,7 @@ async function main() {
   const result = await putFileToGitHub(
     updatedContent,
     sha,
-    `chore: add post — ${post.title}`
+    `chore: add post ${index + 1}/${topics.length} — ${post.title}`
   );
   console.log(`Success! Commit: ${result.commit.sha}`);
 }
