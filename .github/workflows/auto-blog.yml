@@ -1,4 +1,4 @@
-﻿name: Auto Blog Post
+name: Auto Blog Post
 
 on:
   schedule:
@@ -35,5 +35,6 @@ jobs:
             echo "Degisiklik yok"
           else
             git commit -m "blog: auto post $(date +%Y-%m-%d)"
-            git push
+            git pull --rebase origin main
+            git push origin main
           fi
