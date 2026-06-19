@@ -12,6 +12,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -35,6 +37,7 @@ jobs:
             echo "Degisiklik yok"
           else
             git commit -m "blog: auto post $(date +%Y-%m-%d)"
-            git pull --rebase origin main
+            git fetch origin main
+            git rebase origin/main || git rebase --abort
             git push origin main
           fi
