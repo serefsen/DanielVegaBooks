@@ -1,5 +1,22 @@
 export const posts = [
   {
+    slug: "helping-teens-navigate-social-anxiety",
+    date: "2026-06-19",
+    readingTime: "3 min read",
+    tag: "Social anxiety",
+    title: "Helping Teens Navigate Social Anxiety",
+    excerpt: "Understand how to help your teen realize that not everyone is watching them, and learn a simple CBT tool to ease social anxiety.",
+    body: [
+      "You know the scenario: your teenager walks into the cafeteria, scanning the room with quick eyes, convinced that every set of eyes is locked onto them, dissecting their every move. It’s that intense feeling of being in the spotlight, thinking everyone is watching and judging.",
+      "This is a classic symptom of social anxiety, and many teenagers experience it. The truth is, most people in the room are too busy thinking about themselves to pay much attention to others. But try telling that to a teenager who feels like they're on stage every time they step into a public space.",
+      "One effective CBT tool to help navigate this is called 'Reality Testing.' The idea is simple: challenge the thought and gather evidence.",
+      "When your teen feels that everyone is watching them, encourage them to ask themselves a few questions: What evidence do I have that everyone is watching me? What else could be true? Is it possible that others are focused on their own conversations or thoughts? Encourage them to remember a time when they thought everyone was watching, but later realized it wasn’t the case.",
+      "You can practice this at home. Role-play situations where they feel like they’re being watched. Together, list out what they think others might be doing (e.g., chatting with friends, eating lunch, checking their phones) instead of watching them. This exercise can help them understand that their perception doesn’t always match reality.",
+      "Additionally, help them focus on things they can control, like their breathing or posture, and use positive self-talk. Remind them of moments when they’ve felt confident or when they handled a situation well.",
+      "Remember, social anxiety is common and manageable with the right tools. By practicing reality testing, your teenager can start to dismantle the belief that the whole world is watching them, one cafeteria entrance at a time. Take it slow, and celebrate small victories. Each step forward is a step toward building confidence in social spaces.",
+    ],
+  },
+  {
     slug: "be-boring-on-purpose",
     date: "2026-06-12",
     readingTime: "4 min read",
