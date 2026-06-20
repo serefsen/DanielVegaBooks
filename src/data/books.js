@@ -10,7 +10,7 @@
     buyPaperback: `https://www.amazon.com/dp/B0H5926917`,
     buyEbook: ``,
     pricePaperback: `$14.99`,
-    priceEbook: `$9.99`,
+    priceEbook: ``,
     tagline: `Your anxiety isn't a glitch — it's an alarm doing its job, just a little too loud.`,
     blurb: [
       `"Just calm down" never worked, did it? Your anxiety isn't a glitch — it's an alarm, a system doing its job, just a little too loud. You can't delete it. But you can train what you do when it goes off.`,
@@ -32,9 +32,9 @@
     published: true,
     amazon: `https://www.amazon.com/dp/B0H5L55D31`,
     buyPaperback: `https://www.amazon.com/dp/B0H5L55D31`,
-    buyEbook: `https://www.amazon.com/dp/B0H5L37694`,
+    buyEbook: ``,
     pricePaperback: `$14.99`,
-    priceEbook: `$9.99`,
+    priceEbook: ``,
     tagline: `That awkward feeling isn't broadcasting to the whole room the way it feels like it is.`,
     blurb: [
       `"Just be yourself" never really helped, did it? That awkward feeling isn't a flaw — and it isn't broadcasting to the whole room the way it feels like it is. You can't delete it. But you can train what you do when it shows up.`,
@@ -53,13 +53,13 @@
     subtitle: `A Performance Anxiety Workbook for Teens Who Hate Workbooks`,
     series: `The Response Training Series — Book 3`,
     cover: `/image/kitap-323-kapak.png`,
-    published: false,
-    comingSoon: true,
-    amazon: ``,
-    buyPaperback: ``,
+    published: true,
+    comingSoon: false,
+    amazon: `https://www.amazon.com/dp/B0H65LW8SN`,
+    buyPaperback: `https://www.amazon.com/dp/B0H65LW8SN`,
     buyEbook: ``,
     pricePaperback: `$14.99`,
-    priceEbook: `$9.99`,
+    priceEbook: ``,
     tagline: `The pressure before every test, game, or performance isn't proof you'll fail — it's just pressure, and you can learn to use it.`,
     blurb: [
       `"Just don't choke" never helped, did it? The pressure you feel before a test, a game, a solo, a presentation isn't proof you're about to fail — and it isn't proof you're not good enough. It's just pressure. You can't delete it. But you can train what you do when it hits.`,
@@ -73,3 +73,5 @@
     ]
   }
 ];
+
+

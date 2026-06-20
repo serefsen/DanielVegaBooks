@@ -1,9 +1,10 @@
 ﻿---
 import Layout from "../layouts/Layout.astro";
 import { books } from "../data/books.js";
+const bookSchema = { "@context": "https://schema.org", "@graph": books.filter(b => b.published).map(b => ({ "@type": "Book", "name": b.title, "author": { "@type": "Person", "name": "Daniel Vega" }, "inLanguage": "en", "description": b.subtitle, "image": "https://danielvegabooks.com" + b.cover, "url": b.amazon, ...(b.pricePaperback ? { "offers": { "@type": "Offer", "price": b.pricePaperback.replace("$",""), "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": b.buyPaperback || b.amazon } } : {}) })) };
 ---
 <Layout title="The Books — Daniel Vega" description="The Response Training Series — honest anxiety workbooks for teens who hate workbooks.">
-  <section class="bookspage">
+  <script type="application/ld+json" set:html={JSON.stringify(bookSchema)}></script><section class="bookspage">
     <div class="container">
       <header class="bp-head reveal">
         <span class="bp-eyebrow">The Response Training Series</span>
@@ -99,6 +100,7 @@ import { books } from "../data/books.js";
     .bp-prices { justify-content: center; }
   }
 </style>
+
 
 
 

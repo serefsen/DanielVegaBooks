@@ -2,24 +2,55 @@
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 const {
   title = "Daniel Vega — Books for anxious teens",
   description = "Honest, calming books about anxiety, written for teens figuring it all out.",
+  image = "/image/og-image.png",
 } = Astro.props;
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import Breather from "../components/Breather.astro";
 import "../styles/global.css";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Daniel Vega",
+  "url": "https://danielvegabooks.com",
+  "jobTitle": "Author",
+  "description": "Author of calming, honest anxiety workbooks for teens.",
+  "image": "https://danielvegabooks.com/image/104404.png"
+};
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Daniel Vega" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
     <Nav />

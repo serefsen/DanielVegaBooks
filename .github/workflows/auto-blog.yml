@@ -1,4 +1,4 @@
-﻿name: Auto Blog Post
+name: Auto Blog Post
 
 on:
   schedule:
@@ -22,3 +22,6 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/generate-post.mjs
+
+      - name: Trigger Netlify deploy
+        run: curl -X POST -d '{}' ${{ secrets.NETLIFY_BUILD_HOOK }}
