@@ -1,5 +1,25 @@
 export const posts = [
   {
+    slug: "decoding-your-teenagers-anger",
+    date: "2026-06-21",
+    readingTime: "4 min read",
+    tag: "Communication",
+    title: "Decoding Your Teenager's Anger",
+    excerpt: "Discover how your teenager's anger can be a signal for underlying emotions and learn a CBT tool to help them navigate it.",
+    body: [
+      "The door slams shut with a force that echoes through the house. You stand there, a bit stunned, wondering what just happened. One moment your teenager was sitting at the dinner table, and the next, they were storming off in a cloud of anger. It's easy to get caught up in the heat of the moment, but what if their anger is actually trying to tell you something?",
+      "Anger in teenagers is often a mask for other emotions. Underneath the fury, there might be fear, sadness, or feelings of inadequacy. It's not uncommon for teens to struggle with expressing these emotions, and anger becomes the loud signal that something deeper is going on. When your teenager lashes out, it can be a sign that they're overwhelmed, anxious, or even feeling disconnected.",
+      "One effective CBT tool to address this is the 'Feelings Under the Iceberg' exercise. Imagine an iceberg floating in the ocean. The visible part above the water is the anger — it's what you see and experience. But below the surface lies a much larger mass of emotions that aren't immediately visible. Encouraging your teen to explore what's beneath their anger can help them gain insight and communicate more effectively.",
+      "Here's how you can guide your teen through this exercise:",
+      "1. **Create a Safe Space:** First, make sure you approach the conversation when both of you are calm. Let them know you're there to listen, not to judge.",
+      "2. **Draw the Iceberg:** Get a piece of paper and draw an iceberg. Explain to your teen that the tip represents their anger, while the submerged part represents other feelings.",
+      "3. **Identify Hidden Emotions:** Encourage them to think about what's beneath their anger. Is it frustration from a tough day at school? Is it fear about an upcoming presentation? Help them label these emotions.",
+      "4. **Reflect Together:** Once they've identified these emotions, talk about them. Let them know it's okay to feel this way and discuss how they can express these emotions in healthier ways.",
+      "By practicing this exercise, your teenager can learn to recognize and articulate their emotions more clearly, reducing the frequency and intensity of angry outbursts. It also strengthens your communication, showing them that you're willing to understand and support them.",
+      "Next time the door slams, remember the iceberg. It's an opportunity to dive deeper, to understand, and to connect. And as you navigate these waters together, you might find that the stormy seas of teenage anger can lead to clearer, calmer conversations.",
+    ],
+  },
+  {
     slug: "why-just-relax-backfires-with-teens",
     date: "2026-06-19",
     readingTime: "3 min read",
