@@ -4,7 +4,7 @@
     title: `Your Alarm Isn't Broken`,
     subtitle: `An Anxiety Workbook for Teens Who Hate Workbooks`,
     series: `The Response Training Series — Book 1`,
-    cover: `/image/kitap-123-kapak.png`,
+    cover: `/image/kitap-123-kapak.webp`,
     published: true,
     amazon: `https://www.amazon.com/dp/B0H5926917`,
     buyPaperback: `https://www.amazon.com/dp/B0H5926917`,
@@ -28,7 +28,7 @@
     title: `Your Awkward Isn't Showing`,
     subtitle: `A Social Anxiety Workbook for Teens Who Hate Workbooks`,
     series: `The Response Training Series — Book 2`,
-    cover: `/image/kitap-223-kapak.png`,
+    cover: `/image/kitap-223-kapak.webp`,
     published: true,
     amazon: `https://www.amazon.com/dp/B0H5L55D31`,
     buyPaperback: `https://www.amazon.com/dp/B0H5L55D31`,
@@ -52,7 +52,7 @@
     title: `Your Pressure Isn't Proof`,
     subtitle: `A Performance Anxiety Workbook for Teens Who Hate Workbooks`,
     series: `The Response Training Series — Book 3`,
-    cover: `/image/kitap-323-kapak.png`,
+    cover: `/image/kitap-323-kapak.webp`,
     published: true,
     comingSoon: false,
     amazon: `https://www.amazon.com/dp/B0H65LW8SN`,
@@ -73,5 +73,7 @@
     ]
   }
 ];
+
+
 
 

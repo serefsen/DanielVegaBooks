@@ -27,3 +27,5 @@ pnpm-debug.log*
 .netlify
 
 scripts/node_modules/
+
+_print-files/
