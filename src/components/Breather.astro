@@ -36,10 +36,10 @@
   .peek.show { transform: translateY(-50%) translateX(0); opacity: 1; }
   .peek-img {
     width: 165px; height: auto; display: block;
-    transform: rotate(-28deg); transform-origin: center;
+    transform: rotate(-90deg); transform-origin: center;
     transition: transform .25s ease;
   }
-  .peek:hover .peek-img { transform: rotate(-28deg) translateY(-6px); }
+  .peek:hover .peek-img { transform: rotate(-90deg) translateY(-6px); }
   .peek-bubble {
     position: relative; background: var(--badge); color: var(--badge-ink);
     font-size: 14px; font-weight: 600; white-space: nowrap;
@@ -110,5 +110,6 @@
     io.observe(heroAvatar);
   } else if (!heroAvatar) { peek?.remove(); }
 </script>
+
 
 
