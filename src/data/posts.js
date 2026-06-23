@@ -1,5 +1,23 @@
 export const posts = [
   {
+    slug: "inside-the-fog-of-teen-depression",
+    date: "2026-06-23",
+    readingTime: "3 min read",
+    tag: "Depression",
+    title: "Inside the Fog of Teen Depression",
+    excerpt: "Explore the inner world of teen depression and discover a practical CBT tool to gently shift the narrative.",
+    body: [
+      "Imagine waking up in the morning after a full night's sleep, yet feeling like you've run a marathon overnight. The day looms large, and just thinking about getting out of bed seems like climbing a mountain. This is what depression can feel like from the inside for many teenagers.",
+      "Teen depression isn't always about sadness. Often, it's like a heavy, unshakeable fog that dulls everything. It's not just about feeling down; it's about feeling stuck, heavy, and impossibly tired. For parents, teachers, and counselors, seeing a once-vibrant teen suddenly lose interest in activities they used to love can be bewildering and concerning.",
+      "One powerful CBT tool that can help is called 'Behavioral Activation.' It sounds technical, but it's quite straightforward. At its core, Behavioral Activation is about gradually re-engaging with activities that have the potential to lift mood, one small step at a time.",
+      "Here's how it works: Start by identifying one small, manageable activity your teen used to enjoy or find meaningful. Maybe it's as simple as taking a short walk, doodling in a sketchbook, or baking cookies. The key is to begin with something achievable, without pressure. Encourage them to try this activity for a few minutes each day, even if motivation is low.",
+      "This approach helps in two ways. First, it can interrupt the cycle of avoidance and inactivity that depression often perpetuates. Second, even small successes can spark a sense of accomplishment and gradually build momentum. Over time, these small actions can help shift mood and energy levels.",
+      "It's important to be patient and supportive throughout this process. Change doesn't happen overnight, and there will be days that feel harder than others. But by focusing on these small wins, you can help your teen find a path through the fog.",
+      "Remember, while tools like Behavioral Activation can be incredibly helpful, they are most effective when part of a larger support system that may include professional guidance. Encouraging open communication and showing empathy can make a significant difference.",
+      "In this gentle process, remind your teen that it's okay to feel the way they do and that seeking help shows strength, not weakness. With time and support, the heaviness of depression can begin to lift, allowing their true self to shine through once again.",
+    ],
+  },
+  {
     slug: "decoding-your-teenagers-anger",
     date: "2026-06-21",
     readingTime: "4 min read",
