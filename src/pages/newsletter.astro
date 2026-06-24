@@ -1,19 +1,19 @@
-﻿---
+---
 import Layout from "../layouts/Layout.astro";
 
 const perks = [
-  "News when a new book is on the way — plus the occasional early peek.",
-  "Short, gentle reminders for the harder days.",
-  "Now and then, a resource or tool that actually helped me.",
+  "Six calm-down tools your teen can use the moment pressure hits.",
+  "A printable one-pager — stick it on the fridge or in a backpack.",
+  "Plus the occasional gentle note and early peek at new books.",
 ];
 ---
-<Layout title="Newsletter — Daniel Vega" description="A little calm in your inbox — occasional notes on new books, gentle reminders, and things that help.">
+<Layout title="Free Teen Pressure Toolkit — Daniel Vega" description="A free, printable one-pager from the Daniel Vega workbooks — six calm-down tools your teen can use the moment anxiety spikes.">
   <section class="nl">
     <div class="container">
       <header class="nl-head reveal">
-        <span class="nl-eyebrow">Newsletter</span>
-        <h1>A little calm, in your inbox.</h1>
-        <p>Once in a while I send a quiet note — nothing noisy, nothing daily. Just the good stuff, when there's good stuff.</p>
+        <span class="nl-eyebrow">Free Download</span>
+        <h1>Six tools for when pressure hits.</h1>
+        <p>A free, printable one-pager from the Daniel Vega workbooks. Enter your email and we'll send it straight to your inbox — no noise, no daily emails.</p>
       </header>
 
       <div class="nl-grid">
@@ -27,18 +27,20 @@ const perks = [
         </ul>
 
         <div class="nl-card reveal">
-          <h2>Join the list</h2>
-          <p class="nl-card-sub">Free, and you can leave any time.</p>
-          <form class="nl-form" id="nlForm" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate><input type="hidden" name="form-name" value="newsletter" /><p hidden><label>Leave this empty: <input name="bot-field" /></label></p>
-            <input type="email" id="nlEmail" name="email" class="nl-input" placeholder="you@email.com" aria-label="Email address" required />
-            <button type="submit" class="nl-btn">Subscribe</button>
+          <h2>Get the free toolkit</h2>
+          <p class="nl-card-sub">One page, six tools. Sent straight to your inbox.</p>
+          <form class="nl-form" id="nlForm" action="https://assets.mailerlite.com/jsonp/2468129/forms/191166300278490999/subscribe" method="post" novalidate>
+            <input type="email" id="nlEmail" name="fields[email]" class="nl-input" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required />
+            <input type="hidden" name="ml-submit" value="1" />
+            <input type="hidden" name="anticsrf" value="true" />
+            <button type="submit" class="nl-btn">Send me the toolkit →</button>
           </form>
-          <p class="nl-fine" id="nlFine">No spam, ever — just a few good words and full permission to exhale.</p>
+          <p class="nl-fine" id="nlFine">No spam, ever — just the toolkit and the occasional good word.</p>
           <p class="nl-thanks" id="nlThanks" hidden></p>
         </div>
       </div>
 
-      <p class="nl-foot reveal">One email every week or two. No pressure, no guilt — unsubscribe with a single click, no hard feelings.</p>
+      <p class="nl-foot reveal">You'll get the toolkit right away. After that, one quiet email every week or two — unsubscribe with a single click, no hard feelings.</p>
     </div>
   </section>
 </Layout>
@@ -98,7 +100,7 @@ const perks = [
 
 <script>
   const form = document.getElementById("nlForm");
-  const email = document.getElementById("nlEmail");
+  const email = document.getElementById("nlEmail") as HTMLInputElement;
   const fine = document.getElementById("nlFine");
   const thanks = document.getElementById("nlThanks");
   form?.addEventListener("submit", (e) => {
@@ -106,10 +108,18 @@ const perks = [
     const val = email.value.trim();
     const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
     if (!ok) { email.focus(); email.style.borderColor = "#D98B53"; return; }
-    fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(new FormData(form)).toString() }).catch(function(){}); form.hidden = true;
-    fine.hidden = true;
-    thanks.hidden = false;
-    thanks.textContent = "You're in. Take a deep breath \u{1F33F}";
+    const body = new URLSearchParams();
+    body.append("fields[email]", val);
+    body.append("ml-submit", "1");
+    body.append("anticsrf", "true");
+    fetch(form.action, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body.toString(),
+    }).catch(function(){});
+    if (form) form.hidden = true;
+    if (fine) fine.hidden = true;
+    if (thanks) { thanks.hidden = false; thanks.textContent = "Check your inbox \u{1F4E9} Your toolkit is on its way."; }
   });
 </script>
-
