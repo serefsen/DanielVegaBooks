@@ -1,27 +1,20 @@
 name: Auto Blog Post
-
 on:
   schedule:
     - cron: "0 8 */2 * *"
   workflow_dispatch:
-
 jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-
+          node-version: "22"
       - name: Run post generator
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/generate-post.mjs
-
-      - name: Trigger Netlify deploy
-        run: curl -X POST -d '{}' ${{ secrets.NETLIFY_BUILD_HOOK }}
