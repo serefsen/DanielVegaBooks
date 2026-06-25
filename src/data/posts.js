@@ -1,5 +1,24 @@
 export const posts = [
   {
+    slug: "reaching-out-to-a-silent-teenager",
+    date: "2026-06-25",
+    readingTime: "4 min read",
+    tag: "Communication",
+    title: "Reaching Out to a Silent Teenager",
+    excerpt: "Discover a gentle approach to reconnect with a teenager who has withdrawn, using empathy and open-ended questions.",
+    body: [
+      "The air feels thick with silence. They’ve just come home from school, shrugged off their backpack, and retreated to their room without more than a nod in your direction. It’s not the first time, and you’re beginning to worry—is this just a typical teenage phase, or something more?",
+      "When a teenager shuts down, it can leave parents and educators feeling helpless and uncertain about what to do next. This withdrawal isn’t just about moodiness or rebellion; often, it’s a sign they’re feeling overwhelmed, anxious, or unheard. The good news is, with patience and the right approach, you can gently encourage them to open up.",
+      "Start by acknowledging their feelings without pressuring them to talk. Try saying something like, “I’ve noticed you’ve been quiet lately. I’m here if you want to chat, no rush.” This simple statement lets them know you’re aware and concerned but not demanding a conversation on your terms. It also reinforces that you’re available whenever they’re ready.",
+      "One effective tool from cognitive-behavioral strategies is the use of open-ended questions to facilitate conversation. Instead of asking questions that can be answered with a simple ‘yes’ or ‘no’, try to engage them with queries that require more thought and elaboration. For instance, instead of “Did you have a good day?”, you might ask, “What was the best part of your day today?” or “What’s something that made you smile today?”",
+      "These questions serve multiple purposes. They show that you’re interested in their experiences and feelings, rather than just checking in out of obligation. More importantly, they can help your teenager start to articulate their thoughts and feelings, which is the first step in addressing whatever is causing them to shut down.",
+      "Remember, this approach doesn’t guarantee an immediate response. Teenagers are notoriously unpredictable, and it might take several attempts before they begin to open up. Your consistency and calm presence, however, can provide a safe space for them to express themselves when they’re ready.",
+      "Additionally, try to share some of your own experiences. Opening up about your day, whether it was good or bad, can model the kind of communication you hope to have with them. It shows vulnerability and gives them permission to share their struggles without fear of judgment.",
+      "Keep the lines of communication open by checking in regularly, but also respect their need for space. Sometimes, the best thing you can do is simply be there, ready to listen with empathy and understanding when they decide to speak.",
+      "In time, with patience and these gentle strategies, you might find that the silence begins to fade, replaced by conversations that bring you closer together. Remember, it’s not about fixing their problems instantly; it’s about being a steady, supportive presence in their lives.",
+    ],
+  },
+  {
     slug: "inside-the-fog-of-teen-depression",
     date: "2026-06-23",
     readingTime: "3 min read",
