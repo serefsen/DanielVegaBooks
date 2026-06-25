@@ -1,0 +1,46 @@
+@font-face { font-family:'Lora'; src:url('fonts/Lora.ttf'); font-weight:400 700; font-style:normal; }
+@font-face { font-family:'Poppins'; src:url('fonts/Poppins-Regular.ttf'); font-weight:400; font-style:normal; }
+@font-face { font-family:'Poppins'; src:url('fonts/Poppins-Medium.ttf'); font-weight:500 600; font-style:normal; }
+@font-face { font-family:'Poppins'; src:url('fonts/Poppins-Bold.ttf'); font-weight:700; font-style:normal; }
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { background:#ffffff; }
+.pin { width:1000px; height:1500px; background:#F3ECE0; position:relative; overflow:hidden; font-family:'Poppins', sans-serif; }
+.frame { position:absolute; inset:32px; border:1.5px solid rgba(90,99,145,.30); }
+.rings { position:absolute; }
+.rings-tr { top:-160px; right:-160px; }
+.rings-bl { bottom:-150px; left:-160px; }
+
+.content { position:absolute; left:96px; right:96px; }
+.eyebrow { font-weight:600; font-size:22px; letter-spacing:5px; text-transform:uppercase; color:#5A6391; }
+.rule { width:56px; height:3px; background:#5A6391; margin-top:26px; border-radius:2px; }
+.head { font-family:'Lora', serif; font-weight:500; line-height:1.16; letter-spacing:-.5px; color:#2F3550; }
+.sub { font-weight:400; font-size:29px; line-height:1.5; color:#6B6F86; }
+.tag { display:inline-block; padding:14px 30px; border:1.5px solid rgba(90,99,145,.55); border-radius:40px; font-weight:500; font-size:22px; color:#5A6391; }
+
+.footer { position:absolute; left:96px; right:96px; bottom:92px; }
+.footrule { height:1px; background:#D8CDB8; margin-bottom:34px; }
+.brand { font-family:'Lora', serif; font-weight:500; font-size:38px; color:#5A6391; }
+.url { font-weight:400; font-size:22px; letter-spacing:1.5px; color:#8A8EA0; margin-top:8px; }
+
+/* Layout B */
+.panel { position:absolute; left:0; right:0; bottom:0; height:744px; background:#5A6391; }
+.topkick { position:absolute; left:96px; top:148px; }
+.b-head { font-family:'Lora', serif; font-weight:500; font-size:66px; line-height:1.16; letter-spacing:-.5px; color:#F6F1E8; }
+.b-sub { font-weight:400; font-size:27px; line-height:1.5; color:#CDD2E6; }
+.b-tag { display:inline-block; padding:14px 30px; border:1.5px solid rgba(246,241,232,.6); border-radius:40px; font-weight:500; font-size:22px; color:#F6F1E8; }
+.b-brand { font-family:'Lora', serif; font-weight:500; font-size:36px; color:#F6F1E8; }
+.b-url { font-weight:400; font-size:22px; letter-spacing:1.5px; color:#B9BFD8; margin-top:8px; }
+.b-footrule { height:1px; background:rgba(246,241,232,.25); margin-bottom:30px; }
+
+/* Layout C */
+.c-center { position:absolute; left:96px; right:96px; top:742px; text-align:center; }
+.c-kick { font-weight:600; font-size:22px; letter-spacing:5px; text-transform:uppercase; color:#5A6391; }
+.c-rule { width:56px; height:3px; background:#5A6391; border-radius:2px; margin:24px auto 0; }
+.c-head { font-family:'Lora', serif; font-weight:500; font-size:62px; line-height:1.16; letter-spacing:-.5px; color:#2F3550; margin-top:34px; }
+.c-sub { font-weight:400; font-size:28px; line-height:1.5; color:#6B6F86; margin:28px auto 0; max-width:720px; }
+.c-tag { display:inline-block; margin-top:42px; padding:14px 30px; border:1.5px solid rgba(90,99,145,.55); border-radius:40px; font-weight:500; font-size:22px; color:#5A6391; }
+.c-foot { position:absolute; left:0; right:0; bottom:90px; text-align:center; }
+.c-footrule { width:120px; height:1px; background:#D8CDB8; margin:0 auto 30px; }
+.c-brand { font-family:'Lora', serif; font-weight:500; font-size:36px; color:#5A6391; }
+.c-url { font-weight:400; font-size:22px; letter-spacing:1.5px; color:#8A8EA0; margin-top:8px; }

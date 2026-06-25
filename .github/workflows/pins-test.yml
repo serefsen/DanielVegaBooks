@@ -1,0 +1,36 @@
+name: Pins test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pins:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install pin deps + chromium
+        working-directory: scripts/pins
+        run: npm install && npx playwright install --with-deps chromium
+      - name: Generate pin (OpenRouter copy + render)
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
+        run: node scripts/pins/generate-pins.mjs
+      - name: Commit pin image
+        run: |
+          git config user.name "pin-bot"
+          git config user.email "actions@github.com"
+          git add public/pins
+          git commit -m "Add pin image [skip ci]" || echo "no changes to commit"
+          git push
+      - name: Post pin to Tailwind (DRAFT)
+        env:
+          TAILWIND_API_KEY: ${{ secrets.TAILWIND_API_KEY }}
+          PINS_DRAFT: "true"
+        run: node scripts/pins/post-pins.mjs
