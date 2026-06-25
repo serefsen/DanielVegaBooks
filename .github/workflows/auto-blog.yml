@@ -1,20 +1,51 @@
 name: Auto Blog Post
+
 on:
   schedule:
     - cron: "0 8 */2 * *"
   workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+
       - name: Run post generator
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/generate-post.mjs
+
+      # ---------- Pin pipeline (yeni yazi icin otomatik pin) ----------
+      - name: Install pin deps + chromium
+        working-directory: scripts/pins
+        run: npm install && npx playwright install --with-deps chromium
+
+      - name: Generate pin (OpenRouter copy + render)
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
+        run: node scripts/pins/generate-pins.mjs
+
+      - name: Commit pin image
+        run: |
+          git config user.name "pin-bot"
+          git config user.email "actions@github.com"
+          git add public/pins
+          git commit -m "Add pin image [skip ci]" || echo "no changes to commit"
+          git push
+
+      - name: Schedule pin to Tailwind
+        env:
+          TAILWIND_API_KEY: ${{ secrets.TAILWIND_API_KEY }}
+        run: node scripts/pins/post-pins.mjs
