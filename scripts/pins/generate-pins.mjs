@@ -1,6 +1,6 @@
 import { chromium } from 'playwright';
 import { posts } from '../../src/data/posts.js';
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -39,6 +39,16 @@ const tag = clean(post.tag) || 'Teen anxiety';
 const bodySample = Array.isArray(post.body) ? clean(post.body.slice(0, 2).join('\n')) : '';
 const destUrl = `${SITE}/blog/${post.slug}`;
 
+// --- Dedup guard: ayni yaziyi iki kez pinleme ---
+const STATE = join(OUT_DIR, 'last-pinned.json');
+let lastSlug = null;
+if (existsSync(STATE)) { try { lastSlug = JSON.parse(readFileSync(STATE, 'utf8')).slug; } catch {} }
+if (post.slug === lastSlug) {
+  console.log(`Bu yazi zaten pinlendi: ${post.slug} — atlaniyor (yeni yazi yok).`);
+  writeFileSync('/tmp/pins.json', '[]');
+  process.exit(0);
+}
+
 const sys = `You write Pinterest pin copy for "Daniel Vega Books" — calm, practical anxiety workbooks for teenagers (audience: parents, teachers, anxious teens). Return ONLY valid minified JSON (no markdown) with keys:
 "pinHeadline" (<=46 chars, calm punchy hook for the pin image, sentence case, no quotation marks),
 "pinSub" (<=90 chars, one supportive line for the image),
@@ -60,7 +70,7 @@ async function genCopy() {
   const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${OR_KEY}`, 'Content-Type': 'application/json', 'X-Title': 'DanielVegaBooks Pins' },
-    body: JSON.stringify({ model: MODEL, temperature: 0.7, messages: [{ role: 'system', content: sys }, { role: 'user', content: usr }] }),
+    body: JSON.stringify({ model: MODEL, temperature: 0.7, max_tokens: 1024, messages: [{ role: 'system', content: sys }, { role: 'user', content: usr }] }),
   });
   if (!r.ok) throw new Error(`OpenRouter ${r.status}: ${await r.text()}`);
   const data = await r.json();
@@ -116,5 +126,6 @@ const meta = [{
   altText: clamp(copy.altText || title, 120),
 }];
 writeFileSync('/tmp/pins.json', JSON.stringify(meta, null, 2));
+writeFileSync(STATE, JSON.stringify({ slug: post.slug, at: new Date().toISOString() }, null, 2));
 console.log(`OK pin: ${fileName} | layout: ${layout} | boardKey: ${copy.boardKey}`);
 console.log(JSON.stringify(meta, null, 2));
