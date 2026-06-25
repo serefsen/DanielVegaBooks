@@ -1,0 +1,38 @@
+name: Evergreen Pins
+
+on:
+  schedule:
+    - cron: "0 14 */2 * *"   # her 2 gunde bir, blog'dan (08:00) farkli saat
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  evergreen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install pin deps + chromium
+        working-directory: scripts/pins
+        run: npm install && npx playwright install --with-deps chromium
+
+      - name: Generate evergreen pin
+        run: node scripts/pins/evergreen-generate.mjs
+
+      - name: Commit pin image + state
+        run: |
+          git config user.name "pin-bot"
+          git config user.email "actions@github.com"
+          git add public/pins
+          git commit -m "Evergreen pin [skip ci]" || echo "no changes to commit"
+          git push
+
+      - name: Schedule evergreen pin to Tailwind
+        env:
+          TAILWIND_API_KEY: ${{ secrets.TAILWIND_API_KEY }}
+        run: node scripts/pins/evergreen-post.mjs

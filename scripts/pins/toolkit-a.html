@@ -1,0 +1,28 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+  .chip { display:inline-flex; align-items:center; gap:10px; padding:13px 26px; background:#5A6391; border-radius:40px; font-weight:500; font-size:21px; color:#F4EFE4; letter-spacing:.3px; }
+  .chip .dot { width:7px; height:7px; border-radius:50%; background:#F4EFE4; opacity:.7; }
+</style></head>
+<body>
+  <div class="pin">
+    <div class="frame"></div>
+    <svg class="rings rings-tr" width="520" height="520" viewBox="0 0 520 520" fill="none" stroke="rgba(90,99,145,.16)" stroke-width="1.6"><circle cx="260" cy="260" r="90"/><circle cx="260" cy="260" r="150"/><circle cx="260" cy="260" r="210"/><circle cx="260" cy="260" r="255"/></svg>
+    <svg class="rings rings-bl" width="480" height="480" viewBox="0 0 480 480" fill="none" stroke="rgba(90,99,145,.12)" stroke-width="1.6"><circle cx="240" cy="240" r="80"/><circle cx="240" cy="240" r="135"/><circle cx="240" cy="240" r="190"/><circle cx="240" cy="240" r="235"/></svg>
+
+    <div class="content" style="top:262px;">
+      <div style="margin-bottom:34px;"><span class="chip"><span class="dot"></span>{{BADGE}}</span></div>
+      <div class="eyebrow">{{KICKER}}</div>
+      <div class="rule"></div>
+      <h1 class="head" style="font-size:72px; margin-top:36px;">{{HEADLINE}}</h1>
+      <p class="sub" style="margin-top:38px; max-width:720px;">{{SUB}}</p>
+      <div style="margin-top:44px;"><span class="tag">{{CTA}}</span></div>
+    </div>
+
+    <div class="footer">
+      <div class="footrule"></div>
+      <div class="brand">Daniel Vega Books</div>
+      <div class="url">danielvegabooks.com</div>
+    </div>
+  </div>
+</body></html>
