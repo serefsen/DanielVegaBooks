@@ -2,7 +2,7 @@ name: Evergreen Pins
 
 on:
   schedule:
-    - cron: "0 14 */2 * *"   # her 2 gunde bir, blog'dan (08:00) farkli saat
+    - cron: "0 14 * * *"   # gunluk 1 evergreen pin (PINS_PER_RUN ile artirilabilir)
   workflow_dispatch:
 
 permissions:
