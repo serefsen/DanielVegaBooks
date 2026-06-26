@@ -1,4 +1,4 @@
-﻿---
+---
 import Layout from "../../layouts/Layout.astro";
 import { posts } from "../../data/posts.js";
 
@@ -24,6 +24,19 @@ function fmt(d) {
       <p class="post-meta">{fmt(post.date)} · {post.readingTime}</p>
       <div class="post-body">
         {post.body.map((para) => <p>{para}</p>)}
+      </div>
+
+      <div class="tk-card">
+        <h2 class="tk-title">Get the free toolkit</h2>
+        <p class="tk-sub">One page, six tools your teen can use the moment anxiety spikes. Sent straight to your inbox.</p>
+        <form class="tk-form" id="tkForm" action="https://assets.mailerlite.com/jsonp/2468129/forms/191166300278490999/subscribe" method="post" novalidate>
+          <input type="email" id="tkEmail" name="fields[email]" class="tk-input" placeholder="you@email.com" aria-label="Email address" autocomplete="email" required />
+          <input type="hidden" name="ml-submit" value="1" />
+          <input type="hidden" name="anticsrf" value="true" />
+          <button type="submit" class="tk-btn">Send me the toolkit →</button>
+        </form>
+        <p class="tk-fine" id="tkFine">No spam, ever — just the toolkit and the occasional good word.</p>
+        <p class="tk-thanks" id="tkThanks" hidden></p>
       </div>
 
       <div class="post-foot">
@@ -54,6 +67,21 @@ function fmt(d) {
 
   .post-body p { font-size: 18px; line-height: 1.85; color: var(--ink); margin: 0 0 24px; }
 
+  /* Free toolkit box (inline lead magnet) */
+  .tk-card { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 32px 30px; box-shadow: 0 18px 44px rgba(80,60,40,.10); margin-top: 48px; }
+  .tk-title { font-size: 24px; margin: 0 0 6px; }
+  .tk-sub { font-size: 15px; line-height: 1.55; color: var(--ink-soft); margin: 0 0 20px; }
+  .tk-form { display: flex; flex-direction: column; gap: 10px; }
+  .tk-input { font-family: var(--font-sans); font-size: 15px; color: var(--ink); background: var(--bg); border: 1.5px solid var(--border); border-radius: 12px; padding: 13px 16px; outline: none; transition: border-color .2s ease, box-shadow .2s ease; }
+  .tk-input::placeholder { color: #B7A99C; }
+  .tk-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(92,111,156,.16); }
+  .tk-btn { font-family: var(--font-sans); font-size: 15px; font-weight: 600; color: #fff; cursor: pointer; background: var(--accent); border: none; border-radius: 12px; padding: 13px 22px; transition: transform .18s ease, background .18s ease; }
+  .tk-btn:hover { background: var(--accent-dark); transform: translateY(-2px); }
+  .tk-fine { font-size: 13.5px; color: var(--ink-soft); margin: 14px 0 0; }
+  .tk-fine[hidden], .tk-thanks[hidden] { display: none; }
+  .tk-thanks { font-family: var(--font-serif); font-size: 20px; color: var(--ink); margin: 14px 0 0; animation: tkpop .4s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes tkpop { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: scale(1); } }
+
   .post-foot { margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 24px; }
   .post-next { background: var(--bg-peach); border-radius: 16px; padding: 20px 24px; transition: transform .2s ease, box-shadow .2s ease; }
   .post-next:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(80,60,40,.12); }
@@ -76,4 +104,29 @@ function fmt(d) {
   window.addEventListener("scroll", update, { passive: true });
   window.addEventListener("resize", update);
   update();
+
+  // Free toolkit form -> MailerLite
+  const tkForm = document.getElementById("tkForm") as HTMLFormElement | null;
+  const tkEmail = document.getElementById("tkEmail") as HTMLInputElement;
+  const tkFine = document.getElementById("tkFine");
+  const tkThanks = document.getElementById("tkThanks");
+  tkForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const val = tkEmail.value.trim();
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    if (!ok) { tkEmail.focus(); tkEmail.style.borderColor = "#D98B53"; return; }
+    const body = new URLSearchParams();
+    body.append("fields[email]", val);
+    body.append("ml-submit", "1");
+    body.append("anticsrf", "true");
+    fetch(tkForm.action, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body.toString(),
+    }).catch(function(){});
+    if (tkForm) tkForm.hidden = true;
+    if (tkFine) tkFine.hidden = true;
+    if (tkThanks) { tkThanks.hidden = false; tkThanks.textContent = "Check your inbox \u{1F4E9} Your toolkit is on its way."; }
+  });
 </script>
