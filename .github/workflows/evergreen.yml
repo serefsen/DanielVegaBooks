@@ -23,7 +23,7 @@ jobs:
 
       - name: Generate evergreen pin
         env:
-          PINS_PER_RUN: ${{ vars.PINS_PER_RUN }}
+          PINS_PER_RUN: ${{ vars.PINS_PER_RUN || '4' }}
         run: node scripts/pins/evergreen-generate.mjs
 
       - name: Commit pin image + state
