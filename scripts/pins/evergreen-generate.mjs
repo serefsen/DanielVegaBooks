@@ -1,4 +1,5 @@
 import { chromium } from 'playwright';
+import { posts as POSTS } from '../../src/data/posts.js';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -11,12 +12,27 @@ const STATE = join(OUT_DIR, 'evergreen-state.json');
 
 const SITE = 'https://danielvegabooks.com';
 const NEWSLETTER = `${SITE}/newsletter`;
-const BOARD = { printables: '1097963652845484908', quotes: '1097963652845484929', books: '1097963652845484930' };
+const BOARD = {
+  help: '1097963652845484894', coping: '1097963652845484904', printables: '1097963652845484908',
+  calm: '1097963652845484913', social: '1097963652845484920', test: '1097963652845484922',
+  parenting: '1097963652845484924', school: '1097963652845484926', quotes: '1097963652845484929', books: '1097963652845484930',
+};
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const clean = (s) => String(s || '').replace(/â€™/g, "'").replace(/â€œ/g, '"').replace(/â€\u009d/g, '"').replace(/â€"/g, '—').replace(/Â/g, '').trim();
 const clamp = (s, n) => { s = String(s || '').trim(); return s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s; };
 
-// ---------- TOOLKIT (4 metin x 2 layout) -> /newsletter ----------
+function boardForPost(text) {
+  const t = text.toLowerCase();
+  if (/social|awkward|friend|shy/.test(t)) return BOARD.social;
+  if (/test|exam|performance|pressure|perfection|grade|study/.test(t)) return BOARD.test;
+  if (/school|student|class|homework/.test(t)) return BOARD.school;
+  if (/parent|anger|angry|depress|talk|communicat|silent|listen/.test(t)) return BOARD.parenting;
+  if (/calm|breath|ground|panic|relax|sleep|night|3am|brain/.test(t)) return BOARD.calm;
+  return BOARD.coping;
+}
+
+// ---------- TOOLKIT -> /newsletter ----------
 const TOOLKIT = [
   { id: 'tk1', kicker: 'Free printable', headline: '6 tools for when pressure hits', sub: 'Calm-down tools your teen can use the moment anxiety spikes - free, one page, ready to print.', badge: '2-page printable - 6 tools inside', cta: 'Get the free toolkit →', title: 'Free Teen Anxiety Toolkit - 6 Calm-Down Tools (Printable)', description: 'A free printable toolkit with six simple grounding tools to help your teen steady themselves when anxiety spikes. Great for parents, teachers, and school counselors - download and print in seconds. #TeenAnxiety #AnxietyRelief #ParentingTeens #CopingSkills #MentalHealthForTeens' },
   { id: 'tk2', kicker: 'Free download', headline: "When anxiety hits, they'll know what to do", sub: 'A free printable toolkit - six simple tools to help your teen steady themselves in the hard moments.', badge: 'Free - printable - 6 tools', cta: 'Download the free toolkit →', title: 'Free Printable Anxiety Toolkit for Teens (6 Coping Tools)', description: 'Six quick, practical tools your teen can reach for when anxiety hits. A free one-page printable from the Daniel Vega anxiety workbooks - perfect for the fridge, a binder, or a backpack. #AnxietyInTeens #TeenMentalHealth #CopingSkillsForTeens #ParentingAnxiousTeen #AnxietyToolkit' },
@@ -26,7 +42,7 @@ const TOOLKIT = [
 const TOOLKIT_LAYOUTS = ['toolkit-a', 'toolkit-b'];
 const TOOLKIT_ALT = 'Calm cream-and-blue pin offering a free printable teen anxiety toolkit with six tools.';
 
-// ---------- QUOTES (12 testimonial x 2 layout) -> ana sayfa ----------
+// ---------- QUOTES -> ana sayfa ----------
 const QUOTES = [
   { q: "I finished it in two sittings and felt like someone finally got it. I've reread the panic chapter more times than I can count.", name: 'Maya', role: 'Age 16' },
   { q: 'The first book I hand to anxious students that they actually come back and thank me for.', name: 'Ms. Alvarez', role: 'School counselor' },
@@ -44,22 +60,27 @@ const QUOTES = [
 const QUOTE_LAYOUTS = ['quote-a', 'quote-b'];
 const QUOTE_KICKERS = ['What readers say', 'From a reader'];
 
-// ---------- BOOKS (3) -> Amazon ----------
+// ---------- BOOKS -> Amazon ----------
 const BOOKS = [
   { n: 1, title: "Your Alarm Isn't Broken", sub: 'An anxiety workbook for teens who hate workbooks.', amazon: 'https://www.amazon.com/dp/B0H5926917', cover: '../../public/image/kitap-123-kapak.webp' },
   { n: 2, title: "Your Awkward Isn't Showing", sub: 'A social anxiety workbook for teens who hate workbooks.', amazon: 'https://www.amazon.com/dp/B0H5L55D31', cover: '../../public/image/kitap-223-kapak.webp' },
   { n: 3, title: "Your Pressure Isn't Proof", sub: 'A performance anxiety workbook for teens who hate workbooks.', amazon: 'https://www.amazon.com/dp/B0H65LW8SN', cover: '../../public/image/kitap-323-kapak.webp' },
 ];
 
-// Rotasyon deseni: ardisik asla ayni URL olmasin (newsletter / home / amazon)
-const PATTERN = ['toolkit', 'quote', 'book', 'quote'];
+// ---------- TIP -> blog arsivi (her yazi ayri URL) ----------
+const TIP_LAYOUTS = ['tip-a', 'tip-b', 'tip-c'];
 
-let st = { step: 0, ti: 0, qi: 0, bi: 0 };
+// Rotasyon: tip'ler her seferinde farkli blog URL'i verir -> ardisik URL'ler hep farkli
+const PATTERN = ['tip', 'quote', 'tip', 'book', 'tip', 'toolkit'];
+
+let st = { step: 0, ti: 0, qi: 0, bi: 0, si: 0 };
 if (existsSync(STATE)) { try { st = { ...st, ...JSON.parse(readFileSync(STATE, 'utf8')) }; } catch {} }
 
 function pick() {
-  const type = PATTERN[st.step % PATTERN.length];
+  let type = PATTERN[st.step % PATTERN.length];
+  if (type === 'tip' && (!POSTS || !POSTS.length)) type = 'quote'; // blog yoksa quote'a dus
   let layout, tokens, fileName, meta;
+
   if (type === 'toolkit') {
     const total = TOOLKIT.length * TOOLKIT_LAYOUTS.length;
     const c = st.ti % total;
@@ -78,13 +99,21 @@ function pick() {
     tokens = { KICKER: QUOTE_KICKERS[c % QUOTE_KICKERS.length], QUOTE: qd.q, ATTRIB: qd.name, ROLE: qd.role };
     meta = { title: 'Honest anxiety books for teens - what readers say', description: `"${qd.q}" - ${qd.name}, ${qd.role}. Calm, honest anxiety workbooks for teens who hate workbooks, from Daniel Vega. #TeenAnxiety #AnxietyBooks #MentalHealthForTeens #ParentingTeens #AnxiousTeen`, url: SITE, boardId: BOARD.quotes, altText: `Reader quote about Daniel Vega anxiety books for teens, from ${qd.name}.` };
     st.qi++;
-  } else {
+  } else if (type === 'book') {
     const b = BOOKS[st.bi % BOOKS.length];
     layout = 'book-a';
     fileName = `book-${b.n}.png`;
     tokens = { KICKER: `Book ${b.n} · on Amazon`, COVER: b.cover, TITLE: b.title, SUBTITLE: b.sub, CTA: 'Get it on Amazon →' };
     meta = { title: `${b.title} - Anxiety Workbook for Teens`, description: `${b.sub} Honest, calming, and made for teens who hate workbooks - part of The Response Training Series by Daniel Vega. #TeenAnxiety #AnxietyWorkbook #BooksForTeens #MentalHealthForTeens #ParentingAnxiousTeen`, url: b.amazon, boardId: BOARD.books, altText: `Book cover of ${b.title}, an anxiety workbook for teens, available on Amazon.` };
     st.bi++;
+  } else { // tip = blog arsivi
+    const p = POSTS[st.si % POSTS.length];
+    layout = TIP_LAYOUTS[st.si % TIP_LAYOUTS.length];
+    const title = clean(p.title), excerpt = clean(p.excerpt), tag = clean(p.tag) || 'Teen anxiety';
+    fileName = `tip-${p.slug}-${layout}.png`;
+    tokens = { KICKER: tag, HEADLINE: title, SUB: excerpt, CTA: 'Read more →' };
+    meta = { title, description: `${excerpt} Calm, honest support for anxious teens from Daniel Vega. #TeenAnxiety #ParentingTeens #TeenMentalHealth #AnxietyHelp #AnxiousTeen`, url: `${SITE}/blog/${p.slug}`, boardId: boardForPost(`${title} ${tag} ${p.slug}`), altText: `Pin about ${title} for parents and anxious teens.` };
+    st.si++;
   }
   st.step++;
   meta.title = clamp(meta.title, 100);
@@ -116,4 +145,4 @@ await browser.close();
 
 writeFileSync('/tmp/pins.json', JSON.stringify(out, null, 2));
 writeFileSync(STATE, JSON.stringify({ ...st, lastAt: new Date().toISOString() }, null, 2));
-console.log(`Toplam ${out.length} evergreen pin uretildi. State: step=${st.step} ti=${st.ti} qi=${st.qi} bi=${st.bi}`);
+console.log(`Toplam ${out.length} evergreen pin. State: step=${st.step} ti=${st.ti} qi=${st.qi} bi=${st.bi} si=${st.si}`);
