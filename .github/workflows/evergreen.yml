@@ -22,6 +22,8 @@ jobs:
         run: npm install && npx playwright install --with-deps chromium
 
       - name: Generate evergreen pin
+        env:
+          PINS_PER_RUN: ${{ vars.PINS_PER_RUN }}
         run: node scripts/pins/evergreen-generate.mjs
 
       - name: Commit pin image + state
