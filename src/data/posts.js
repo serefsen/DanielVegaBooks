@@ -1,5 +1,22 @@
 export const posts = [
   {
+    slug: "help-your-teens-3-am-brain-wind-down",
+    date: "2026-06-27",
+    readingTime: "4 min read",
+    tag: "Sleep",
+    title: "Help Your Teen's 3 a.m. Brain Wind Down",
+    excerpt: "When the house is quiet, your teen's brain might be hosting a late-night replay of every worry. Here's a CBT tool to help them find peace.",
+    body: [
+      "It's the middle of the night, and your teenager is lying awake, staring at the ceiling. The house is finally silent, but inside their head, a film reel of worries and cringe-worthy moments is playing on repeat. It's that time when the world is supposed to be at rest, but instead, your teen's mind is working overtime.",
+      "The 3 a.m. brain loves to dredge up every little anxiety, turning them into larger-than-life monsters. This nighttime rumination is common and can leave your teen feeling exhausted and stressed by morning. The first step to helping them find peace is to understand that these thoughts are just that—thoughts. They aren't predictions or truths; they're simply the mind's way of processing the day.",
+      "One concrete CBT tool that can help your teen put their mind to rest is called 'Thought Parking.' Imagine the brain as a busy parking lot with lots of cars (thoughts) driving around. Some of these cars are just passing through, but others linger, taking up space. 'Thought Parking' is about finding a designated spot for these intrusive thoughts, so they don't keep circling around.",
+      "Here's how it works: Encourage your teen to keep a notepad or a journal by their bed. When a worry or nagging thought pops up, they can write it down. By doing this, they acknowledge the thought and give it a place to park—it's no longer running amok in their mind. The simple act of writing it down can provide a sense of relief and control.",
+      "This process helps in two ways. First, it allows your teen to externalize their worries, making them less overwhelming. Second, it creates a sense of closure for the day, signaling to their brain that it's time to rest. They can revisit these thoughts in the morning when they're more equipped to handle them, rather than letting them stew and disrupt their sleep.",
+      "As a parent, teacher, or counselor, you can support your teen by discussing their nighttime routine. Encourage them to wind down with calming activities like reading or listening to soft music before bed. Consistency is key—creating a bedtime ritual can signal to their brain that it's time to shut down for the night.",
+      "Helping your teen manage their 3 a.m. brain doesn't require grand gestures or complex interventions. Sometimes, all it takes is pen, paper, and a little bit of understanding to guide them toward a more restful sleep. And as they learn to park their thoughts, the peace of a good night's rest becomes a little more attainable.",
+    ],
+  },
+  {
     slug: "reaching-out-to-a-silent-teenager",
     date: "2026-06-25",
     readingTime: "4 min read",
