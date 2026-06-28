@@ -140,7 +140,7 @@ def composite(bg, daniel, srt_path, out, arm):
 
 # ---------- 5) DOGRULA ----------
 def validate(path, expected_sec):
-    r = run(["bash", os.path.join(HERE, "validate_video.sh"), path, str(expected_sec)])
+    r = run(["bash", os.path.join(HERE, "validate_video.sh"), path])
     return r.returncode, r.stdout.strip()
 
 
