@@ -169,15 +169,14 @@ def main():
 
     # 2) DANIEL
     daniel_path = None
-    if arm == "avatar":
-        if args.local_daniel:
-            daniel_path = args.local_daniel
-            print(f"[{vid_id}] Daniel: yerel klip ({daniel_path})")
-        else:
-            print(f"[{vid_id}] Daniel: HeyGen render...")
-            url = heygen_generate(item["avatar_id"], item["voice_id"],
-                                  item["script"], item["expected_sec"])
-            daniel_path = download(url, os.path.join(args.out, f"{vid_id}_daniel.mp4"))
+    if args.local_daniel:
+        daniel_path = args.local_daniel
+        print(f"[{vid_id}] Daniel sesi: yerel klip ({daniel_path})")
+    else:
+        print(f"[{vid_id}] Daniel sesi: HeyGen render...")
+        url = heygen_generate(item["avatar_id"], item["voice_id"],
+                              item["script"], item["expected_sec"])
+        daniel_path = download(url, os.path.join(args.out, f"{vid_id}_daniel.mp4"))
 
     # 3) B-ROLL (Seedance, script-ozel)
     if args.local_bg:
@@ -193,7 +192,7 @@ def main():
         print(f"[{vid_id}] b-roll hazir: {bg_path}")
 
     # 3.5) ALTYAZI (Whisper, Daniel klibinden senkron)
-    if arm == "avatar" and daniel_path:
+    if daniel_path:
         make_subtitles(daniel_path, srt_path)
         print(f"[{vid_id}] altyazi (whisper) OK")
 
