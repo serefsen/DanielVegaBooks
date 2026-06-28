@@ -131,7 +131,7 @@ def composite(bg, daniel, srt_path, out, arm):
         f"crop=720:1280,setsar=1,tpad=stop_mode=clone:stop_duration={dur}[bgv];"
         f"[bgv]trim=duration={dur},setpts=PTS-STARTPTS[bgt];"
         "[2:v]scale=460:-1[cov];"
-        f"[bgt][cov]overlay=(W-w)/2:(H-h)/2-80:enable='gte(t,{cover_in})'[covered];"
+        f"[bgt][cov]overlay=(W-w)/2:(H-h)/2-160:enable='gte(t,{cover_in})'[covered];"
         f"[covered]{sub},{cta}[out]"
     )
     cmd = ["ffmpeg", "-y", "-i", bg, "-i", daniel, "-i", cover,
