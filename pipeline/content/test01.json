@@ -1,9 +1,9 @@
 ﻿{
   "id": "test01",
   "arm": "faceless",
-  "script": "When I was fifteen, my heart would race before every class. For years I thought something was broken in me. What helped me see it differently: anxiety isn't a glitch, it's an alarm doing its job, just a little too loud. I wrote the book I wish I'd had back then.",
-  "broll_prompt": "Multi-shot cinematic vertical sequence, handheld 24fps with subtle micro-jitter, practical lighting, film grain. SHOT 1 (0-2s): extreme close-up of a trembling teenage hand gripping a cold metal classroom doorknob, shallow depth of field, anxious tension. SHOT 2 (2-5s): fast POV glimpses, a cluttered school desk, a phone screen lighting up, shallow nervous breaths fogging a cold window, dim blue tones. SHOT 3 (5-9s): the camera slowly pulls back as warm amber morning light floods into the dark room, a volume dial slowly turning down, tension releasing, transition from cold blue to warm light. SHOT 4 (9-15s): a steady hand now writing calmly in an open notebook, pen pressure on paper, a slow page turn, a quiet exhale, hopeful warm cinematic tone. No faces, no text overlays.",
-  "expected_sec": 15,
+  "script": "It's 3 a.m. and your brain won't shut up. Replaying everything you said, everything you didn't. You're not broken, and you're not the only one awake. That racing feeling isn't a flaw, it's an alarm stuck on high. You can't delete it, but you can learn to turn the volume down. I wrote the book I wish I'd had at 3 a.m. The full toolkit's in my bio.",
+  "broll_prompt": "Multi-shot cinematic vertical sequence, handheld 24fps with subtle micro-jitter, practical lighting, film grain. SHOT 1 (0-2s): extreme close-up of a phone screen glowing 3:00 AM in a pitch-dark room, harsh blue light on a tense face turned away, anxious sleepless tension. SHOT 2 (2-5s): fast restless POV glimpses, ceiling shadows, a clock, tangled bedsheets, a hand rubbing tired eyes, cold blue darkness. SHOT 3 (5-9s): the camera slowly drifts as the harsh blue light softens into a warm dawn glow seeping through a window, a volume dial slowly turning down, tension easing, transition from cold blue to warm amber. SHOT 4 (9-15s): a calm hand writing in an open notebook by soft morning light, pen pressure on paper, a slow page turn, a quiet relieved exhale, hopeful warm cinematic tone. No faces, no text overlays.",
+  "expected_sec": 18,
   "avatar_id": "cc997a8643864bb293c0ae8e1da19355",
   "voice_id": "e209b585901e47d28b243e1a5dfc8747",
   "ai_label": true
