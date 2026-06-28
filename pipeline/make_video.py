@@ -109,13 +109,32 @@ def composite(bg, daniel, srt_path, out, arm):
            "OutlineColour=&H00000000,BorderStyle=1,Outline=2,Shadow=0,"
            "Alignment=2,MarginV=90'")
 
-    # Yeni format: tam ekran b-roll + Daniel SESI (voiceover) + altyazi. Yuz yok.
-    # b-roll arka plan + uzerine Daniel ses dosyasi bindirilir.
+    # Tam ekran b-roll + Daniel sesi + altyazi + SONDA kitap kapagi & CTA.
+    # Kapak son ~4sn'de belirir (panel: kapak 11.sn'den once gorunmesin).
+    cover = os.path.join(HERE, "assets", "kapak-alarm.png")
+    cta_text = "The full toolkit \u2014 link in bio"
+    # Daniel sesinin suresini al (kapagi sona hizalamak icin)
+    probe = run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
+                 "-of", "csv=p=0", daniel])
+    try:
+        dur = float(probe.stdout.strip())
+    except Exception:
+        dur = 15.0
+    cover_in = max(0.0, dur - 4.0)  # son 4 saniye
+    cta = (f"drawtext=text='{cta_text}':fontcolor=white:fontsize=30:"
+           f"x=(w-text_w)/2:y=h-180:box=1:boxcolor=black@0.5:boxborderw=12:"
+           f"enable='gte(t,{cover_in})'")
+    # b-roll'u Daniel ses suresine UZAT (son kare donuk kalmasin, ikisi esit bitsin).
+    # tpad=stop_mode=clone son kareyi klonlayarak sureyi doldurur; sonra dur'a kirp.
     fc = (
         "[0:v]scale=720:1280:force_original_aspect_ratio=increase,"
-        f"crop=720:1280,setsar=1,{sub}[out]"
+        f"crop=720:1280,setsar=1,tpad=stop_mode=clone:stop_duration={dur}[bgv];"
+        f"[bgv]trim=duration={dur},setpts=PTS-STARTPTS[bgt];"
+        "[2:v]scale=460:-1[cov];"
+        f"[bgt][cov]overlay=(W-w)/2:(H-h)/2-80:enable='gte(t,{cover_in})'[covered];"
+        f"[covered]{sub},{cta}[out]"
     )
-    cmd = ["ffmpeg", "-y", "-i", bg, "-i", daniel,
+    cmd = ["ffmpeg", "-y", "-i", bg, "-i", daniel, "-i", cover,
            "-filter_complex", fc,
            "-map", "[out]", "-map", "1:a",
            "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
