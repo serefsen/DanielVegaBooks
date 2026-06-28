@@ -190,12 +190,12 @@ def main():
     daniel_path = None
     if args.local_daniel:
         daniel_path = args.local_daniel
-        print(f"[{vid_id}] Daniel sesi: yerel klip ({daniel_path})")
+        print(f"[{vid_id}] Daniel sesi: yerel ({daniel_path})")
     else:
-        print(f"[{vid_id}] Daniel sesi: HeyGen render...")
-        url = heygen_generate(item["avatar_id"], item["voice_id"],
-                              item["script"], item["expected_sec"])
-        daniel_path = download(url, os.path.join(args.out, f"{vid_id}_daniel.mp4"))
+        print(f"[{vid_id}] Daniel sesi: ElevenLabs...")
+        daniel_path = elevenlabs_voice(item["script"], item["voice_id"],
+                                       os.path.join(args.out, f"{vid_id}_daniel.mp3"))
+        print(f"[{vid_id}] Daniel sesi hazir: {daniel_path}")
 
     # 3) B-ROLL (Seedance, script-ozel)
     if args.local_bg:
@@ -292,7 +292,3 @@ def make_broll(prompt, out_path):
             raise RuntimeError("Seedance hata: " + str(st.get("error")))
         time.sleep(6)
     raise TimeoutError("Seedance zaman asimi")
-
-
-if __name__ == "__main__":
-    main()

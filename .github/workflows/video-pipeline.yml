@@ -37,6 +37,7 @@ jobs:
           HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
           MANUAL_ITEM: ${{ github.event.inputs.item }}
         run: |
           set -e
