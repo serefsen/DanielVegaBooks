@@ -177,7 +177,7 @@ def main():
 
     # srt'yi dosyaya yaz
     srt_path = os.path.join(args.out, f"{vid_id}.srt")
-    open(srt_path, "w", encoding="utf-8").write(item.get("srt", "1\n00:00:00,000 --> 00:00:03,000\n \n"))
+    # srt artik Whisper ile Daniel klibinden uretilecek (asagida)
 
     # 2) DANIEL
     daniel_path = None
@@ -199,6 +199,11 @@ def main():
         bg_path = pick_broll(spath, args.broll_dir, args.state)
         print(f"[{vid_id}] b-roll: {bg_path}")
 
+    # 3.5) ALTYAZI (Whisper, Daniel klibinden senkron)
+    if arm == "avatar" and daniel_path:
+        make_subtitles(daniel_path, srt_path)
+        print(f"[{vid_id}] altyazi (whisper) OK")
+
     # 4) MONTAJ
     final = os.path.join(args.out, f"{vid_id}_final.mp4")
     composite(bg_path, daniel_path, srt_path, final, arm)
@@ -216,3 +221,18 @@ def main():
 if __name__ == "__main__":
     main()
 
+
+# ---------- WHISPER OTOMATIK ALTYAZI ----------
+def make_subtitles(media_path, out_srt):
+    """Daniel klibinden sesi alip Whisper ile senkron SRT uretir."""
+    import whisper
+    model = whisper.load_model("base")
+    result = model.transcribe(media_path, language="en", task="transcribe")
+    def ts(sec):
+        h=int(sec//3600); m=int((sec%3600)//60); s=int(sec%60); ms=int((sec-int(sec))*1000)
+        return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
+    lines=[]
+    for i,seg in enumerate(result["segments"],1):
+        lines.append(f"{i}\n{ts(seg[\u0027start\u0027])} --> {ts(seg[\u0027end\u0027])}\n{seg[\u0027text\u0027].strip()}\n")
+    open(out_srt,"w",encoding="utf-8").write("\n".join(lines))
+    return out_srt

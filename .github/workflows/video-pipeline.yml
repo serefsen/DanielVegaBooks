@@ -1,4 +1,4 @@
-name: Daniel Vega Video Pipeline
+﻿name: Daniel Vega Video Pipeline
 
 # Gunde 3 kez calisir (UTC). Her calismada o slota dusen item(lar)i uretir.
 # Saatleri kendine gore ayarla; ornek: 06:00, 12:00, 18:00 UTC.
@@ -28,6 +28,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Whisper kur (otomatik altyazi)
+        run: pip install -U openai-whisper
 
       - name: Bugunun item'larini sec ve uret
         env:
@@ -81,7 +84,7 @@ jobs:
           path: out/*_final.mp4
           if-no-files-found: warn
 
-      # NOT: Dagitim (Blotato) adimi buraya gelecek — once dagitim araci kesinlesince.
+      # NOT: Dagitim (Blotato) adimi buraya gelecek â€” once dagitim araci kesinlesince.
       # - name: Blotato'ya yayinla
       #   env:
       #     BLOTATO_API_KEY: ${{ secrets.BLOTATO_API_KEY }}
