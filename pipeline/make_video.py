@@ -292,3 +292,6 @@ def make_broll(prompt, out_path):
             raise RuntimeError("Seedance hata: " + str(st.get("error")))
         time.sleep(6)
     raise TimeoutError("Seedance zaman asimi")
+
+if __name__ == "__main__":
+    main()
