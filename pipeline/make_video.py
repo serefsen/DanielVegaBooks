@@ -109,29 +109,17 @@ def composite(bg, daniel, srt_path, out, arm):
            "OutlineColour=&H00000000,BorderStyle=1,Outline=2,Shadow=0,"
            "Alignment=2,MarginV=90'")
 
-    if arm == "avatar":
-        fc = (
-            "[0:v]scale=720:1280:force_original_aspect_ratio=increase,"
-            "crop=720:1280,setsar=1[bg];"
-            "[1:v]scale=300:-1[ovl];"
-            "[bg][ovl]overlay=W-w-24:H-h-40[comp];"
-            f"[comp]{sub}[out]"
-        )
-        cmd = ["ffmpeg", "-y", "-i", bg, "-i", daniel,
-               "-filter_complex", fc,
-               "-map", "[out]", "-map", "1:a",
-               "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
-               "-shortest", out, "-loglevel", "error"]
-    else:  # faceless
-        fc = (
-            "[0:v]scale=720:1280:force_original_aspect_ratio=increase,"
-            f"crop=720:1280,setsar=1,{sub}[out]"
-        )
-        cmd = ["ffmpeg", "-y", "-i", bg,
-               "-filter_complex", fc,
-               "-map", "[out]", "-map", "0:a?",
-               "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
-               out, "-loglevel", "error"]
+    # Yeni format: tam ekran b-roll + Daniel SESI (voiceover) + altyazi. Yuz yok.
+    # b-roll arka plan + uzerine Daniel ses dosyasi bindirilir.
+    fc = (
+        "[0:v]scale=720:1280:force_original_aspect_ratio=increase,"
+        f"crop=720:1280,setsar=1,{sub}[out]"
+    )
+    cmd = ["ffmpeg", "-y", "-i", bg, "-i", daniel,
+           "-filter_complex", fc,
+           "-map", "[out]", "-map", "1:a",
+           "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
+           "-shortest", out, "-loglevel", "error"]
     r = run(cmd)
     if r.returncode != 0:
         raise RuntimeError(f"ffmpeg montaj hatasi: {r.stderr}")
@@ -191,13 +179,18 @@ def main():
                                   item["script"], item["expected_sec"])
             daniel_path = download(url, os.path.join(args.out, f"{vid_id}_daniel.mp4"))
 
-    # 3) B-ROLL
+    # 3) B-ROLL (Seedance, script-ozel)
     if args.local_bg:
         bg_path = args.local_bg
         print(f"[{vid_id}] b-roll: yerel ({bg_path})")
     else:
-        bg_path = pick_broll(spath, args.broll_dir, args.state)
-        print(f"[{vid_id}] b-roll: {bg_path}")
+        bprompt = item.get("broll_prompt")
+        if not bprompt:
+            raise ValueError(f"{vid_id}: broll_prompt yok (queue.json'a ekle)")
+        bg_path = os.path.join(args.out, f"{vid_id}_broll.mp4")
+        print(f"[{vid_id}] b-roll uretiliyor (Seedance)...")
+        make_broll(bprompt, bg_path)
+        print(f"[{vid_id}] b-roll hazir: {bg_path}")
 
     # 3.5) ALTYAZI (Whisper, Daniel klibinden senkron)
     if arm == "avatar" and daniel_path:
@@ -238,6 +231,41 @@ def make_subtitles(media_path, out_srt):
         lines.append("%d\n%s --> %s\n%s\n" % (i, start, end, text))
     open(out_srt, "w", encoding="utf-8").write("\n".join(lines))
     return out_srt
+
+
+# ---------- SEEDANCE B-ROLL (script-ozel, 480p, insansiz) ----------
+def make_broll(prompt, out_path):
+    """Seedance 2.0 ile script-ozel dikey b-roll uretir (480p, sessiz)."""
+    import ssl, urllib.request
+    ctx = ssl._create_unverified_context()
+    token = os.environ.get("REPLICATE_API_TOKEN", "")
+    ua = "Mozilla/5.0"
+    h = {"Authorization": "Bearer " + token, "User-Agent": ua}
+    version = "a6dcbae88b153e75fcccabacfb0eb430ab5be0a7ae27b316fc6f983658b349bc"
+    body = {"version": version, "input": {
+        "prompt": prompt, "duration": 5, "aspect_ratio": "9:16",
+        "resolution": "480p", "generate_audio": False}}
+    req = urllib.request.Request("https://api.replicate.com/v1/predictions",
+        data=json.dumps(body).encode(),
+        headers={**h, "Content-Type": "application/json"}, method="POST")
+    pid = json.load(urllib.request.urlopen(req, context=ctx))["id"]
+    url = "https://api.replicate.com/v1/predictions/" + pid
+    start = time.time()
+    for i in range(200):
+        st = json.load(urllib.request.urlopen(urllib.request.Request(url, headers=h), context=ctx))
+        elapsed = int(time.time() - start)
+        print("    [seedance] durum: %-12s | gecen: %3dsn" % (st["status"], elapsed))
+        if st["status"] == "succeeded":
+            out = st["output"]
+            vurl = out if isinstance(out, str) else out[0]
+            rq = urllib.request.Request(vurl, headers={"User-Agent": ua})
+            with urllib.request.urlopen(rq, context=ctx) as r, open(out_path, "wb") as f:
+                f.write(r.read())
+            return out_path
+        if st["status"] in ("failed", "canceled"):
+            raise RuntimeError("Seedance hata: " + str(st.get("error")))
+        time.sleep(6)
+    raise TimeoutError("Seedance zaman asimi")
 
 
 if __name__ == "__main__":
