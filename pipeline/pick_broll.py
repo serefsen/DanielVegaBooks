@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
-pick_broll.py — script duygusuna uygun, son 14 gunde kullanilmamis b-roll sec.
+pick_broll.py â€” script duygusuna uygun, son 14 gunde kullanilmamis b-roll sec.
 
 Kullanim:
     python3 pick_broll.py <script.txt> [broll_dir] [state.json]
@@ -39,13 +39,13 @@ def detect_emotion(text):
 def load_state(path):
     if os.path.exists(path):
         try:
-            return json.load(open(path, encoding="utf-8"))
+            return json.load(open(path, encoding="utf-8-sig"))
         except Exception:
             return {}
     return {}
 
 def save_state(path, state):
-    json.dump(state, open(path, "w", encoding="utf-8"), indent=2)
+    json.dump(state, open(path, "w", encoding="utf-8-sig"), indent=2)
 
 def in_cooldown(clip_id, state, today):
     last = state.get(clip_id, {}).get("last_used")
@@ -55,7 +55,7 @@ def in_cooldown(clip_id, state, today):
     return (today - last_d).days < COOLDOWN_DAYS
 
 def pick(script_path, broll_dir="broll", state_path="broll_state.json"):
-    text = open(script_path, encoding="utf-8").read()
+    text = open(script_path, encoding="utf-8-sig").read()
     emotion = detect_emotion(text)
     state = load_state(state_path)
     today = datetime.date.today()
@@ -90,3 +90,4 @@ if __name__ == "__main__":
     pick(sys.argv[1],
          sys.argv[2] if len(sys.argv) > 2 else "broll",
          sys.argv[3] if len(sys.argv) > 3 else "broll_state.json")
+

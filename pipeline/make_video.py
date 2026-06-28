@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
-make_video.py — TEK bir videoyu bastan sona uretir.
+make_video.py â€” TEK bir videoyu bastan sona uretir.
 Zincir: compliance lint -> Daniel klibi (HeyGen) -> b-roll sec -> ffmpeg montaj -> dogrula
 
 Kullanim:
@@ -21,8 +21,8 @@ item.json sema:
 }
 
 Cevre degiskenleri (GitHub Secrets):
-  HEYGEN_API_KEY   — HeyGen API anahtari
-  PEXELS_API_KEY   — Pexels API anahtari (b-roll cekmek icin; havuz boşsa)
+  HEYGEN_API_KEY   â€” HeyGen API anahtari
+  PEXELS_API_KEY   â€” Pexels API anahtari (b-roll cekmek icin; havuz boÅŸsa)
 """
 
 import os, sys, json, time, subprocess, argparse, tempfile, urllib.request, urllib.parse
@@ -157,7 +157,7 @@ def main():
                     help="Pexels/havuz yerine hazir arka plan (yerel test)")
     args = ap.parse_args()
 
-    item = json.load(open(args.item, encoding="utf-8"))
+    item = json.load(open(args.item, encoding="utf-8-sig"))
     os.makedirs(args.out, exist_ok=True)
     vid_id = item["id"]
     arm = item.get("arm", "avatar")
@@ -215,3 +215,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

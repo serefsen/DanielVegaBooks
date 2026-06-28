@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
-compliance_lint.py — Daniel Vega video script kontrolu.
+compliance_lint.py â€” Daniel Vega video script kontrolu.
 Amac: "anlatici" (I noticed / what helped me) tonunu gecirmek,
 "terapist / recete" (you should / when you feel X, do Y) tonunu yakalamak.
 
@@ -21,7 +21,7 @@ BLOCK_PATTERNS = [
     # "you should/must/need to/have to ... [saglik]"
     (rf"\byou\s+(should|must|need to|have to|gotta|ought to)\b.{{0,40}}{HEALTH}",
      "Dayatma kipi + saglik terimi (recete gibi)"),
-    # "when you feel/experience X, do/try/take Y" — kisisel gorunup recete olan kalip
+    # "when you feel/experience X, do/try/take Y" â€” kisisel gorunup recete olan kalip
     (r"\bwhen you (feel|experience|get|have)\b.{0,40}\b(do|try|take|use|practice|repeat)\b",
      "Kosullu talimat kalibi (when you... do...)"),
     # dogrudan emir + saglik: "manage your anxiety", "cure your panic"
@@ -58,7 +58,7 @@ def lint(text):
 
     # Kriz dili varsa ve kaynak yoksa -> block
     if re.search(CRISIS, t, re.IGNORECASE) and not re.search(RESOURCE_HINT, t, re.IGNORECASE):
-        blocks.append(("Kriz dili var ama kaynak/dipnot YOK", "—"))
+        blocks.append(("Kriz dili var ama kaynak/dipnot YOK", "â€”"))
 
     return blocks, warns
 
@@ -68,7 +68,7 @@ def main():
         print("Kullanim: python3 compliance_lint.py <dosya|->")
         sys.exit(2)
     src = sys.argv[1]
-    text = sys.stdin.read() if src == "-" else open(src, encoding="utf-8").read()
+    text = sys.stdin.read() if src == "-" else open(src, encoding="utf-8-sig").read()
 
     blocks, warns = lint(text)
 
@@ -92,3 +92,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
