@@ -220,8 +220,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
 # ---------- WHISPER OTOMATIK ALTYAZI ----------
 def make_subtitles(media_path, out_srt):
     """Daniel klibinden sesi alip Whisper ile senkron SRT uretir."""
@@ -229,10 +227,16 @@ def make_subtitles(media_path, out_srt):
     model = whisper.load_model("base")
     result = model.transcribe(media_path, language="en", task="transcribe")
     def ts(sec):
-        h=int(sec//3600); m=int((sec%3600)//60); s=int(sec%60); ms=int((sec-int(sec))*1000)
-        return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
-    lines=[]
-    for i,seg in enumerate(result["segments"],1):
-        lines.append(f"{i}\n{ts(seg[\u0027start\u0027])} --> {ts(seg[\u0027end\u0027])}\n{seg[\u0027text\u0027].strip()}\n")
-    open(out_srt,"w",encoding="utf-8").write("\n".join(lines))
+        h = int(sec // 3600)
+        m = int((sec % 3600) // 60)
+        s = int(sec % 60)
+        ms = int((sec - int(sec)) * 1000)
+        return "%02d:%02d:%02d,%03d" % (h, m, s, ms)
+    lines = []
+    for i, seg in enumerate(result["segments"], 1):
+        start = ts(seg["start"])
+        end = ts(seg["end"])
+        text = seg["text"].strip()
+        lines.append("%d\n%s --> %s\n%s\n" % (i, start, end, text))
+    open(out_srt, "w", encoding="utf-8").write("\n".join(lines))
     return out_srt
