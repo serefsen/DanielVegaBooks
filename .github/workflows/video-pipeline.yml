@@ -1,0 +1,97 @@
+name: Daniel Vega Video Pipeline
+
+# Gunde 3 kez calisir (UTC). Her calismada o slota dusen item(lar)i uretir.
+# Saatleri kendine gore ayarla; ornek: 06:00, 12:00, 18:00 UTC.
+on:
+  schedule:
+    - cron: "0 6 * * *"
+    - cron: "0 12 * * *"
+    - cron: "0 18 * * *"
+  workflow_dispatch:        # elle de tetiklenebilir (test icin)
+    inputs:
+      item:
+        description: "Tek bir item.json yolu (elle calistirma)"
+        required: false
+        default: ""
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ffmpeg kur
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Python kur
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Bugunun item'larini sec ve uret
+        env:
+          HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          MANUAL_ITEM: ${{ github.event.inputs.item }}
+        run: |
+          set -e
+          mkdir -p out
+          cd pipeline
+
+          # Elle tek item verildiyse onu uret, bitir
+          if [ -n "$MANUAL_ITEM" ]; then
+            echo "Elle calistirma: $MANUAL_ITEM"
+            python3 make_video.py --item "../$MANUAL_ITEM" --out ../out
+            exit 0
+          fi
+
+          # Otomatik: content/queue.json icinden BUGUNE ait, henuz uretilmemis
+          # ve bu slota dusen item'lari sec. (queue.json semasi README'de.)
+          TODAY=$(date -u +%F)
+          echo "Bugun (UTC): $TODAY"
+          python3 - "$TODAY" << 'PYEOF'
+          import json, sys, subprocess, os
+          today = sys.argv[1]
+          q = json.load(open("content/queue.json", encoding="utf-8"))
+          due = [it for it in q if it.get("date") == today and not it.get("done")]
+          if not due:
+              print("Bugune ait uretilecek item yok.")
+              sys.exit(0)
+          for it in due:
+              path = f"content/_run_{it['id']}.json"
+              json.dump(it, open(path, "w", encoding="utf-8"))
+              print(f"--- uretiliyor: {it['id']} ---")
+              r = subprocess.run(["python3", "make_video.py",
+                                  "--item", path, "--out", "../out"])
+              if r.returncode == 0:
+                  it["done"] = True
+              else:
+                  print(f"{it['id']} basarisiz/atlandi (kod {r.returncode})")
+              os.unlink(path)
+          # queue'yu guncelle (done isaretle)
+          json.dump(q, open("content/queue.json", "w", encoding="utf-8"), indent=2)
+          PYEOF
+
+      - name: Uretilen videolari artifact olarak yukle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: videos-${{ github.run_id }}
+          path: out/*_final.mp4
+          if-no-files-found: warn
+
+      # NOT: Dagitim (Blotato) adimi buraya gelecek — once dagitim araci kesinlesince.
+      # - name: Blotato'ya yayinla
+      #   env:
+      #     BLOTATO_API_KEY: ${{ secrets.BLOTATO_API_KEY }}
+      #   run: python3 pipeline/publish_blotato.py out/*_final.mp4
+
+      - name: queue.json degisikligini commit'le
+        if: success()
+        run: |
+          git config user.name "video-bot"
+          git config user.email "bot@danielvegabooks.com"
+          git add pipeline/content/queue.json pipeline/broll_state.json || true
+          git commit -m "pipeline: gunun videolari isaretlendi [skip ci]" || echo "degisiklik yok"
+          git push || echo "push atlandi"
