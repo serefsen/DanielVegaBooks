@@ -223,11 +223,19 @@ def make_subtitles(media_path, out_srt):
         ms = int((sec - int(sec)) * 1000)
         return "%02d:%02d:%02d,%03d" % (h, m, s, ms)
     lines = []
-    for i, seg in enumerate(result["segments"], 1):
-        start = ts(seg["start"])
-        end = ts(seg["end"])
-        text = seg["text"].strip()
-        lines.append("%d\n%s --> %s\n%s\n" % (i, start, end, text))
+    idx = 1
+    for seg in result["segments"]:
+        words = seg["text"].strip().split()
+        s, e = seg["start"], seg["end"]
+        # her segmenti ~5 kelimelik parcalara bol, sureyi esit dagit
+        chunk = 5
+        groups = [words[j:j+chunk] for j in range(0, len(words), chunk)] or [[""]]
+        dur = (e - s) / len(groups)
+        for gi, g in enumerate(groups):
+            gs = s + gi * dur
+            ge = s + (gi + 1) * dur
+            lines.append("%d\n%s --> %s\n%s\n" % (idx, ts(gs), ts(ge), " ".join(g)))
+            idx += 1
     open(out_srt, "w", encoding="utf-8").write("\n".join(lines))
     return out_srt
 
@@ -242,7 +250,7 @@ def make_broll(prompt, out_path):
     h = {"Authorization": "Bearer " + token, "User-Agent": ua}
     version = "a6dcbae88b153e75fcccabacfb0eb430ab5be0a7ae27b316fc6f983658b349bc"
     body = {"version": version, "input": {
-        "prompt": prompt, "duration": 5, "aspect_ratio": "9:16",
+        "prompt": prompt, "duration": 15, "aspect_ratio": "9:16",
         "resolution": "480p", "generate_audio": False}}
     req = urllib.request.Request("https://api.replicate.com/v1/predictions",
         data=json.dumps(body).encode(),
