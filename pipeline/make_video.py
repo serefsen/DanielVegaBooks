@@ -121,7 +121,7 @@ def composite(bg, daniel, srt_path, out, arm):
                "-filter_complex", fc,
                "-map", "[out]", "-map", "1:a",
                "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
-               out, "-loglevel", "error"]
+               "-shortest", out, "-loglevel", "error"]
     else:  # faceless
         fc = (
             "[0:v]scale=720:1280:force_original_aspect_ratio=increase,"
