@@ -293,5 +293,24 @@ def make_broll(prompt, out_path):
         time.sleep(6)
     raise TimeoutError("Seedance zaman asimi")
 
+def elevenlabs_voice(script, voice_id, out_path):
+    import ssl, urllib.request
+    ctx = ssl._create_unverified_context()
+    key = os.environ.get("ELEVENLABS_API_KEY", "")
+    body = json.dumps({
+        "text": script,
+        "model_id": "eleven_v3",
+        "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}
+    }).encode()
+    url = "https://api.elevenlabs.io/v1/text-to-speech/" + voice_id
+    req = urllib.request.Request(url, data=body, headers={
+        "xi-api-key": key, "Content-Type": "application/json",
+        "Accept": "audio/mpeg", "User-Agent": "Mozilla/5.0"
+    }, method="POST")
+    with urllib.request.urlopen(req, context=ctx) as r, open(out_path, "wb") as f:
+        f.write(r.read())
+    return out_path
+
+
 if __name__ == "__main__":
     main()
