@@ -2,8 +2,8 @@
   "id": "test01",
   "arm": "faceless",
   "script": "When I was fifteen, my heart would race before every class. For years I thought something was broken in me. What helped me see it differently: anxiety isn't a glitch, it's an alarm doing its job, just a little too loud. I wrote the book I wish I'd had back then.",
-  "broll_prompt": "Cinematic vertical shot, rain streaming down a dark classroom window at dawn, soft grey light filtering through, empty desks blurred in the background, a single sheet of paper trembling slightly on a desk, slow gentle camera drift, quiet anxious-but-hopeful mood, muted blue and warm amber tones, shallow depth of field, subtle film grain, no people",
-  "expected_sec": 13,
+  "broll_prompt": "Multi-shot cinematic vertical sequence, handheld 24fps with subtle micro-jitter, practical lighting, film grain. SHOT 1 (0-2s): extreme close-up of a trembling teenage hand gripping a cold metal classroom doorknob, shallow depth of field, anxious tension. SHOT 2 (2-5s): fast POV glimpses, a cluttered school desk, a phone screen lighting up, shallow nervous breaths fogging a cold window, dim blue tones. SHOT 3 (5-9s): the camera slowly pulls back as warm amber morning light floods into the dark room, a volume dial slowly turning down, tension releasing, transition from cold blue to warm light. SHOT 4 (9-15s): a steady hand now writing calmly in an open notebook, pen pressure on paper, a slow page turn, a quiet exhale, hopeful warm cinematic tone. No faces, no text overlays.",
+  "expected_sec": 15,
   "avatar_id": "cc997a8643864bb293c0ae8e1da19355",
   "voice_id": "e209b585901e47d28b243e1a5dfc8747",
   "ai_label": true
