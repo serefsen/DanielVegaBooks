@@ -1,8 +1,8 @@
 ﻿{
   "id": "test01",
-  "arm": "avatar",
+  "arm": "faceless",
   "script": "When I was fifteen, my heart would race before every class. For years I thought something was broken in me. What helped me see it differently: anxiety isn't a glitch, it's an alarm doing its job, just a little too loud. I wrote the book I wish I'd had back then.",
-  "srt": "1\n00:00:00,000 --> 00:00:04,000\nWhen I was fifteen, my heart would race\n\n2\n00:00:04,000 --> 00:00:08,000\nI thought something was broken in me.\n\n3\n00:00:08,000 --> 00:00:13,000\nAnxiety isn't a glitch - it is an alarm.\n",
+  "broll_prompt": "Cinematic vertical shot, rain streaming down a dark classroom window at dawn, soft grey light filtering through, empty desks blurred in the background, a single sheet of paper trembling slightly on a desk, slow gentle camera drift, quiet anxious-but-hopeful mood, muted blue and warm amber tones, shallow depth of field, subtle film grain, no people",
   "expected_sec": 13,
   "avatar_id": "cc997a8643864bb293c0ae8e1da19355",
   "voice_id": "e209b585901e47d28b243e1a5dfc8747",
