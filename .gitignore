@@ -29,3 +29,21 @@ pnpm-debug.log*
 scripts/node_modules/
 
 _print-files/
+
+# Pipeline gecici/test dosyalari (repoya gitmesin)
+pipeline/*test*.py
+pipeline/diag.py
+pipeline/fetch_pred.py
+pipeline/list_kling.py
+pipeline/search_kling.py
+pipeline/check1.py
+pipeline/seedance_schema.py
+pipeline/seedance_compare.py
+pipeline/*.mp4
+*.mp4
+avatars.json
+avatar_groups.json
+daniel_engines.json
+daniel_looks.json
+voices.json
+subs.srt
