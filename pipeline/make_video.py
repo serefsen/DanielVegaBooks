@@ -218,8 +218,6 @@ def main():
     print(f"[{vid_id}] HAZIR: {final}")
 
 
-if __name__ == "__main__":
-    main()
 # ---------- WHISPER OTOMATIK ALTYAZI ----------
 def make_subtitles(media_path, out_srt):
     """Daniel klibinden sesi alip Whisper ile senkron SRT uretir."""
@@ -240,3 +238,7 @@ def make_subtitles(media_path, out_srt):
         lines.append("%d\n%s --> %s\n%s\n" % (i, start, end, text))
     open(out_srt, "w", encoding="utf-8").write("\n".join(lines))
     return out_srt
+
+
+if __name__ == "__main__":
+    main()
