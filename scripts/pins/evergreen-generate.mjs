@@ -67,15 +67,24 @@ const BOOKS = [
   { n: 3, title: "Your Pressure Isn't Proof", sub: 'A performance anxiety workbook for teens who hate workbooks.', amazon: 'https://www.amazon.com/dp/B0H65LW8SN', cover: '../../public/image/kitap-323-kapak.webp' },
 ];
 
-// ---------- KITAP KAPAGI (tip/quote/toolkit pinlerinde ust-orta'da gosterilir) ----------
+// ---------- KITAP KAPAGI (tip/quote/toolkit pinlerinde ust yariyi kaplar) ----------
 const COVERS = [
   '../../public/image/186545.png',
   '../../public/image/oubn.png',
   '../../public/image/q3nnp.png',
 ];
-const coverDiv = (src) =>
-  `<div style="position:absolute; left:50%; top:48px; transform:translateX(-50%); width:150px; height:185px; z-index:5;">` +
-  `<img src="${src}" alt="" style="width:100%; height:100%; object-fit:contain; display:block; border-radius:5px; filter:drop-shadow(0 14px 30px rgba(47,53,80,.28));"></div>`;
+// layout -> [genislik, yukseklik, ust] px. Krem/C layoutlar buyuk; mavi-panel layoutlar
+// eyebrow'un altindan baslar (top:200) ve panele girmeden biter.
+const COVER_BOX = {
+  'tip-a': [620, 700, 60], 'quote-a': [620, 700, 60], 'toolkit-a': [620, 700, 60],
+  'tip-c': [600, 670, 60],
+  'tip-b': [560, 540, 200], 'quote-b': [520, 450, 200], 'toolkit-b': [540, 490, 200],
+};
+const coverDiv = (src, layout) => {
+  const [w, h, t] = COVER_BOX[layout] || [600, 670, 60];
+  return `<div style="position:absolute; left:50%; top:${t}px; transform:translateX(-50%); width:${w}px; height:${h}px; z-index:4;">` +
+         `<img src="${src}" alt="" style="width:100%; height:100%; object-fit:contain; display:block;"></div>`;
+};
 
 // ---------- TIP -> blog arsivi (her yazi ayri URL) ----------
 const TIP_LAYOUTS = ['tip-a', 'tip-b', 'tip-c'];
@@ -141,7 +150,7 @@ for (let k = 0; k < N; k++) {
     html = html.split('{{' + key + '}}').join(key === 'COVER' ? val : esc(val));
   }
   if (item.type !== 'book') {
-    html = html.replace('<div class="pin">', '<div class="pin">' + coverDiv(COVERS[st.step % COVERS.length]));
+    html = html.replace('<div class="pin">', '<div class="pin">' + coverDiv(COVERS[st.step % COVERS.length], item.layout));
   }
   const tmp = join(__dirname, '_render.html');
   writeFileSync(tmp, html);

@@ -39,15 +39,20 @@ const tag = clean(post.tag) || 'Teen anxiety';
 const bodySample = Array.isArray(post.body) ? clean(post.body.slice(0, 2).join('\n')) : '';
 const destUrl = `${SITE}/blog/${post.slug}`;
 
-// ---------- KITAP KAPAGI (her tip pininde ust-orta'da gosterilir) ----------
+// ---------- KITAP KAPAGI (her tip pininde ust yariyi kaplar) ----------
 const COVERS = [
   '../../public/image/186545.png',
   '../../public/image/oubn.png',
   '../../public/image/q3nnp.png',
 ];
-const coverDiv = (src) =>
-  `<div style="position:absolute; left:50%; top:48px; transform:translateX(-50%); width:150px; height:185px; z-index:5;">` +
-  `<img src="${src}" alt="" style="width:100%; height:100%; object-fit:contain; display:block; border-radius:5px; filter:drop-shadow(0 14px 30px rgba(47,53,80,.28));"></div>`;
+const COVER_BOX = {
+  'tip-a': [620, 700, 60], 'tip-c': [600, 670, 60], 'tip-b': [560, 540, 200],
+};
+const coverDiv = (src, layout) => {
+  const [w, h, t] = COVER_BOX[layout] || [600, 670, 60];
+  return `<div style="position:absolute; left:50%; top:${t}px; transform:translateX(-50%); width:${w}px; height:${h}px; z-index:4;">` +
+         `<img src="${src}" alt="" style="width:100%; height:100%; object-fit:contain; display:block;"></div>`;
+};
 let _ch = 0; for (const c of post.slug) _ch = (_ch * 31 + c.charCodeAt(0)) >>> 0;
 const COVER_SRC = COVERS[_ch % COVERS.length];
 
@@ -105,7 +110,7 @@ async function render(layout, f, outPath) {
     .replaceAll('{{HEADLINE}}', esc(f.headline))
     .replaceAll('{{SUB}}', esc(f.sub))
     .replaceAll('{{CTA}}', esc(f.cta))
-    .replace('<div class="pin">', '<div class="pin">' + coverDiv(COVER_SRC));
+    .replace('<div class="pin">', '<div class="pin">' + coverDiv(COVER_SRC, layout));
   const tmp = join(__dirname, '_render.html');
   writeFileSync(tmp, html);
   const browser = await chromium.launch();
