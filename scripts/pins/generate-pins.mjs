@@ -40,11 +40,17 @@ const bodySample = Array.isArray(post.body) ? clean(post.body.slice(0, 2).join('
 const destUrl = `${SITE}/blog/${post.slug}`;
 
 // ---------- KITAP KAPAGI (her tip pininde ust yariyi kaplar) ----------
-const COVERS = [
-  '../../public/image/186545.png',
-  '../../public/image/oubn.png',
-  '../../public/image/q3nnp.png',
-];
+const COVERS_BY_BOOK = {
+  1: '../../public/image/186545.png', // Your Alarm Isn't Broken   (genel kaygi)
+  2: '../../public/image/oubn.png',   // Your Awkward Isn't Showing (sosyal kaygi)
+  3: '../../public/image/q3nnp.png',  // Your Pressure Isn't Proof  (performans)
+};
+function bookForText(text) {
+  const t = String(text).toLowerCase();
+  if (/test|exam|perform|pressure|perfection|grade|study|present|compet|stage|tryout|audition|final/.test(t)) return 3;
+  if (/social|awkward|friend|shy|embarrass|crowd|party|conversation|speak|peer|left out|fitting/.test(t)) return 2;
+  return 1;
+}
 const COVER_BOX = {
   'tip-a': [620, 700, 60], 'tip-c': [600, 670, 60], 'tip-b': [560, 540, 200],
 };
@@ -53,8 +59,7 @@ const coverDiv = (src, layout) => {
   return `<div style="position:absolute; left:50%; top:${t}px; transform:translateX(-50%); width:${w}px; height:${h}px; z-index:4;">` +
          `<img src="${src}" alt="" style="width:100%; height:100%; object-fit:contain; display:block;"></div>`;
 };
-let _ch = 0; for (const c of post.slug) _ch = (_ch * 31 + c.charCodeAt(0)) >>> 0;
-const COVER_SRC = COVERS[_ch % COVERS.length];
+const COVER_SRC = COVERS_BY_BOOK[bookForText(`${title} ${tag} ${post.slug}`)];
 
 // --- Dedup guard: ayni yaziyi iki kez pinleme ---
 const STATE = join(OUT_DIR, 'last-pinned.json');

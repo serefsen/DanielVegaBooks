@@ -68,11 +68,18 @@ const BOOKS = [
 ];
 
 // ---------- KITAP KAPAGI (tip/quote/toolkit pinlerinde ust yariyi kaplar) ----------
-const COVERS = [
-  '../../public/image/186545.png',
-  '../../public/image/oubn.png',
-  '../../public/image/q3nnp.png',
-];
+const COVERS_BY_BOOK = {
+  1: '../../public/image/186545.png', // Your Alarm Isn't Broken   (genel kaygi)
+  2: '../../public/image/oubn.png',   // Your Awkward Isn't Showing (sosyal kaygi)
+  3: '../../public/image/q3nnp.png',  // Your Pressure Isn't Proof  (performans)
+};
+// Yazinin konusuna gore kitap sec (1=genel, 2=sosyal, 3=performans)
+function bookForText(text) {
+  const t = String(text).toLowerCase();
+  if (/test|exam|perform|pressure|perfection|grade|study|present|compet|stage|tryout|audition|final/.test(t)) return 3;
+  if (/social|awkward|friend|shy|embarrass|crowd|party|conversation|speak|peer|left out|fitting/.test(t)) return 2;
+  return 1;
+}
 // layout -> [genislik, yukseklik, ust] px. Krem/C layoutlar buyuk; mavi-panel layoutlar
 // eyebrow'un altindan baslar (top:200) ve panele girmeden biter.
 const COVER_BOX = {
@@ -98,7 +105,7 @@ if (existsSync(STATE)) { try { st = { ...st, ...JSON.parse(readFileSync(STATE, '
 function pick() {
   let type = PATTERN[st.step % PATTERN.length];
   if (type === 'tip' && (!POSTS || !POSTS.length)) type = 'quote'; // blog yoksa quote'a dus
-  let layout, tokens, fileName, meta;
+  let layout, tokens, fileName, meta, cover = null;
 
   if (type === 'toolkit') {
     const total = TOOLKIT.length * TOOLKIT_LAYOUTS.length;
@@ -108,6 +115,7 @@ function pick() {
     fileName = `${v.id}-${layout}.png`;
     tokens = { KICKER: v.kicker, HEADLINE: v.headline, SUB: v.sub, BADGE: v.badge, CTA: v.cta };
     meta = { title: v.title, description: v.description, url: NEWSLETTER, boardId: BOARD.printables, altText: TOOLKIT_ALT };
+    cover = COVERS_BY_BOOK[(st.ti % 3) + 1];
     st.ti++;
   } else if (type === 'quote') {
     const total = QUOTES.length * QUOTE_LAYOUTS.length;
@@ -117,6 +125,7 @@ function pick() {
     fileName = `quote-${Math.floor(c / QUOTE_LAYOUTS.length)}-${layout}.png`;
     tokens = { KICKER: QUOTE_KICKERS[c % QUOTE_KICKERS.length], QUOTE: qd.q, ATTRIB: qd.name, ROLE: qd.role };
     meta = { title: 'Honest anxiety books for teens - what readers say', description: `"${qd.q}" - ${qd.name}, ${qd.role}. Calm, honest anxiety workbooks for teens who hate workbooks, from Daniel Vega. #TeenAnxiety #AnxietyBooks #MentalHealthForTeens #ParentingTeens #AnxiousTeen`, url: SITE, boardId: BOARD.quotes, altText: `Reader quote about Daniel Vega anxiety books for teens, from ${qd.name}.` };
+    cover = COVERS_BY_BOOK[(st.qi % 3) + 1];
     st.qi++;
   } else if (type === 'book') {
     const b = BOOKS[st.bi % BOOKS.length];
@@ -131,13 +140,14 @@ function pick() {
     const title = clean(p.title), excerpt = clean(p.excerpt), tag = clean(p.tag) || 'Teen anxiety';
     fileName = `tip-${p.slug}-${layout}.png`;
     tokens = { KICKER: tag, HEADLINE: title, SUB: excerpt, CTA: 'Read more →' };
+    cover = COVERS_BY_BOOK[bookForText(`${title} ${tag} ${p.slug}`)];
     meta = { title, description: `${excerpt} Calm, honest support for anxious teens from Daniel Vega. #TeenAnxiety #ParentingTeens #TeenMentalHealth #AnxietyHelp #AnxiousTeen`, url: `${SITE}/blog/${p.slug}`, boardId: boardForPost(`${title} ${tag} ${p.slug}`), altText: `Pin about ${title} for parents and anxious teens.` };
     st.si++;
   }
   st.step++;
   meta.title = clamp(meta.title, 100);
   meta.description = clamp(meta.description, 490);
-  return { type, layout, tokens, fileName, meta };
+  return { type, layout, tokens, fileName, meta, cover };
 }
 
 const N = parseInt(process.env.PINS_PER_RUN || '1', 10);
@@ -150,7 +160,7 @@ for (let k = 0; k < N; k++) {
     html = html.split('{{' + key + '}}').join(key === 'COVER' ? val : esc(val));
   }
   if (item.type !== 'book') {
-    html = html.replace('<div class="pin">', '<div class="pin">' + coverDiv(COVERS[st.step % COVERS.length], item.layout));
+    html = html.replace('<div class="pin">', '<div class="pin">' + coverDiv(item.cover, item.layout));
   }
   const tmp = join(__dirname, '_render.html');
   writeFileSync(tmp, html);
