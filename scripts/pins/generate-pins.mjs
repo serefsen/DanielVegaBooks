@@ -39,6 +39,18 @@ const tag = clean(post.tag) || 'Teen anxiety';
 const bodySample = Array.isArray(post.body) ? clean(post.body.slice(0, 2).join('\n')) : '';
 const destUrl = `${SITE}/blog/${post.slug}`;
 
+// ---------- KITAP KAPAGI (her tip pininde ust-orta'da gosterilir) ----------
+const COVERS = [
+  '../../public/image/186545.png',
+  '../../public/image/oubn.png',
+  '../../public/image/q3nnp.png',
+];
+const coverDiv = (src) =>
+  `<div style="position:absolute; left:50%; top:48px; transform:translateX(-50%); width:150px; height:185px; z-index:5;">` +
+  `<img src="${src}" alt="" style="width:100%; height:100%; object-fit:contain; display:block; border-radius:5px; filter:drop-shadow(0 14px 30px rgba(47,53,80,.28));"></div>`;
+let _ch = 0; for (const c of post.slug) _ch = (_ch * 31 + c.charCodeAt(0)) >>> 0;
+const COVER_SRC = COVERS[_ch % COVERS.length];
+
 // --- Dedup guard: ayni yaziyi iki kez pinleme ---
 const STATE = join(OUT_DIR, 'last-pinned.json');
 let lastSlug = null;
@@ -92,7 +104,8 @@ async function render(layout, f, outPath) {
     .replaceAll('{{KICKER}}', esc(f.kicker))
     .replaceAll('{{HEADLINE}}', esc(f.headline))
     .replaceAll('{{SUB}}', esc(f.sub))
-    .replaceAll('{{CTA}}', esc(f.cta));
+    .replaceAll('{{CTA}}', esc(f.cta))
+    .replace('<div class="pin">', '<div class="pin">' + coverDiv(COVER_SRC));
   const tmp = join(__dirname, '_render.html');
   writeFileSync(tmp, html);
   const browser = await chromium.launch();

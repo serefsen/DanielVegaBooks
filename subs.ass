@@ -1,0 +1,15 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Def,Arial,60,&H00FFFFFF,&H00000000,&H96000000,-1,0,0,0,100,100,0,0,1,4,1,2,60,60,120,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:03.00,Def,,0,0,0,,Your internal alarm is blasting way too loud...
+Dialogue: 0,0:00:03.00,0:00:07.00,Def,,0,0,0,,but you are not broken. It's just sensitive.
+Dialogue: 0,0:00:07.00,0:00:11.00,Def,,0,0,0,,Stop fighting the wave - train your next move. Take back the controls.
+Dialogue: 0,0:00:11.00,0:00:18.35,Def,,0,0,0,,Read 'Your Alarm Isn't Broken' by Daniel Vega. Available now.
