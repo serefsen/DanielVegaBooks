@@ -1,10 +1,10 @@
-﻿export const books = [
+export const books = [
   {
     id: `alarm`,
     title: `Your Alarm Isn't Broken`,
     subtitle: `An Anxiety Workbook for Teens Who Hate Workbooks`,
     series: `The Response Training Series — Book 1`,
-    cover: `/image/kitap-123-kapak.webp`,
+    cover: `/image/186545.webp`,
     published: true,
     amazon: `https://www.amazon.com/dp/B0H5926917`,
     buyPaperback: `https://www.amazon.com/dp/B0H5926917`,
@@ -28,7 +28,7 @@
     title: `Your Awkward Isn't Showing`,
     subtitle: `A Social Anxiety Workbook for Teens Who Hate Workbooks`,
     series: `The Response Training Series — Book 2`,
-    cover: `/image/kitap-223-kapak.webp`,
+    cover: `/image/oubn.webp`,
     published: true,
     amazon: `https://www.amazon.com/dp/B0H5L55D31`,
     buyPaperback: `https://www.amazon.com/dp/B0H5L55D31`,
@@ -52,7 +52,7 @@
     title: `Your Pressure Isn't Proof`,
     subtitle: `A Performance Anxiety Workbook for Teens Who Hate Workbooks`,
     series: `The Response Training Series — Book 3`,
-    cover: `/image/kitap-323-kapak.webp`,
+    cover: `/image/q3nnp.webp`,
     published: true,
     comingSoon: false,
     amazon: `https://www.amazon.com/dp/B0H65LW8SN`,
