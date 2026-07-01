@@ -1,5 +1,23 @@
 export const posts = [
   {
+    slug: "understanding-your-teens-racing-heart",
+    date: "2026-07-01",
+    readingTime: "4 min read",
+    tag: "Anxiety",
+    title: "Understanding Your Teen's Racing Heart",
+    excerpt: "Explore how a racing heart can be a sign of healthy preparation rather than a problem.",
+    body: [
+      "You're sitting in the car with your teen, parked outside the school. They’re gripping their backpack, eyes darting as if searching for an escape route. \"What if I mess up?\" they mutter, their voice barely above a whisper. You notice their chest rising and falling a bit too quickly, and you think back to your own school days, feeling a familiar knot of nerves.",
+      "It’s easy to worry when you see your teen battling anxiety, especially when their hearts race as if they’ve just run a marathon. But what if that racing heart isn’t a sign of something broken? What if it’s their body's way of saying, \"I'm getting ready for this\"?",
+      "Anxiety often gets a bad rap, but it’s not always the enemy. In moments of stress, our body taps into a natural response designed to help us face challenges. That quickened heartbeat? It’s your teen’s body preparing them to be alert and focused — a built-in tool for handling stressful situations like exams or social gatherings.",
+      "One effective Cognitive Behavioral Therapy (CBT) tool to help your teen harness this energy is called 'grounding.' Grounding works by anchoring your teen in the present moment, reducing the intensity of their racing heart and anxious thoughts.",
+      "Here's how it works: When your teen feels their heart start to race, encourage them to focus on their surroundings. Guide them through describing the room they’re in, listing five things they can see, four they can touch, three they can hear, two they can smell, and one they can taste. This simple exercise not only redirects their thoughts but also sends a signal to their brain that, despite the anxiety, they are in a safe place.",
+      "Grounding can be practiced anywhere, whether they’re at school, home, or even waiting in line at the grocery store. Over time, your teen will learn to associate their body’s natural response with a sense of preparedness rather than fear.",
+      "Rather than viewing a racing heart as an enemy, see it as a friend in disguise, priming your teen for success. With tools like grounding, you can help them turn anxiety into an ally.",
+      "So next time you find yourself sitting in the car with your teen, take a deep breath together. Remind them that their racing heart isn’t a sign of failure — it’s simply their body gearing up to face the day with courage and readiness. Sometimes, the best support you can offer is helping them see their strength, even when it feels like their heart is running away from them.",
+    ],
+  },
+  {
     slug: "when-perfectionism-becomes-a-teens-quiet-struggle",
     date: "2026-06-29",
     readingTime: "4 min read",
