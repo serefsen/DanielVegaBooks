@@ -1,0 +1,23 @@
+name: Reklam - gunluk otomatik dagitim
+
+on:
+  schedule:
+    # GitHub cron UTC. Su an LA = PDT (UTC-7). Kis (PST) 1 saat erken duser.
+    - cron: '0 19 * * *'   # 12:00 LA (ogle)
+    - cron: '0 0 * * *'    # 17:00 LA (okul sonrasi)
+    - cron: '0 4 * * *'    # 21:00 LA (aksam prime)
+  workflow_dispatch: {}     # elle test icin
+
+jobs:
+  yayinla:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Uret ve 3 platforma dagit
+        env:
+          JSON2VIDEO_API_KEY: ${{ secrets.JSON2VIDEO_API_KEY }}
+          BLOTATO_API_KEY: ${{ secrets.BLOTATO_API_KEY }}
+        run: python havuz_gunluk.py
