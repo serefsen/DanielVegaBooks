@@ -1,4 +1,4 @@
-﻿---
+---
 import Layout from "../layouts/Layout.astro";
 import { books } from "../data/books.js";
 const bookSchema = { "@context": "https://schema.org", "@graph": books.filter(b => b.published).map(b => ({ "@type": "Book", "name": b.title, "author": { "@type": "Person", "name": "Daniel Vega" }, "inLanguage": "en", "description": b.subtitle, "image": "https://danielvegabooks.com" + b.cover, "url": b.amazon, ...(b.pricePaperback ? { "offers": { "@type": "Offer", "price": b.pricePaperback.replace("$",""), "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": b.buyPaperback || b.amazon } } : {}) })) };
@@ -61,7 +61,7 @@ const bookSchema = { "@context": "https://schema.org", "@graph": books.filter(b 
   .bp-cover-wrap { flex: 0 0 auto; }
   .bp-text { flex: 1; }
 
-  .bp-cover-img { width: 260px; height: auto; border-radius: 12px; box-shadow: 0 22px 44px rgba(60,40,20,.24); display: block; }
+  .bp-cover-img { width: 260px; height: auto; display: block; }
   .bp-cover-ph { width: 260px; aspect-ratio: 4/5; border-radius: 12px; background: linear-gradient(155deg,#d6c9b7,#b6a999); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #463d31; box-shadow: 0 22px 44px rgba(60,40,20,.24); }
   .bp-ph-label { font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; opacity: .85; }
   .bp-ph-soon { font-family: var(--font-serif); font-size: 30px; line-height: 1.05; color: #3a3228; margin-top: 6px; text-align: center; }

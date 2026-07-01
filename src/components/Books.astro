@@ -1,4 +1,4 @@
-﻿---
+---
 import { books } from "../data/books.js";
 ---
 <section style="padding:74px 0 86px">
@@ -10,7 +10,7 @@ import { books } from "../data/books.js";
         <article style="width:200px;text-align:center">
           <a href="/books" style="display:block;width:200px;margin:0 auto 18px;text-decoration:none">
             {book.cover
-              ? <img class="bkcov" src={book.cover} alt={book.title + " cover"} style="display:block;width:200px;height:auto;border-radius:10px;box-shadow:0 14px 28px -10px rgba(74,52,28,.34)" />
+              ? <img class="bkcov" src={book.cover} alt={book.title + " cover"} style="display:block;width:200px;height:auto" />
               : <div class="bkcov" style="width:200px;aspect-ratio:4/5;border-radius:10px;background:linear-gradient(155deg,#d6c9b7,#b6a999);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#463d31;box-sizing:border-box;box-shadow:0 14px 28px -10px rgba(74,52,28,.34)"><span style="font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;opacity:.85">Book 3</span><span style="font-family:'"'"'Fraunces'"'"',serif;font-size:26px;line-height:1.05;color:#3a3228;margin-top:4px">Coming<br/>Soon</span></div>}
           </a>
           <span style="font-size:11px;font-weight:700;color:#5C6F9C;text-transform:uppercase;letter-spacing:.5px;display:block">{book.series}</span>
