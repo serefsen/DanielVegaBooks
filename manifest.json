@@ -1,0 +1,282 @@
+[
+  {
+    "id": "hook01",
+    "role": "hook",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/hook01.mp4"
+  },
+  {
+    "id": "hook02",
+    "role": "hook",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/hook02.mp4"
+  },
+  {
+    "id": "kaygi01",
+    "role": "kaygi",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kaygi01.mp4"
+  },
+  {
+    "id": "kaygi02",
+    "role": "kaygi",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kaygi02.mp4"
+  },
+  {
+    "id": "donusum01",
+    "role": "donusum",
+    "color": "gecis",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/donusum01.mp4"
+  },
+  {
+    "id": "donusum02",
+    "role": "donusum",
+    "color": "sicak",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/donusum02.mp4"
+  },
+  {
+    "id": "kapanis01",
+    "role": "kapanis",
+    "color": "sicak",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kapanis01.mp4"
+  },
+  {
+    "id": "kapanis02",
+    "role": "kapanis",
+    "color": "sicak",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kapanis02.mp4"
+  },
+  {
+    "id": "hook03",
+    "role": "hook",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/hook03.mp4"
+  },
+  {
+    "id": "hook04",
+    "role": "hook",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/hook04.mp4"
+  },
+  {
+    "id": "hook05",
+    "role": "hook",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/hook05.mp4"
+  },
+  {
+    "id": "hook06",
+    "role": "hook",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/hook06.mp4"
+  },
+  {
+    "id": "hook07",
+    "role": "hook",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/hook07.mp4"
+  },
+  {
+    "id": "hook08",
+    "role": "hook",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/hook08.mp4"
+  },
+  {
+    "id": "hook09",
+    "role": "hook",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/hook09.mp4"
+  },
+  {
+    "id": "hook10",
+    "role": "hook",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/hook10.mp4"
+  },
+  {
+    "id": "hook11",
+    "role": "hook",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/hook11.mp4"
+  },
+  {
+    "id": "hook12",
+    "role": "hook",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/hook12.mp4"
+  },
+  {
+    "id": "kaygi03",
+    "role": "kaygi",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kaygi03.mp4"
+  },
+  {
+    "id": "kaygi04",
+    "role": "kaygi",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kaygi04.mp4"
+  },
+  {
+    "id": "kaygi05",
+    "role": "kaygi",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kaygi05.mp4"
+  },
+  {
+    "id": "kaygi06",
+    "role": "kaygi",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kaygi06.mp4"
+  },
+  {
+    "id": "kaygi07",
+    "role": "kaygi",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kaygi07.mp4"
+  },
+  {
+    "id": "kaygi08",
+    "role": "kaygi",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kaygi08.mp4"
+  },
+  {
+    "id": "kaygi09",
+    "role": "kaygi",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kaygi09.mp4"
+  },
+  {
+    "id": "kaygi10",
+    "role": "kaygi",
+    "color": "soguk",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kaygi10.mp4"
+  },
+  {
+    "id": "donusum03",
+    "role": "donusum",
+    "color": "gecis",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/donusum03.mp4"
+  },
+  {
+    "id": "donusum04",
+    "role": "donusum",
+    "color": "sicak",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/donusum04.mp4"
+  },
+  {
+    "id": "donusum05",
+    "role": "donusum",
+    "color": "gecis",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/donusum05.mp4"
+  },
+  {
+    "id": "donusum06",
+    "role": "donusum",
+    "color": "sicak",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/donusum06.mp4"
+  },
+  {
+    "id": "donusum07",
+    "role": "donusum",
+    "color": "gecis",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/donusum07.mp4"
+  },
+  {
+    "id": "donusum08",
+    "role": "donusum",
+    "color": "sicak",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/donusum08.mp4"
+  },
+  {
+    "id": "donusum09",
+    "role": "donusum",
+    "color": "gecis",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/donusum09.mp4"
+  },
+  {
+    "id": "donusum10",
+    "role": "donusum",
+    "color": "sicak",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/donusum10.mp4"
+  },
+  {
+    "id": "kapanis03",
+    "role": "kapanis",
+    "color": "sicak",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kapanis03.mp4"
+  },
+  {
+    "id": "kapanis04",
+    "role": "kapanis",
+    "color": "sicak",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kapanis04.mp4"
+  },
+  {
+    "id": "kapanis05",
+    "role": "kapanis",
+    "color": "sicak",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kapanis05.mp4"
+  },
+  {
+    "id": "kapanis06",
+    "role": "kapanis",
+    "color": "sicak",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kapanis06.mp4"
+  },
+  {
+    "id": "kapanis07",
+    "role": "kapanis",
+    "color": "sicak",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kapanis07.mp4"
+  },
+  {
+    "id": "kapanis08",
+    "role": "kapanis",
+    "color": "sicak",
+    "src_dur": 4,
+    "url": "https://danielvegabooks.com/video/kapanis08.mp4"
+  }
+]
