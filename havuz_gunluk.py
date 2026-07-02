@@ -21,6 +21,12 @@ HASHTAGS = "#anxiety #anxietyrelief #teenmentalhealth #mentalhealth #overthinkin
 YT_TITLE = "Your anxiety isn't broken (save this for 3 a.m.)"
 AMAZON = "https://www.amazon.com/dp/B0H5926917"
 
+# --- Pinterest ---
+PIN_TITLE = YT_TITLE
+PIN_LINK = AMAZON
+PIN_ALT = "A short video on why teen anxiety isn't broken - from Your Alarm Isn't Broken by Daniel Vega."
+PINTEREST_BOARD_ID = ""   # bos = otomatik (ilk board). Belirli board icin ID yaz.
+
 FALLBACK_VO = ("Your anxiety isn't broken. It's working exactly as designed. "
                "You can't switch it off - but you can train your response. "
                '"Your Alarm Isn\'t Broken," by Daniel Vega. Search it - save this for 3 a.m.')
@@ -159,7 +165,10 @@ def content_for(platform, media_url):
     return {"text": text, "mediaUrls": [media_url], "platform": platform}
 
 
-def target_for(platform):
+def target_for(platform, board_id=None):
+    if platform == "pinterest":
+        return {"targetType": "pinterest", "boardId": board_id,
+                "title": PIN_TITLE, "link": PIN_LINK, "altText": PIN_ALT}
     if platform == "tiktok":
         return {"targetType": "tiktok", "privacyLevel": "PUBLIC_TO_EVERYONE",
                 "disabledComments": False, "disabledDuet": False, "disabledStitch": False,
@@ -187,13 +196,32 @@ def poll_post(sub_id, tries=12, gap=5):
     return "in-progress"
 
 
+def get_pinterest_board(account_id):
+    if PINTEREST_BOARD_ID:
+        return PINTEREST_BOARD_ID, "(sabit)"
+    try:
+        data = blotato("/social/pinterest/boards?accountId=" + str(account_id))
+        items = data.get("items", []) if isinstance(data, dict) else (data or [])
+        if items:
+            return str(items[0]["id"]), items[0].get("name", "")
+    except Exception as e:
+        print("   pinterest board cekilemedi:", e)
+    return None, None
+
+
 def post_all(media_url, accounts):
-    for platform in ("tiktok", "instagram", "youtube"):   # Pinterest kapali (isinma)
+    pin_board = None
+    if accounts.get("pinterest"):
+        pin_board, pin_name = get_pinterest_board(accounts["pinterest"][0]["id"])
+        print("   pinterest board:", (pin_name + " (" + pin_board + ")") if pin_board else "bulunamadi - pinterest atlanacak")
+    for platform in ("tiktok", "instagram", "youtube", "pinterest"):
+        if platform == "pinterest" and not pin_board:
+            continue
         for a in accounts.get(platform, []):
             try:
                 post = {"accountId": str(a["id"]),
                         "content": content_for(platform, media_url),
-                        "target": target_for(platform)}
+                        "target": target_for(platform, pin_board)}
                 resp = blotato("/posts", "POST", {"post": post})
                 sub = resp.get("postSubmissionId") or resp.get("id")
                 print("   %s -> %s" % (platform, poll_post(sub) if sub else "submission yok"))
