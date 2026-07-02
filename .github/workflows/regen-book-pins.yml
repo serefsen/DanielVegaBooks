@@ -1,0 +1,28 @@
+name: Regen book pins
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install pin deps + chromium
+        working-directory: scripts/pins
+        run: npm install && npx playwright install --with-deps chromium
+      - name: Regenerate book pins (book-1/2/3.png)
+        run: node scripts/pins/regen-book-pins.mjs
+      - name: Commit regenerated pins
+        run: |
+          git config user.name "pin-bot"
+          git config user.email "actions@github.com"
+          git add public/pins/book-1.png public/pins/book-2.png public/pins/book-3.png
+          git commit -m "regen: kitap pinleri duz kapaklarla yenilendi [skip ci]" || echo "degisiklik yok"
+          git push

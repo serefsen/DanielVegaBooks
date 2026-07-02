@@ -62,9 +62,9 @@ const QUOTE_KICKERS = ['What readers say', 'From a reader'];
 
 // ---------- BOOKS -> Amazon ----------
 const BOOKS = [
-  { n: 1, title: "Your Alarm Isn't Broken", sub: 'An anxiety workbook for teens who hate workbooks.', amazon: 'https://www.amazon.com/dp/B0H5926917', cover: '../../public/image/kitap-123-kapak.webp' },
-  { n: 2, title: "Your Awkward Isn't Showing", sub: 'A social anxiety workbook for teens who hate workbooks.', amazon: 'https://www.amazon.com/dp/B0H5L55D31', cover: '../../public/image/kitap-223-kapak.webp' },
-  { n: 3, title: "Your Pressure Isn't Proof", sub: 'A performance anxiety workbook for teens who hate workbooks.', amazon: 'https://www.amazon.com/dp/B0H65LW8SN', cover: '../../public/image/kitap-323-kapak.webp' },
+  { n: 1, title: "Your Alarm Isn't Broken", sub: 'An anxiety workbook for teens who hate workbooks.', amazon: 'https://www.amazon.com/dp/B0H5926917', cover: '../../public/image/186545.png' },
+  { n: 2, title: "Your Awkward Isn't Showing", sub: 'A social anxiety workbook for teens who hate workbooks.', amazon: 'https://www.amazon.com/dp/B0H5L55D31', cover: '../../public/image/oubn.png' },
+  { n: 3, title: "Your Pressure Isn't Proof", sub: 'A performance anxiety workbook for teens who hate workbooks.', amazon: 'https://www.amazon.com/dp/B0H65LW8SN', cover: '../../public/image/q3nnp.png' },
 ];
 
 // ---------- KITAP KAPAGI (tip/quote/toolkit pinlerinde ust yariyi kaplar) ----------
