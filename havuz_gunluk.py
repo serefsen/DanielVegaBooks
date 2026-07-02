@@ -26,6 +26,7 @@ PIN_TITLE = YT_TITLE
 PIN_LINK = AMAZON
 PIN_ALT = "A short video on why teen anxiety isn't broken - from Your Alarm Isn't Broken by Daniel Vega."
 PINTEREST_BOARD_ID = ""   # bos = otomatik (ilk board). Belirli board icin ID yaz.
+PINTEREST_ENABLED = False  # Blotato dogrulamasi bekleniyor (100+ goruntulenme/ay). Dolunca True yap.
 
 FALLBACK_VO = ("Your anxiety isn't broken. It's working exactly as designed. "
                "You can't switch it off - but you can train your response. "
@@ -211,9 +212,11 @@ def get_pinterest_board(account_id):
 
 def post_all(media_url, accounts):
     pin_board = None
-    if accounts.get("pinterest"):
+    if PINTEREST_ENABLED and accounts.get("pinterest"):
         pin_board, pin_name = get_pinterest_board(accounts["pinterest"][0]["id"])
         print("   pinterest board:", (pin_name + " (" + pin_board + ")") if pin_board else "bulunamadi - pinterest atlanacak")
+    elif not PINTEREST_ENABLED:
+        print("   pinterest: kapali (Blotato dogrulamasi bekleniyor)")
     for platform in ("tiktok", "instagram", "youtube", "pinterest"):
         if platform == "pinterest" and not pin_board:
             continue
