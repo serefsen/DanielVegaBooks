@@ -168,6 +168,8 @@ for (let k = 0; k < N; k++) {
   await page.goto('file://' + tmp, { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(300);
+  const _broken = await page.evaluate(() => Array.from(document.images).filter((im) => !im.complete || im.naturalWidth === 0).map((im) => im.getAttribute('src')));
+  if (_broken.length) { await browser.close(); throw new Error(`KAPAK/GORSEL YUKLENEMEDI (${item.fileName}): ${_broken.join(', ')}`); }
   await page.screenshot({ path: join(OUT_DIR, item.fileName), clip: { x: 0, y: 0, width: 1000, height: 1500 } });
   await page.close();
   out.push({ file: item.fileName, mediaPath: `public/pins/${item.fileName}`, ...item.meta });
