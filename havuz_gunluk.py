@@ -67,13 +67,17 @@ def expand_pool(manifest):
     return short, closing
 
 
-def pick_scenes(manifest):
+def pick_scenes(manifest, rot):
     short, closing = expand_pool(manifest)
     hooks = [s for s in short if s["role"] == "hook"]
     body = [s for s in short if s["role"] in ("kaygi", "donusum")]
     if not hooks or not body or not closing:
         raise RuntimeError("Havuz eksik (hook/govde/kapanis).")
-    hook = random.choice(hooks)
+    seen = set(); hsrc = []
+    for s in hooks:
+        if s["source"] not in seen:
+            seen.add(s["source"]); hsrc.append(s)
+    hook = hsrc[rot % len(hsrc)]
     used = {hook["source"]}
     chosen = [hook]
     random.shuffle(body)
@@ -211,8 +215,12 @@ def main():
         print("HATA: manifest.json yok/bos."); sys.exit(1)
     vos = load_json(VO_FILE, []) or [FALLBACK_VO]
 
-    scenes = pick_scenes(manifest)
-    vo = random.choice(vos)
+    gm = time.gmtime()
+    h = gm.tm_hour
+    slot = 0 if 16 <= h <= 21 else (1 if (h >= 22 or h <= 1) else 2)
+    rot = gm.tm_yday * 3 + slot
+    scenes = pick_scenes(manifest, rot)
+    vo = vos[rot % len(vos)]
     print("Sahneler:", [s["source"] for s in scenes], "| VO:", vo[:40], "...")
     movie = build_movie(scenes, vo)
     url = render_video(movie)
