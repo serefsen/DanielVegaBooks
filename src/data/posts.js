@@ -1,5 +1,23 @@
 export const posts = [
   {
+    slug: "recognizing-teen-depression-vs-a-hard-week",
+    date: "2026-07-03",
+    readingTime: "4 min read",
+    tag: "Depression",
+    title: "Recognizing Teen Depression vs. a Hard Week",
+    excerpt: "Understanding the difference between a tough week and depression in teenagers can help in offering the right support.",
+    body: [
+      "It's Thursday evening, and your teenager slouches in the doorway, backpack slung carelessly over their shoulder. \"How was your day?\" you ask, hoping for a glimpse into their world. \"Fine,\" they mumble, heading straight to their room without further comment. The door clicks shut, and you're left wondering—are they just having a tough week, or is it something deeper?",
+      "Every teenager experiences difficult weeks—a flurry of tests, social drama, or family squabbles can darken their mood temporarily. But when does it shift from a passing storm to something more enduring, like depression? It's essential to distinguish between the two, allowing you to provide the right kind of support.",
+      "A hard week is often marked by specific stressors: maybe there was a big project due, a misunderstanding with a friend, or a disappointing practice session. These moments can trigger temporary feelings of sadness, irritability, or fatigue. However, these feelings usually lift as the situation resolves or as the weekend arrives with its promise of rest and recreation.",
+      "Depression, in contrast, is not just about feeling down for a few days. It can feel like a heavy fog that lingers, even when external stressors subside. Your teen might show a lack of interest in hobbies they once loved, struggle with low energy, or have changes in sleep and appetite that persist over weeks. They might express feelings of hopelessness or worthlessness, and these signs are not just confined to one bad week—they stretch across weeks or months.",
+      "One concrete tool from Cognitive Behavioral Therapy (CBT) that can help is the \"Thought Diary.\" Encourage your teenager to jot down their thoughts and feelings daily. This simple practice can help both of you identify patterns or triggers that distinguish between a temporary mood dip and a more chronic issue. Reviewing these entries together can offer insights—are these feelings tied to specific events, or are they pervasive, regardless of external circumstances?",
+      "Additionally, the Thought Diary can empower your teen to challenge negative thought patterns. For instance, if they write, \"I'll never be good at anything,\" work with them to reframe this thought: \"Today was tough, but I can learn from it and try again.\" This shift can gradually help them see their challenges as temporary hurdles rather than insurmountable obstacles.",
+      "If you find that the Thought Diary reveals persistent, negative feelings that don't seem to lift, it might be time to reach out to a mental health professional. Early intervention can make a world of difference, providing your teen with strategies to navigate their emotions and regain their footing.",
+      "Remember, your role as a parent or counselor is not to diagnose but to notice, support, and guide. By understanding the subtle differences between a hard week and depression, you can offer the compassionate support your teen needs. A soft conversation, a thoughtful question, or just being present can be the first steps towards helping them find clarity and comfort.",
+    ],
+  },
+  {
     slug: "understanding-your-teens-racing-heart",
     date: "2026-07-01",
     readingTime: "4 min read",
