@@ -8,6 +8,7 @@ UA = "Mozilla/5.0"
 J2V_KEY = os.environ.get("JSON2VIDEO_API_KEY", "").strip()
 BLOTATO_KEY = os.environ.get("BLOTATO_API_KEY", "").strip()
 MANIFEST = "manifest.json"
+STATE_FILE = "gunluk_state.json"   # kullanilan sahne hafizasi (tekrar onleme)
 VO_FILE = "seslendirme.json"
 
 VOICE_ID = "MFZUKuGQUsGJPQjTS4wC"
@@ -84,17 +85,52 @@ def pick_scenes(manifest, rot):
     for s in hooks:
         if s["source"] not in seen:
             seen.add(s["source"]); hsrc.append(s)
-    hook = hsrc[rot % len(hsrc)]
+
+    # --- SAHNE HAFIZASI (gunluk_state.json): ardisik videolarda ortak sahne IMKANSIZ ---
+    try:
+        st = json.load(open(STATE_FILE, encoding="utf-8-sig"))
+    except Exception:
+        st = {}
+
+    # HOOK: tum havuz donmeden ayni hook gelmez
+    son_hook = st.get("son_hooklar", [])[-(len(hsrc) - 1):] if len(hsrc) > 1 else []
+    aday = [s for s in hsrc if s["source"] not in son_hook]
+    hook = aday[rot % len(aday)] if aday else hsrc[rot % len(hsrc)]
     used = {hook["source"]}
     chosen = [hook]
+
+    # GOVDE: sabit renk yayi = 2 soguk + 2 gecis + 1 sicak (soguk->sicak).
+    # Her renk kendi hafizasiyla doner (pencere = havuz boyutuna gore).
+    govde_st = st.get("govde", {})
+    PLAN = [("soguk", 2, 4), ("gecis", 2, 2), ("sicak", 1, 3)]  # (renk, adet, hafiza penceresi)
     random.shuffle(body)
-    for s in sorted(body, key=lambda x: COLOR_ORDER.get(x["color"], 1)):
-        if len(chosen) - 1 >= BODY_TARGET:
-            break
-        if s["source"] in used:
-            continue
-        chosen.append(s); used.add(s["source"])
-    chosen.append(random.choice(closing))
+    for renk, adet, pencere in PLAN:
+        son = govde_st.get(renk, [])[-pencere:]
+        havuz = [s for s in body if s["color"] == renk]
+        taze = [s for s in havuz if s["source"] not in son and s["source"] not in used]
+        yedek = [s for s in havuz if s["source"] not in used]
+        alinan = 0
+        for s in taze + [x for x in yedek if x not in taze]:
+            if alinan >= adet:
+                break
+            if s["source"] in used:
+                continue
+            chosen.append(s); used.add(s["source"]); alinan += 1
+            son = (son + [s["source"]])[-pencere:]
+        govde_st[renk] = son
+
+    # KAPANIS: son 4'te kullanilmayanlardan
+    son_kapanis = st.get("son_kapanis", [])[-4:]
+    kap_aday = [c for c in closing if c["source"] not in son_kapanis] or closing
+    kapanis = random.choice(kap_aday)
+    chosen.append(kapanis)
+
+    # hafizayi kaydet
+    st["son_hooklar"] = (son_hook + [hook["source"]])[-(len(hsrc) - 1):]
+    st["govde"] = govde_st
+    st["son_kapanis"] = (son_kapanis + [kapanis["source"]])[-4:]
+    with open(STATE_FILE, "w", encoding="utf-8") as f:
+        json.dump(st, f, ensure_ascii=False, indent=1)
     return chosen
 
 
