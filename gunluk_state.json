@@ -2,28 +2,30 @@
  "son_hooklar": [
   "hook18",
   "hook07",
-  "hook26"
+  "hook26",
+  "hook17"
  ],
  "govde": {
   "soguk": [
-   "kaygi05",
-   "kaygi09",
    "kaygi08",
-   "kaygi01"
+   "kaygi01",
+   "kaygi06",
+   "kaygi14"
   ],
   "gecis": [
-   "donusum05",
-   "donusum11"
+   "donusum07",
+   "donusum03"
   ],
   "sicak": [
-   "donusum02",
    "donusum04",
-   "donusum08"
+   "donusum08",
+   "donusum16"
   ]
  },
  "son_kapanis": [
   "kapanis07",
   "kapanis05",
-  "kapanis03"
+  "kapanis03",
+  "kapanis02"
  ]
 }
