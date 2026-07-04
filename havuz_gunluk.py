@@ -18,6 +18,27 @@ BLOTATO_BASE = "https://backend.blotato.com/v2"
 
 CAPTION = ("Your anxiety isn't broken - it's working exactly as designed. "
            '"Your Alarm Isn\'t Broken" by Daniel Vega. Save this for 3 a.m.')
+
+# VO index'iyle esli baslik + aciklama (seslendirme.json sirasi)
+META = [
+    {"title": "Your anxiety isn't broken - it's working as designed",
+     "caption": "It's not a glitch. It's an alarm - just set too loud. You can't switch it off, but you can train your response."},
+    {"title": "Why your brain replays everything at 3 a.m.",
+     "caption": "At 3 a.m. it replays everything at full volume. That's the alarm talking - not the truth."},
+    {"title": "That voice narrating everything that could go wrong",
+     "caption": "The narrator in your head listing everything that could go wrong is just the alarm, too loud. You can talk back."},
+    {"title": "Why anxiety spikes right before they call your name",
+     "caption": "Right before your name gets called, it spikes. That's not weakness - that's the alarm doing its job."},
+    {"title": "That feeling everyone's watching you? It's lying",
+     "caption": "The feeling that everyone's watching and judging is the alarm - lying about how loud it is."},
+    {"title": "Avoiding it makes the alarm louder",
+     "caption": "Every time you dodge what scares you, the alarm gets louder. Face it small - it quiets."},
+    {"title": "Racing heart, tight chest - here's what it actually is",
+     "caption": "Racing heart, tight chest. That's not you falling apart - that's the alarm doing its job."},
+    {"title": "Your anxiety is a signal, not a flaw",
+     "caption": "It's not a flaw - it's a signal, a little too sensitive. You can't delete it. You can only answer it."},
+]
+META_TAIL = "\n\n\u0022Your Alarm Isn't Broken\u0022 by Daniel Vega. Save this for 3 a.m."
 HASHTAGS = "#anxiety #anxietyrelief #teenmentalhealth #mentalhealth #overthinking"
 YT_TITLE = "Your anxiety isn't broken (save this for 3 a.m.)"
 AMAZON = "https://www.amazon.com/dp/B0H5926917"
@@ -197,15 +218,17 @@ def list_accounts():
     return out
 
 
-def content_for(platform, media_url):
-    text = CAPTION + "\n\n" + (AMAZON + "\n\n" if platform == "youtube" else "") + HASHTAGS
+def content_for(platform, media_url, meta=None):
+    base = (meta["caption"] + META_TAIL) if meta else CAPTION
+    text = base + "\n\n" + (AMAZON + "\n\n" if platform == "youtube" else "") + HASHTAGS
     return {"text": text, "mediaUrls": [media_url], "platform": platform}
 
 
-def target_for(platform, board_id=None):
+def target_for(platform, board_id=None, meta=None):
+    ttl = meta["title"] if meta else YT_TITLE
     if platform == "pinterest":
         return {"targetType": "pinterest", "boardId": board_id,
-                "title": PIN_TITLE, "link": PIN_LINK, "altText": PIN_ALT}
+                "title": ttl, "link": PIN_LINK, "altText": PIN_ALT}
     if platform == "tiktok":
         return {"targetType": "tiktok", "privacyLevel": "PUBLIC_TO_EVERYONE",
                 "disabledComments": False, "disabledDuet": False, "disabledStitch": False,
@@ -213,7 +236,7 @@ def target_for(platform, board_id=None):
     if platform == "instagram":
         return {"targetType": "instagram", "mediaType": "reel"}
     if platform == "youtube":
-        return {"targetType": "youtube", "title": YT_TITLE, "privacyStatus": "public",
+        return {"targetType": "youtube", "title": ttl, "privacyStatus": "public",
                 "shouldNotifySubscribers": False, "containsSyntheticMedia": True}
     return {"targetType": platform}
 
@@ -246,7 +269,7 @@ def get_pinterest_board(account_id):
     return None, None
 
 
-def post_all(media_url, accounts):
+def post_all(media_url, accounts, meta=None):
     pin_board = None
     if PINTEREST_ENABLED and accounts.get("pinterest"):
         pin_board, pin_name = get_pinterest_board(accounts["pinterest"][0]["id"])
@@ -259,8 +282,8 @@ def post_all(media_url, accounts):
         for a in accounts.get(platform, []):
             try:
                 post = {"accountId": str(a["id"]),
-                        "content": content_for(platform, media_url),
-                        "target": target_for(platform, pin_board)}
+                        "content": content_for(platform, media_url, meta),
+                        "target": target_for(platform, pin_board, meta)}
                 resp = blotato("/posts", "POST", {"post": post})
                 sub = resp.get("postSubmissionId") or resp.get("id")
                 print("   %s -> %s" % (platform, poll_post(sub) if sub else "submission yok"))
@@ -287,7 +310,9 @@ def main():
     slot = 0 if 16 <= h <= 21 else (1 if (h >= 22 or h <= 1) else 2)
     rot = gm.tm_yday * 3 + slot
     scenes = pick_scenes(manifest, rot)
-    vo = vos[rot % len(vos)]
+    vo_idx = rot % len(vos)
+    vo = vos[vo_idx]
+    meta = META[vo_idx % len(META)]
     print("Sahneler:", [s["source"] for s in scenes], "| VO:", vo[:40], "...")
     movie = build_movie(scenes, vo)
     url = render_video(movie)
@@ -295,7 +320,7 @@ def main():
     print("Dagitiliyor...")
     accounts = list_accounts()
     print("Hesaplar:", {p: len(v) for p, v in accounts.items()})
-    post_all(url, accounts)
+    post_all(url, accounts, meta)
     print("BITTI.")
 
 
