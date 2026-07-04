@@ -310,9 +310,19 @@ def main():
     slot = 0 if 16 <= h <= 21 else (1 if (h >= 22 or h <= 1) else 2)
     rot = gm.tm_yday * 3 + slot
     scenes = pick_scenes(manifest, rot)
-    vo_idx = rot % len(vos)
+    # VO hafizasi: tum varyantlar donmeden ayni VO/baslik gelmez
+    try:
+        _st = json.load(open(STATE_FILE, encoding="utf-8-sig"))
+    except Exception:
+        _st = {}
+    son_vo = _st.get("son_vo", [])[-(len(vos) - 1):] if len(vos) > 1 else []
+    vo_aday = [i for i in range(len(vos)) if i not in son_vo] or list(range(len(vos)))
+    vo_idx = vo_aday[rot % len(vo_aday)]
     vo = vos[vo_idx]
     meta = META[vo_idx % len(META)]
+    _st["son_vo"] = (son_vo + [vo_idx])[-(len(vos) - 1):]
+    with open(STATE_FILE, "w", encoding="utf-8") as f:
+        json.dump(_st, f, ensure_ascii=False, indent=1)
     print("Sahneler:", [s["source"] for s in scenes], "| VO:", vo[:40], "...")
     movie = build_movie(scenes, vo)
     url = render_video(movie)
