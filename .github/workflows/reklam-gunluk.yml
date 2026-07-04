@@ -8,6 +8,9 @@ on:
     - cron: '0 4 * * *'    # 21:00 LA (aksam prime)
   workflow_dispatch: {}     # elle test icin
 
+permissions:
+  contents: write
+
 jobs:
   yayinla:
     runs-on: ubuntu-latest
@@ -21,3 +24,13 @@ jobs:
           JSON2VIDEO_API_KEY: ${{ secrets.JSON2VIDEO_API_KEY }}
           BLOTATO_API_KEY: ${{ secrets.BLOTATO_API_KEY }}
         run: python havuz_gunluk.py
+      - name: Sahne hafizasini kaydet (tekrar onleme)
+        if: always()
+        run: |
+          git config user.name "reklam-bot"
+          git config user.email "actions@github.com"
+          git add gunluk_state.json
+          if git diff --cached --quiet; then echo "state degismedi"; exit 0; fi
+          git commit -m "state: sahne hafizasi [skip ci]"
+          git pull --rebase origin main
+          git push
