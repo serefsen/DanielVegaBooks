@@ -1,9 +1,0 @@
-﻿{
-  "id": "test01",
-  "arm": "faceless",
-  "script": "Every time you avoid the thing that scares you, you feel better for about an hour. Then it comes back, bigger. That's the trap. Anxiety isn't asking you to run, it's asking you to stay, just a little longer than feels comfortable. That's how you teach your brain it was never the emergency it felt like. I wrote the book I wish I'd had. The full toolkit's in my bio.",
-  "broll_prompt": "Multi-shot cinematic vertical sequence, handheld 24fps with subtle micro-jitter, practical lighting, film grain. SHOT 1 (0-3s): extreme close-up of a hand hesitating on a door handle, pulling back, knuckles tense, dim anxious blue light, shallow depth of field. SHOT 2 (3-6s): fast POV glimpses, a phone face-down, an unopened message notification, footsteps retreating down an empty hallway, cold restless energy. SHOT 3 (6-10s): the camera holds steady as the same hand slowly returns and grips the handle firmly, warm amber light beginning to spill in, tension transforming into quiet resolve, transition from cold blue to warm light. SHOT 4 (10-16s): a calm hand writing in an open notebook by soft warm light, steady pen strokes, a slow deliberate page turn, a deep exhale, hopeful grounded cinematic tone. No faces, no text overlays.",
-  "expected_sec": 20,
-  "voice_id": "MFZUKuGQUsGJPQjTS4wC",
-  "ai_label": true
-}
