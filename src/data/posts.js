@@ -1,5 +1,21 @@
 export const posts = [
   {
+    slug: "the-hidden-value-of-boredom-for-teens",
+    date: "2026-07-05",
+    readingTime: "3 min read",
+    tag: "Self-esteem",
+    title: "The Hidden Value of Boredom for Teens",
+    excerpt: "Explore why boredom is essential for teenage development and how screens are stealing this vital experience.",
+    body: [
+      "It's a common scene: a teenager sprawled on the couch, eyes glued to their phone, fingers flicking across the screen. In the digital age, moments of boredom are quickly filled with scrolling, tapping, and swiping, leaving little room for the quiet hum of doing nothing. But what if those moments of boredom are precisely what teenagers need?",
+      "Boredom often gets a bad rap, seen as something to be avoided or eliminated. Yet, it's in these very moments of stillness that creativity takes root and self-discovery begins. When teenagers are bored, they're given the rare opportunity to sit with their thoughts, explore their inner worlds, and engage in self-reflection. It's during these times that they might pick up a forgotten sketchbook, attempt a new recipe, or simply ponder life's big questions.",
+      "So, how can we reframe boredom from a nuisance to a nurturing space? Consider it a blank canvas. Without the constant buzz of notifications or the lure of endless content, teenagers are free to imagine, create, and even confront the uncomfortable feelings that might bubble up. This confrontation is essential, as it builds resilience and self-esteem, empowering them to navigate life's challenges with confidence.",
+      "One concrete tool to help teenagers embrace boredom is setting aside screen-free time. Start small: perhaps a half-hour each evening where phones, tablets, and computers are put away. Encourage them to engage in an activity of their choice—whether it's reading a book, going for a walk, or simply sitting outside and observing the world around them. During this time, allow them to experience the ebb and flow of their thoughts without interruption.",
+      "Incorporating these moments into their daily routine can help teenagers recognize and appreciate the value of boredom. It becomes a space where they can unplug and recharge, a place where ideas can flourish and self-discovery can thrive.",
+      "As you guide them through this process, remind them that it's okay to feel uncomfortable or restless at first. Like any new habit, embracing boredom takes practice. But in time, they'll come to see it not as an empty void, but as a fertile ground for growth and creativity. And who knows? The next big idea or passion might just be waiting in the quiet moments of boredom.",
+    ],
+  },
+  {
     slug: "recognizing-teen-depression-vs-a-hard-week",
     date: "2026-07-03",
     readingTime: "4 min read",
