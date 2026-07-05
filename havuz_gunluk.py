@@ -48,7 +48,7 @@ PIN_TITLE = YT_TITLE
 PIN_LINK = AMAZON
 PIN_ALT = "A short video on why teen anxiety isn't broken - from Your Alarm Isn't Broken by Daniel Vega."
 PINTEREST_BOARD_ID = ""   # bos = otomatik (ilk board). Belirli board icin ID yaz.
-PINTEREST_ENABLED = False  # Blotato dogrulamasi bekleniyor (100+ goruntulenme/ay). Dolunca True yap.
+PINTEREST_ENABLED = True   # acik: her calismada video Pinterest'e de gider (gunde 3)
 
 FALLBACK_VO = ("Your anxiety isn't broken. It's working exactly as designed. "
                "You can't switch it off - but you can train your response. "
