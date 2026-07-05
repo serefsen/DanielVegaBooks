@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-# GUNLUK: havuzdan 1 taze reklam uretir (JSON2Video) ve 3 platforma postlar (Blotato).
-# GitHub Actions cron gunde 3 kez calistirir. Env: JSON2VIDEO_API_KEY, BLOTATO_API_KEY.
-import os, sys, time, json, ssl, random, urllib.request, urllib.error
+# GUNLUK: havuzdan 1 taze reklam uretir (ffmpeg + ElevenLabs + Whisper) ve 4 platforma postlar (Blotato).
+# GitHub Actions cron gunde 3 kez calistirir. Env: ELEVENLABS_API_KEY, BLOTATO_API_KEY.
+import os, sys, time, json, ssl, random, subprocess, urllib.request, urllib.error
 
 CTX = ssl._create_unverified_context()
 UA = "Mozilla/5.0"
-J2V_KEY = os.environ.get("JSON2VIDEO_API_KEY", "").strip()
+ELEVEN_KEY = os.environ.get("ELEVENLABS_API_KEY", "").strip()
 BLOTATO_KEY = os.environ.get("BLOTATO_API_KEY", "").strip()
 MANIFEST = "manifest.json"
 STATE_FILE = "gunluk_state.json"   # kullanilan sahne hafizasi (tekrar onleme)
 VO_FILE = "seslendirme.json"
 
 VOICE_ID = "MFZUKuGQUsGJPQjTS4wC"
-J2V_CONNECTION = "daniel-eleven"
+ELEVEN_MODEL = "eleven_v3"
 COVER_URL = "https://danielvegabooks.com/image/186545.png"
 BLOTATO_BASE = "https://backend.blotato.com/v2"
 
@@ -155,52 +155,179 @@ def pick_scenes(manifest, rot):
     return chosen
 
 
-def build_movie(scenes, vo):
+def http_bytes(url, method="GET", data=None, headers=None):
+    h = {"User-Agent": UA}
+    if headers:
+        h.update(headers)
+    body = None
+    if data is not None:
+        body = json.dumps(data).encode("utf-8")
+        h["Content-Type"] = "application/json"
+    r = urllib.request.Request(url, data=body, headers=h, method=method)
+    with urllib.request.urlopen(r, context=CTX) as resp:
+        return resp.read()
+
+
+def eleven_tts(text, out_path):
+    """Daniel sesi: ElevenLabs'ten mp3 indir."""
+    url = "https://api.elevenlabs.io/v1/text-to-speech/" + VOICE_ID
+    raw = http_bytes(url, "POST", {"text": text, "model_id": ELEVEN_MODEL},
+                     {"xi-api-key": ELEVEN_KEY})
+    with open(out_path, "wb") as f:
+        f.write(raw)
+    return out_path
+
+
+def whisper_words(audio_path):
+    """Kelime bazli zaman damgalari (altyazi senkronu)."""
+    from faster_whisper import WhisperModel
+    model = WhisperModel("base", device="cpu", compute_type="int8")
+    segments, _ = model.transcribe(audio_path, language="en", word_timestamps=True)
+    words = []
+    for seg in segments:
+        for w in (seg.words or []):
+            txt = w.word.strip()
+            if txt:
+                words.append((txt, float(w.start), float(w.end)))
+    return words
+
+
+def _ass_escape(s):
+    return s.replace("\\", "").replace("{", "").replace("}", "")
+
+
+def build_ass(words, out_path, font="Roboto"):
+    """J2V gorunumu: alt-orta, 4 kelime/satir, konusulan kelime sari."""
+    header = (
+        "[Script Info]\nScriptType: v4.00+\nPlayResX: 1080\nPlayResY: 1920\n"
+        "WrapStyle: 2\nScaledBorderAndShadow: yes\n\n"
+        "[V4+ Styles]\n"
+        "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, "
+        "Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, "
+        "Alignment, MarginL, MarginR, MarginV, Encoding\n"
+        "Style: Alt,%s,72,&H00FFFFFF,&H00FFFFFF,&H00000000,&H7F000000,-1,0,0,0,100,100,0,0,1,5,2,2,60,60,300,1\n\n"
+        "[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n"
+    ) % font
+
+    def ts(sec):
+        sec = max(0.0, sec)
+        h = int(sec // 3600); m = int(sec % 3600 // 60); s = sec % 60
+        return "%d:%02d:%05.2f" % (h, m, s)
+
+    lines = [words[i:i + 4] for i in range(0, len(words), 4)]
+    ev = []
+    for line in lines:
+        line_end = line[-1][2]
+        for wi, (txt, ws, we) in enumerate(line):
+            start = ws
+            end = line[wi + 1][1] if wi + 1 < len(line) else line_end
+            if end <= start:
+                end = start + 0.05
+            parts = []
+            for wj, (t2, _, _) in enumerate(line):
+                t2 = _ass_escape(t2)
+                if wj == wi:
+                    parts.append("{\\1c&H00FFFF&}" + t2 + "{\\1c&HFFFFFF&}")
+                else:
+                    parts.append(t2)
+            ev.append("Dialogue: 0,%s,%s,Alt,,0,0,0,,%s" % (ts(start), ts(end), " ".join(parts)))
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(header + "\n".join(ev) + "\n")
+    return out_path
+
+
+def find_font():
+    """Roboto Bold dosya yolu (drawtext icin); yoksa DejaVu Bold."""
+    try:
+        out = subprocess.run(["fc-match", "-f", "%{file}", "Roboto:bold"],
+                             capture_output=True, text=True, timeout=10).stdout.strip()
+        if out and os.path.exists(out):
+            return out
+    except Exception:
+        pass
+    return "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+
+
+def download_clips(scenes, workdir):
+    paths = []
+    cache = {}
+    for i, s in enumerate(scenes):
+        if s["url"] in cache:
+            paths.append(cache[s["url"]]); continue
+        p = os.path.join(workdir, "klip%02d.mp4" % i)
+        with open(p, "wb") as f:
+            f.write(http_bytes(s["url"]))
+        cache[s["url"]] = p
+        paths.append(p)
+    return paths
+
+
+def ffmpeg_render(scenes, vo, workdir="_is"):
+    os.makedirs(workdir, exist_ok=True)
     total = sum(s["len"] for s in scenes)
-    j2v_scenes = []
-    for s in scenes:
-        vid = {"type": "video", "src": s["url"], "duration": s["len"]}
-        if s["seek"]:
-            vid["seek"] = s["seek"]
-        j2v_scenes.append({"comment": "%s/%s" % (s["role"], s["color"]),
-                           "duration": s["len"], "elements": [vid]})
-    movie = {
-        "width": 1080, "height": 1920, "quality": "high",
-        "scenes": j2v_scenes,
-        "elements": [
-            {"type": "voice", "text": vo, "model": "elevenlabs",
-             "voice": VOICE_ID, "connection": J2V_CONNECTION},
-            {"type": "subtitles", "language": "en", "model": "default",
-             "settings": {"max-words-per-line": 4, "position": "bottom-center", "font-size": 72}},
-            {"type": "image", "src": COVER_URL,
-             "start": total - 2, "duration": 2, "x": 290, "y": 250, "width": 500},
-            {"type": "text", "text": "danielvegabooks.com",
-             "start": total - 2, "duration": 2, "x": 0, "y": 880, "width": 1080, "height": 160,
-             "settings": {"font-size": "88px", "font-family": "Roboto", "font-weight": "700",
-                          "color": "#FFFFFF", "text-align": "center", "vertical-align": "top",
-                          "text-shadow": "3px 3px 6px rgba(0,0,0,0.7)"}},
-        ],
-    }
-    return movie
 
+    print("   ses: ElevenLabs...")
+    voice = eleven_tts(vo, os.path.join(workdir, "voice.mp3"))
+    print("   altyazi: Whisper zaman damgalari...")
+    words = whisper_words(voice)
+    ass = build_ass(words, os.path.join(workdir, "subs.ass"))
+    print("   klipler indiriliyor (%d sahne)..." % len(scenes))
+    clips = download_clips(scenes, workdir)
 
-def render_video(movie):
-    hdr = {"x-api-key": J2V_KEY}
-    resp = http("https://api.json2video.com/v2/movies", "POST", movie, hdr)
-    pid = resp.get("project") or resp.get("id")
-    if not pid:
-        raise RuntimeError("J2V project id yok: " + json.dumps(resp)[:300])
+    cover = os.path.join(workdir, "kapak.png")
+    with open(cover, "wb") as f:
+        f.write(http_bytes(COVER_URL))
+
+    font = find_font()
+    fc = []
+    for i, s in enumerate(scenes):
+        fc.append(
+            "[%d:v]trim=start=%s:duration=%s,setpts=PTS-STARTPTS,"
+            "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,"
+            "fps=30,setsar=1[v%d]" % (i, s["seek"], s["len"], i))
+    fc.append("".join("[v%d]" % i for i in range(len(scenes))) +
+              "concat=n=%d:v=1:a=0[vc]" % len(scenes))
+    fc.append("[%d:v]scale=500:-1[cov]" % len(scenes))
+    fc.append("[vc][cov]overlay=290:250:enable='gte(t,%d)'[ov]" % (total - 2))
+    fc.append(
+        "[ov]drawtext=fontfile=%s:text='danielvegabooks.com':fontsize=88:fontcolor=white:"
+        "x=(w-text_w)/2:y=880:shadowcolor=black@0.7:shadowx=3:shadowy=3:enable='gte(t,%d)'[tx]"
+        % (font, total - 2))
+    fc.append("[tx]ass=%s[vout]" % os.path.join(workdir, "subs.ass"))
+    fc.append("[%d:a]apad[aout]" % (len(scenes) + 1))
+
+    out = os.path.join(workdir, "reklam.mp4")
+    cmd = ["ffmpeg", "-y", "-loglevel", "error"]
+    for c in clips:
+        cmd += ["-i", c]
+    cmd += ["-i", cover, "-i", voice,
+            "-filter_complex", ";".join(fc),
+            "-map", "[vout]", "-map", "[aout]",
+            "-t", str(total), "-r", "30",
+            "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p",
+            "-c:a", "aac", "-b:a", "192k", out]
     t0 = time.time()
-    while True:
-        st = http("https://api.json2video.com/v2/movies?project=" + str(pid), "GET", None, hdr)
-        mv = st.get("movie", {})
-        status = mv.get("status")
-        print("   render: %s  gecen %ssn" % (status, int(time.time() - t0)))
-        if status == "done":
-            return mv.get("url")
-        if status == "error":
-            raise RuntimeError("J2V render hatasi: " + str(mv.get("message")))
-        time.sleep(6)
+    print("   render: ffmpeg basladi...")
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    if r.returncode != 0:
+        raise RuntimeError("ffmpeg hatasi: " + (r.stderr or "")[-400:])
+    print("   render: done  gecen %ssn" % int(time.time() - t0))
+    return out
+
+
+def blotato_upload(path):
+    """mp4'u Blotato'ya yukle -> public URL."""
+    resp = blotato("/media/uploads", "POST", {"filename": os.path.basename(path)})
+    pre = resp.get("presignedUrl"); pub = resp.get("publicUrl")
+    if not pre or not pub:
+        raise RuntimeError("Blotato presigned yanit bozuk: " + json.dumps(resp)[:200])
+    with open(path, "rb") as f:
+        data = f.read()
+    req = urllib.request.Request(pre, data=data, method="PUT",
+                                 headers={"Content-Type": "video/mp4", "User-Agent": UA})
+    with urllib.request.urlopen(req, context=CTX) as r:
+        r.read()
+    return pub
 
 
 # ---------- BLOTATO DAGITIM ----------
@@ -298,8 +425,8 @@ def post_all(media_url, accounts, meta=None):
 
 
 def main():
-    if not J2V_KEY or not BLOTATO_KEY:
-        print("HATA: JSON2VIDEO_API_KEY veya BLOTATO_API_KEY bos."); sys.exit(1)
+    if not ELEVEN_KEY or not BLOTATO_KEY:
+        print("HATA: ELEVENLABS_API_KEY veya BLOTATO_API_KEY bos."); sys.exit(1)
     manifest = load_json(MANIFEST, [])
     if not manifest:
         print("HATA: manifest.json yok/bos."); sys.exit(1)
@@ -324,8 +451,9 @@ def main():
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(_st, f, ensure_ascii=False, indent=1)
     print("Sahneler:", [s["source"] for s in scenes], "| VO:", vo[:40], "...")
-    movie = build_movie(scenes, vo)
-    url = render_video(movie)
+    out = ffmpeg_render(scenes, vo)
+    print("   yukleniyor (Blotato)...")
+    url = blotato_upload(out)
     print("Render bitti:", url)
     print("Dagitiliyor...")
     accounts = list_accounts()

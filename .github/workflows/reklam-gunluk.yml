@@ -11,6 +11,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: reklam-yayin
+  cancel-in-progress: false
+
 jobs:
   yayinla:
     runs-on: ubuntu-latest
@@ -19,9 +23,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Uret ve 3 platforma dagit
+      - name: Kurulum (ffmpeg + font + whisper)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-roboto fontconfig
+          pip install -q faster-whisper
+      - name: Uret (ffmpeg) ve 4 platforma dagit
         env:
-          JSON2VIDEO_API_KEY: ${{ secrets.JSON2VIDEO_API_KEY }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
           BLOTATO_API_KEY: ${{ secrets.BLOTATO_API_KEY }}
         run: python havuz_gunluk.py
       - name: Sahne hafizasini kaydet (tekrar onleme)
