@@ -1,5 +1,23 @@
 export const posts = [
   {
+    slug: "how-phones-impact-teen-sleep-patterns",
+    date: "2026-07-07",
+    readingTime: "4 min read",
+    tag: "Sleep",
+    title: "How Phones Impact Teen Sleep Patterns",
+    excerpt: "Teenagers' sleep is often disrupted by their phones, but there are practical ways to help them wind down.",
+    body: [
+      "The small glow of a phone screen lights up the bedroom. It's late, but you're not surprised; your teenager is scrolling through social media or texting friends. You wonder how this nightly ritual affects their sleep and overall well-being.",
+      "In a world where social connections and digital interactions happen at all hours, your teenager's phone can become a powerful magnet, drawing them away from restful sleep. It's not just the allure of staying connected; the blue light emitted by screens tricks their brain into thinking it's still daytime, making it difficult to wind down and fall asleep.",
+      "The first step in addressing this is to recognize the pattern. Your teen might say they're tired during the day or have a hard time getting up in the morning. Perhaps you've noticed mood swings or difficulty concentrating at school. These are signs that their sleep might be compromised.",
+      "One simple yet effective Cognitive Behavioral Therapy (CBT) tool that can help is establishing a consistent bedtime routine that signals to their brain it's time to wind down. Encourage your teenager to set a 'tech curfew' — a specific time each evening when they put their phone away. This could be an hour before bed, giving their mind a chance to relax and prepare for sleep without the interference of screen time.",
+      "To make this transition easier, involve them in creating a soothing pre-sleep routine. This might include activities like reading a book, taking a warm bath, or practicing relaxation techniques such as deep breathing or mindfulness. These activities can replace the phone scrolling habit, helping their brain and body to associate these cues with sleep.",
+      "It's essential to approach this with understanding and collaboration. Sit down with your teen and discuss the importance of sleep and how their phone usage might be interfering. Encourage them to share their thoughts and involve them in setting their own guidelines, so they feel a sense of ownership over the change.",
+      "By supporting your teenager in developing healthier bedtime habits, you're not just helping them get better sleep; you're equipping them with tools to manage their well-being. And as they rest better, they'll likely find they have more energy to tackle the day ahead, with improved mood and concentration.",
+      "Remember, the goal isn't to enforce strict rules but to guide your teen towards healthier habits that will benefit them in the long run. After all, a good night's sleep is one of the best gifts you can give them.",
+    ],
+  },
+  {
     slug: "the-hidden-value-of-boredom-for-teens",
     date: "2026-07-05",
     readingTime: "3 min read",
