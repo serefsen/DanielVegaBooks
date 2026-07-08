@@ -424,6 +424,58 @@ def post_all(media_url, accounts, meta=None):
                 print("   %s HATA: %s" % (platform, e))
 
 
+
+# ================= YOUTUBE OZEL KAPAK (hook ilk karesi) =================
+YT_CID  = os.environ.get("YT_CLIENT_ID", "")
+YT_CSEC = os.environ.get("YT_CLIENT_SECRET", "")
+YT_RT   = os.environ.get("YT_REFRESH_TOKEN", "")
+
+def yt_token():
+    body = ("client_id=%s&client_secret=%s&refresh_token=%s&grant_type=refresh_token"
+            % (YT_CID, YT_CSEC, YT_RT)).encode()
+    r = urllib.request.Request("https://oauth2.googleapis.com/token", data=body,
+        headers={"Content-Type": "application/x-www-form-urlencoded", "User-Agent": "Mozilla/5.0"}, method="POST")
+    return json.loads(urllib.request.urlopen(r, context=CTX, timeout=30).read())["access_token"]
+
+def yt_api(token, path):
+    r = urllib.request.Request("https://www.googleapis.com/youtube/v3/" + path,
+        headers={"Authorization": "Bearer " + token, "User-Agent": "Mozilla/5.0"})
+    return json.loads(urllib.request.urlopen(r, context=CTX, timeout=30).read())
+
+def yt_video_bul(token, title, deneme=9, bekle=20):
+    ch = yt_api(token, "channels?part=contentDetails&mine=true")
+    pl = ch["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
+    t0 = time.time()
+    for n in range(1, deneme + 1):
+        items = yt_api(token, "playlistItems?part=snippet&maxResults=5&playlistId=" + pl).get("items", [])
+        for it in items:
+            if it["snippet"]["title"].strip() == title.strip():
+                return it["snippet"]["resourceId"]["videoId"]
+        print("   yt-kapak: video araniyor... deneme %d/%d (gecen %dsn)" % (n, deneme, int(time.time() - t0)))
+        time.sleep(bekle)
+    return None
+
+def yt_kapak(video_path, title):
+    if not (YT_CID and YT_CSEC and YT_RT):
+        print("   yt-kapak: secrets yok, atlandi"); return
+    thumb = "_is/kapak_kare.jpg"
+    r = subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", "0.3", "-i", video_path,
+                        "-frames:v", "1", "-q:v", "3", thumb], capture_output=True, text=True)
+    if r.returncode != 0 or not os.path.exists(thumb):
+        print("   yt-kapak: kare cikarilamadi, atlandi"); return
+    token = yt_token()
+    vid = yt_video_bul(token, title)
+    if not vid:
+        print("   yt-kapak: video bulunamadi (baslik eslesmedi), atlandi"); return
+    data = open(thumb, "rb").read()
+    req = urllib.request.Request(
+        "https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=" + vid,
+        data=data, headers={"Authorization": "Bearer " + token,
+                            "Content-Type": "image/jpeg", "User-Agent": "Mozilla/5.0"}, method="POST")
+    urllib.request.urlopen(req, context=CTX, timeout=60).read()
+    print("   yt-kapak: ATANDI (video %s, hook karesi)" % vid)
+
+
 def main():
     if not ELEVEN_KEY or not BLOTATO_KEY:
         print("HATA: ELEVENLABS_API_KEY veya BLOTATO_API_KEY bos."); sys.exit(1)
@@ -459,6 +511,10 @@ def main():
     accounts = list_accounts()
     print("Hesaplar:", {p: len(v) for p, v in accounts.items()})
     post_all(url, accounts, meta)
+    try:
+        yt_kapak(out, (meta or {}).get("title") or YT_TITLE)
+    except Exception as e:
+        print("   yt-kapak HATA (akis etkilenmedi):", e)
     print("BITTI.")
 
 
