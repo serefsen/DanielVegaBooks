@@ -22,38 +22,39 @@
   "hook28",
   "hook30",
   "hook04",
-  "hook29"
+  "hook29",
+  "hook25"
  ],
  "govde": {
   "soguk": [
-   "kaygi13",
-   "kaygi14",
    "kaygi04",
-   "kaygi02"
+   "kaygi02",
+   "kaygi12",
+   "kaygi07"
   ],
   "gecis": [
-   "donusum12",
-   "donusum17"
+   "donusum19",
+   "donusum18"
   ],
   "sicak": [
-   "donusum15",
    "donusum16",
-   "donusum21"
+   "donusum21",
+   "donusum20"
   ]
  },
  "son_kapanis": [
-  "kapanis08",
   "kapanis05",
   "kapanis06",
-  "kapanis02"
+  "kapanis02",
+  "kapanis04"
  ],
  "son_vo": [
-  0,
   1,
   7,
   2,
   5,
   4,
-  3
+  3,
+  6
  ]
 }
