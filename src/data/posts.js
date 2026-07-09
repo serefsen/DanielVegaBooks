@@ -1,5 +1,26 @@
 export const posts = [
   {
+    slug: "escaping-the-social-media-comparison-trap",
+    date: "2026-07-09",
+    readingTime: "4 min read",
+    tag: "Self-esteem",
+    title: "Escaping the Social Media Comparison Trap",
+    excerpt: "Guide your teen through the perils of social media comparisons with a simple CBT tool designed to boost self-esteem.",
+    body: [
+      "It's a typical evening scene: your teenager is sprawled on the couch, phone in hand, scrolling through an endless stream of posts. A quick glance shows a friend on vacation, another flaunting a new outfit, and yet another celebrating a big achievement. Each image and update seems to quietly whisper, 'Why aren't you doing something amazing too?' This is the comparison trap of social media, a familiar snare for many teens.",
+      "In the digital age, the urge to compare ourselves to the often curated and polished images of others is almost irresistible. The result can be a plummet in self-esteem, as your teen might begin to feel that they're not measuring up. This isn't just about envy; it's about the subtle pressure to constantly evaluate one's worth against others'.",
+      "But there's a way to help your teen navigate this tricky landscape without falling into despair: Cognitive Behavioral Therapy (CBT) offers a practical tool called 'Thought Checking'.",
+      "Thought Checking is a simple, yet powerful exercise that encourages teens to pause and evaluate their immediate reactions to social media posts. Here's how it works:",
+      "1. **Pause and Identify**: When your teen catches themselves feeling down after comparing, encourage them to pause and identify what exactly triggered this feeling. Was it a post about a friend's success, a picture-perfect moment, or a casual brag?",
+      "2. **Examine the Thought**: Ask them to examine the thought that followed. Did they think, 'I'm not good enough,' or 'I'll never have that'? Help them understand that these thoughts are automatic responses, not truths.",
+      "3. **Challenge the Thought**: Guide them to challenge these negative thoughts. Is it realistic or fair to expect that they should constantly match up to others' highlight reels? Help them see that everyone has struggles and that social media rarely shows the full picture.",
+      "4. **Replace with a Balanced Thought**: Encourage them to replace the negative thought with a more balanced one. For example, 'It's great they had that opportunity, but I have my own strengths and achievements too.'",
+      "By practicing Thought Checking, teens can begin to build resilience against the negative impacts of social media comparisons. It fosters a healthier self-esteem by shifting focus from what they lack to what they have and can achieve.",
+      "As a parent, teacher, or counselor, support and reinforce this practice by discussing and modeling it in your interactions. Remind your teen that everyone's journey is unique and that their worth isn't measured by likes or followers.",
+      "In a world where social media is a constant companion, helping your teen escape the comparison trap isn't about eliminating these platforms but empowering them to navigate them with confidence and self-acceptance.",
+    ],
+  },
+  {
     slug: "how-phones-impact-teen-sleep-patterns",
     date: "2026-07-07",
     readingTime: "4 min read",
