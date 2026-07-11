@@ -1,5 +1,23 @@
 export const posts = [
   {
+    slug: "helping-teens-manage-discomfort-with-grace",
+    date: "2026-07-11",
+    readingTime: "4 min read",
+    tag: "Self-esteem",
+    title: "Helping Teens Manage Discomfort with Grace",
+    excerpt: "Teaching teenagers to handle discomfort can build resilience and confidence. Here's how a simple CBT tool can help them navigate challenging emotions.",
+    body: [
+      "The dinner table is set, and you're in the middle of a conversation about your day when your teenager suddenly shuts down. The topic of an upcoming presentation comes up, and you can see it—the furrowed brow, the crossed arms, the slight slump in their posture. It's the look of discomfort, a feeling we all recognize but might struggle to address.",
+      "In these moments, it can be tempting to rush in with reassurances or solutions, hoping to ease the tension. But instead of smoothing over the discomfort, what if we helped our teenagers to sit with it, to understand it, and to grow from it? This is where Cognitive Behavioral Therapy (CBT) can offer a useful framework.",
+      "Discomfort is a part of life that everyone experiences, but learning to manage it effectively is not something that comes naturally to everyone. It can be reframed as an opportunity for growth rather than something to avoid. Imagine discomfort as a wave—it rises, peaks, and eventually falls away. Teaching teenagers to ride this wave can be empowering, allowing them to face challenges head-on with resilience.",
+      "One practical CBT tool to help teenagers manage discomfort is the \"Thought Record\". This technique involves writing down a specific situation that triggers discomfort, identifying the thoughts and feelings associated with it, and then challenging these thoughts with evidence. For example, if your teen feels anxious about a class presentation, they might write down, \"I'm going to mess up and everyone will laugh at me.\" Then, they can challenge this thought by considering evidence like past successful presentations or the supportive nature of their classmates.",
+      "By externalizing their thoughts and examining them critically, teenagers can gain perspective and see that discomfort is temporary and often not as overwhelming as it seems. This process not only helps them manage their current feelings but also builds their confidence for future situations.",
+      "Encourage your teenager to practice this tool regularly. It may feel awkward at first, but like any skill, it becomes more natural with time. As they become more adept at identifying and challenging their unhelpful thoughts, they'll find that discomfort isn't something to fear, but rather a stepping stone to personal growth.",
+      "Incorporating these practices into everyday life doesn't have to be a grand gesture. It can be as simple as checking in with them after a challenging day, encouraging them to share what they're feeling, and guiding them through the Thought Record process.",
+      "Helping your teenager learn to sit with discomfort won't eliminate all their challenges, but it will equip them with the tools to face them with courage and resilience. And isn't that what we all want for them—a strong foundation to build their self-esteem and navigate life's ups and downs with grace?",
+    ],
+  },
+  {
     slug: "escaping-the-social-media-comparison-trap",
     date: "2026-07-09",
     readingTime: "4 min read",
