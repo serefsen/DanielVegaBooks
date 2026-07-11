@@ -25,4 +25,7 @@ jobs:
           git config user.email "actions@github.com"
           git add public/pins/book-1.png public/pins/book-2.png public/pins/book-3.png
           git commit -m "regen: kitap pinleri duz kapaklarla yenilendi [skip ci]" || echo "degisiklik yok"
-          git push
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && break
+            echo "push carpismasi, deneme $i/5 - 10sn bekleniyor"; sleep 10
+          done
