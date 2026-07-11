@@ -437,6 +437,42 @@ YT_CID  = os.environ.get("YT_CLIENT_ID", "")
 YT_CSEC = os.environ.get("YT_CLIENT_SECRET", "")
 YT_RT   = os.environ.get("YT_REFRESH_TOKEN", "")
 
+
+# Kapak baslik havuzu: index = hook numarasi (hookNN -> KAPAK_YAZILAR[NN-1])
+KAPAK_YAZILAR = [
+    "TRAIN THE ALARM", "FIX YOUR 3 AM BRAIN", "STOP THE SPIRAL", "REWIRE THE PANIC",
+    "THE 90 SECOND RESET", "OUTSMART YOUR ANXIETY", "THE AVOIDANCE TRAP", "WHY YOUR BRAIN LIES",
+    "SHUT DOWN THE SPOTLIGHT", "THE ALARM IS NOT YOU", "ANXIETY HAS A MANUAL", "STOP REPLAYING EVERYTHING",
+    "THE OVERTHINKING EXIT", "YOUR BRAIN ON PANIC", "TAME THE INNER ANNOUNCER", "THE FEAR VOLUME DIAL",
+    "ANXIETY IS TRAINABLE", "THE 3 AM PLAYBOOK", "BREAK THE WORRY LOOP", "PANIC HAS A PATTERN",
+    "THE TEEN ANXIETY FIX", "QUIET THE NOISE", "STOP DODGING LIFE", "THE RACING HEART DECODED",
+    "ANXIETY SPEAKS FIRST", "RETRAIN THE RESPONSE", "THE WATCHED FEELING LIE", "EXIT THE PANIC LOOP",
+    "YOUR ALARM RUNS HOT", "SIGNAL NOT DEFECT",
+    "THE PANIC OFF SWITCH MYTH", "YOUR FEAR IS LOUD NOT TRUE", "THE SPOTLIGHT IS FAKE", "UNLEARN THE FLINCH",
+    "THE WORRY REPLAY BUTTON", "ANXIETY BEFORE EXAMS", "THE FIRST STEP IS SMALL", "YOUR HEART IS NOT THE ENEMY",
+    "THE 2 MINUTE GROUND RULE", "STOP FEEDING THE LOOP", "THE BRAVE IS BUILT DAILY", "WHAT PANIC WANTS",
+    "THE HIDDEN COST OF HIDING", "READ YOUR OWN ALARM", "THE CLASSROOM FREEZE FIX", "NIGHT BRAIN VS DAY BRAIN",
+    "THE SILENT SPIRAL", "COURAGE IS A REP", "THE AVOIDANCE TAX", "YOUR BODY KEEPS SCORE",
+    "THE NAME IT TAME IT TRICK", "PANIC PEAKS THEN FALLS", "THE 5 SENSE ANCHOR", "STOP THE WHAT IFS",
+    "THE PHONE AT 3 AM TRAP", "FEAR SHRINKS ON CONTACT", "THE GROUP CHAT DREAD", "TRAIN SMALL WIN BIG",
+    "THE PRESENTATION PANIC FIX", "YOUR ALARM NEEDS A COACH", "THE SUNDAY NIGHT SPIRAL", "ANXIETY HATES ACTION",
+    "THE BREATH IS A TOOL", "OVERPREPARING BACKFIRES", "THE EXIT SEAT HABIT", "FEELINGS ARE NOT FACTS",
+    "THE CAFETERIA WALK", "RIDE THE WAVE OUT", "THE TEXT LEFT ON READ", "PANIC IS A FALSE FIRE DRILL",
+    "THE HALLWAY EYES MYTH", "SMALL EXPOSURES WIN", "THE RUMINATION CUTOFF", "YOUR BRAIN PREDICTS WRONG",
+    "THE FIRST DAY PLAYBOOK", "DISCOMFORT IS DATA", "THE SAFE ZONE SHRINKS YOU", "ALARMS LIE ABOUT DANGER",
+    "THE PARTY DOOR MOMENT", "REWRITE THE SCRIPT", "THE MORNING DREAD RESET", "ANXIETY IS NOT IDENTITY",
+    "THE RAISED HAND FEAR", "ACT BEFORE READY", "THE PERFECT ANSWER TRAP", "YOUR WINDOW OF CALM",
+    "THE BUS SEAT PANIC", "FEAR OF THE FEAR ITSELF", "THE STREAK METHOD", "LOUD MIND QUIET TOOLS",
+]
+
+
+def kapak_yazisi(hook_src):
+    # hook-kilitli + 10 gunluk blok kaymasi: ayni hook her turda farkli baslik alir,
+    # 30 gun boyunca hicbir baslik tekrarlanmaz (90 baslik / 30 hook / 3 blok).
+    n = int("".join(ch for ch in str(hook_src) if ch.isdigit()) or 1)
+    blok = (time.gmtime().tm_yday // 10) * 30
+    return KAPAK_YAZILAR[(n - 1 + blok) % len(KAPAK_YAZILAR)]
+
 def yt_token():
     body = ("client_id=%s&client_secret=%s&refresh_token=%s&grant_type=refresh_token"
             % (YT_CID, YT_CSEC, YT_RT)).encode()
@@ -462,7 +498,7 @@ def yt_video_bul(token, title, deneme=9, bekle=20):
         time.sleep(bekle)
     return None
 
-def yt_kapak(video_path, title):
+def yt_kapak(video_path, title, hook_src=""):
     if not (YT_CID and YT_CSEC and YT_RT):
         print("   yt-kapak: secrets yok, atlandi"); return
     thumb = "_is/kapak_kare.jpg"
@@ -470,6 +506,20 @@ def yt_kapak(video_path, title):
                         "-frames:v", "1", "-q:v", "3", thumb], capture_output=True, text=True)
     if r.returncode != 0 or not os.path.exists(thumb):
         print("   yt-kapak: kare cikarilamadi, atlandi"); return
+    yazi = kapak_yazisi(hook_src)
+    txt = "_is/kapak_yazi.txt"
+    open(txt, "w", encoding="utf-8").write(yazi)
+    font = find_font().replace(":", "\\:")
+    thumb2 = "_is/kapak_kare2.jpg"
+    r2 = subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", thumb, "-vf",
+        "drawtext=fontfile=%s:textfile=%s:fontsize=96:fontcolor=white:borderw=8:bordercolor=black:"
+        "x=(w-text_w)/2:y=190" % (font, txt),
+        "-q:v", "3", thumb2], capture_output=True, text=True)
+    if r2.returncode == 0 and os.path.exists(thumb2):
+        thumb = thumb2
+        print("   yt-kapak yazisi: " + yazi)
+    else:
+        print("   yt-kapak: yazi bindirilemedi, ciplak kare kullanilacak")
     token = yt_token()
     vid = yt_video_bul(token, title)
     if not vid:
@@ -519,7 +569,7 @@ def main():
     print("Hesaplar:", {p: len(v) for p, v in accounts.items()})
     post_all(url, accounts, meta)
     try:
-        yt_kapak(out, (meta or {}).get("title") or YT_TITLE)
+        yt_kapak(out, (meta or {}).get("title") or YT_TITLE, scenes[0]["source"])
     except Exception as e:
         print("   yt-kapak HATA (akis etkilenmedi):", e)
     print("BITTI.")
