@@ -414,12 +414,15 @@ def post_all(media_url, accounts, meta=None):
                 resp = blotato("/posts", "POST", {"post": post})
                 sub = resp.get("postSubmissionId") or resp.get("id")
                 sonuc = poll_post(sub) if sub else "submission yok"
-                if platform == "pinterest" and str(sonuc).startswith("failed"):
-                    print("   pinterest -> failed, 60sn sonra tekrar denenecek (kararsiz dogrulama)")
-                    time.sleep(60)
-                    resp = blotato("/posts", "POST", {"post": post})
-                    sub = resp.get("postSubmissionId") or resp.get("id")
-                    sonuc = poll_post(sub) if sub else "submission yok"
+                if platform == "pinterest":
+                    for bekle in (120, 300):
+                        if not str(sonuc).startswith("failed"):
+                            break
+                        print("   pinterest -> failed, %dsn sonra tekrar denenecek (kararsiz dogrulama)" % bekle)
+                        time.sleep(bekle)
+                        resp = blotato("/posts", "POST", {"post": post})
+                        sub = resp.get("postSubmissionId") or resp.get("id")
+                        sonuc = poll_post(sub) if sub else "submission yok"
                 print("   %s -> %s" % (platform, sonuc))
             except urllib.error.HTTPError as e:
                 try:
