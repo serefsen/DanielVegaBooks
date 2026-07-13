@@ -1,5 +1,23 @@
 export const posts = [
   {
+    slug: "when-anxiety-wears-the-mask-of-laziness",
+    date: "2026-07-13",
+    readingTime: "3 min read",
+    tag: "Anxiety",
+    title: "When Anxiety Wears the Mask of Laziness",
+    excerpt: "Explore how anxiety in teens can be mistaken for laziness and learn a simple CBT tool to help.",
+    body: [
+      "It's Sunday afternoon, and your teenager is still in pajamas, staring blankly at a screen while the to-do list remains untouched. You might feel your patience wearing thin, tempted to label this behavior as laziness. Yet, beneath the surface, there might be more than meets the eye. What if this is not a lack of motivation, but anxiety in disguise?",
+      "Teenagers often grapple with a unique blend of stressors—academic expectations, social pressures, and the quest for identity. These can sometimes culminate in anxiety that manifests as avoidance. The tasks seem overwhelming, the stakes too high, and the easiest escape route is procrastination.",
+      "Instead of seeing laziness, consider reframing it as a cycle of anxious avoidance. This doesn't mean ignoring responsibilities or giving up on encouraging productivity. It involves understanding the root cause and addressing it with empathy and effective tools.",
+      "One powerful Cognitive Behavioral Therapy (CBT) tool to help break this cycle is the \"Task Breakdown.\" This technique involves taking an overwhelming task and dissecting it into smaller, more manageable parts. When a task feels colossal, the brain's fight-or-flight response might kick in, causing a freeze reaction. But when that same task is divided into bite-sized actions, it becomes less intimidating.",
+      "Here's how it works: Suppose your teen has an essay due. Instead of focusing on the daunting task of 'writing an essay,' guide them to start with 'choosing a topic,' then 'researching for 20 minutes,' followed by 'creating an outline,' and so on. Each step is a mini-achievement, providing a sense of progress and reducing anxiety.",
+      "Encourage them to jot down each step and celebrate small victories as they check off items on their list. This approach not only builds a sense of accomplishment but also teaches a valuable life skill—how to tackle big problems by breaking them down. Over time, this can help decrease the anxiety that masquerades as avoidance.",
+      "Anxiety is a silent companion for many teens, often misinterpreted as laziness or indifference. Recognizing this can transform your approach from frustration to support. With understanding and the right tools, you can help guide them through these moments, fostering resilience and confidence along the way.",
+      "Remember, it's not about solving every issue overnight, but about taking small, consistent steps towards understanding and managing anxiety. Your presence and patience can make all the difference.",
+    ],
+  },
+  {
     slug: "helping-teens-manage-discomfort-with-grace",
     date: "2026-07-11",
     readingTime: "4 min read",
