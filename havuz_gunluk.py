@@ -288,11 +288,11 @@ def ffmpeg_render(scenes, vo, workdir="_is"):
     fc.append("".join("[v%d]" % i for i in range(len(scenes))) +
               "concat=n=%d:v=1:a=0[vc]" % len(scenes))
     fc.append("[%d:v]scale=500:-1[cov]" % len(scenes))
-    fc.append("[vc][cov]overlay=290:250:enable='gte(t,%d)'[ov]" % (total - 2))
+    fc.append("[vc][cov]overlay=290:250:enable='gte(t,%d)'[ov]" % (total - 3))
     fc.append(
         "[ov]drawtext=fontfile=%s:text='danielvegabooks.com':fontsize=88:fontcolor=white:"
         "x=(w-text_w)/2:y=880:shadowcolor=black@0.7:shadowx=3:shadowy=3:enable='gte(t,%d)'[tx]"
-        % (font, total - 2))
+        % (font, total - 3))
     fc.append("[tx]ass=%s[vout]" % os.path.join(workdir, "subs.ass"))
     fc.append("[%d:a]apad[aout]" % (len(scenes) + 1))
 
