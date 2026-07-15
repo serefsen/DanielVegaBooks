@@ -1,5 +1,23 @@
 export const posts = [
   {
+    slug: "understanding-why-teens-skip-lunch-at-school",
+    date: "2026-07-15",
+    readingTime: "4 min read",
+    tag: "Self-esteem",
+    title: "Understanding Why Teens Skip Lunch at School",
+    excerpt: "Skipping lunch at school can be more than just a fleeting choice; it often signals something deeper. Let's explore one tool to address this behavior.",
+    body: [
+      "The cafeteria is bustling with noise, laughter echoing off the walls, yet your teenager sits alone, poking at their food or skipping lunch altogether. At home, their explanation is vague, a shrug or a mumbled \"not hungry.\" This seemingly small refusal to eat can be a window into a larger issue.",
+      "When a teenager stops eating lunch at school, it's often not about the food. It's a choice that might be rooted in self-esteem challenges. Social dynamics in school cafeterias can be daunting — the pressure to fit in, the fear of judgment, or simply feeling out of place can turn lunch into a battleground.",
+      "Reframing this behavior starts with understanding the underlying narrative. Instead of focusing solely on the skipped meal, consider what it might represent. Is your teenager feeling isolated? Are they anxious about social interactions? Or perhaps they are dealing with a negative self-image?",
+      "One effective CBT tool to address this is 'Thought Record.' This practical exercise helps teens capture and evaluate the thoughts that lead to their behaviors. Encourage your teenager to keep a small notebook where they jot down the thoughts and feelings they experience during lunchtime. What are they thinking when they decide to skip lunch? What emotions surface when they enter the cafeteria?",
+      "Once these thoughts are recorded, guide them through the process of examining these entries. Are the thoughts based on facts, or are they assumptions fueled by insecurity? For instance, \"Everyone will judge me\" can be challenged by asking, \"Is this true? What evidence do I have for and against this thought?\" By dissecting these thoughts, teens can start to see patterns and recognize that their fears might not be as insurmountable as they feel.",
+      "The goal is not to force them to eat lunch in the cafeteria but to empower them to understand and manage their emotions. Over time, this process can help them develop a more positive self-image and build resilience against social pressures.",
+      "As you guide your teen through this journey, remember that change takes time. Encourage them gently, celebrate small victories, and provide a safe space for them to express their feelings. By doing so, you're not only addressing the skipped lunches but nurturing their overall well-being.",
+      "In the end, it's about helping them find their footing, not just in the cafeteria, but in the world around them. And that gentle support can make all the difference.",
+    ],
+  },
+  {
     slug: "when-anxiety-wears-the-mask-of-laziness",
     date: "2026-07-13",
     readingTime: "3 min read",
