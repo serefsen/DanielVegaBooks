@@ -1,5 +1,27 @@
 export const posts = [
   {
+    slug: "the-5-minute-body-scan-for-teens",
+    date: "2026-07-17",
+    readingTime: "5 min read",
+    tag: "Anxiety",
+    title: "The 5-Minute Body Scan for Teens",
+    excerpt: "Help your teenager reset and find calm with a simple, five-minute body scan exercise that eases overwhelming feelings.",
+    body: [
+      "The school day is over, but your teenager is still buzzing with nervous energy. Homework, social dynamics, and extracurriculars stack up like a teetering pile of Jenga blocks, threatening to topple at any moment. It's a familiar scene: your teen sits at the dinner table, seemingly staring at their plate, but their mind is racing a mile a minute.",
+      "This mix of stress and anxiety is something many teens experience. It's that overwhelming sensation when tasks and worries blend into an indistinct blur, making everything feel urgent and unmanageable. But there's a way to help your teenager find their footing again, and it doesn't require special equipment or lengthy sessions — just five minutes and a quiet space.",
+      "Introducing the body scan, a simple yet effective tool from the toolbox of cognitive behavioral therapy (CBT). The body scan is a mindfulness exercise that helps shift focus from the mental whirlwind to the physical sensations of the body. By doing this, it grounds the person in the present moment, offering a sense of calm and control.",
+      "Here's how you can guide your teen through a quick body scan:",
+      "1. **Find a Quiet Spot**: Encourage your teen to sit or lie down in a comfortable position in a quiet space. Ask them to close their eyes and take a few deep breaths, slowly inhaling through the nose and exhaling through the mouth.",
+      "2. **Start at the Feet**: Direct their attention to their feet. Ask them to notice any sensations, such as tingling, warmth, or pressure. The idea is not to change anything but to simply observe.",
+      "3. **Move Up the Body**: Gradually guide them to move their focus up through each part of their body, spending a few moments on each area — ankles, calves, knees, thighs, hips, stomach, chest, hands, arms, shoulders, neck, and finally the head. With each part, they should notice any tension or relaxation, warmth, or coolness.",
+      "4. **Acknowledge and Release**: Encourage them to acknowledge any tension they find and imagine releasing it with each exhale. This step reinforces the feeling of letting go of stress.",
+      "5. **Return to Breath**: Once they've scanned their whole body, have them bring their attention back to their breath. Let them take a few more deep breaths before slowly opening their eyes.",
+      "This simple body scan not only helps your teenager become more aware of their physical state, but it also serves to interrupt the cycle of anxious thoughts, allowing them to regain a sense of calm. It's a tool they can use anytime — before tackling homework, after a stressful day, or even right before bed.",
+      "Helping your teen develop a habit of checking in with themselves through a body scan can be a powerful way to manage anxiety. It fosters a sense of control over their internal environment, which is a comforting thought in the whirlwind of adolescence. As with any skill, the more they practice, the more effective it becomes.",
+      "So, the next time your teen is feeling overwhelmed, suggest taking a five-minute break for a body scan. It might just be the reset they need to face their challenges with renewed clarity and calm.",
+    ],
+  },
+  {
     slug: "understanding-why-teens-skip-lunch-at-school",
     date: "2026-07-15",
     readingTime: "4 min read",
