@@ -1,5 +1,24 @@
 export const posts = [
   {
+    slug: "when-test-anxiety-freezes-your-teen",
+    date: "2026-07-19",
+    readingTime: "4 min read",
+    tag: "Academic stress",
+    title: "When Test Anxiety Freezes Your Teen",
+    excerpt: "Explore why teenagers freeze during tests and learn a practical CBT tool to help them stay calm and focused.",
+    body: [
+      "The room is silent except for the soft rustle of papers and the occasional squeak of a chair. Your teenager sits rigid at their desk, staring blankly at the test in front of them. Last night, they went over every detail, every formula, every fact. Yet now, in the moment that counts, the answers that were once clear have vanished, leaving only panic in their place.",
+      "This kind of freeze is all too common and often sneaks up on students who feel prepared. It's not about a lack of knowledge; it's an overwhelming flood of stress and doubt that pushes everything they know into the shadows. This is what we call test anxiety — a sudden, sharp fear of failure that can paralyze even the most capable student.",
+      "Understanding this response is the first step to overcoming it. Test anxiety isn't a reflection of ability; it's a reaction to pressure. When the stakes feel high, and the expectations loom large, the brain's natural response is to enter fight-or-flight mode. But instead of running or fighting, in an exam room, the response is freeze.",
+      "One effective tool from Cognitive Behavioral Therapy (CBT) that can help manage this anxiety is called 'Grounding.' Grounding techniques are simple yet powerful ways to anchor the mind in the present, breaking the cycle of panic.",
+      "Here's a practical grounding exercise your teen can use before or even during a test: **5-4-3-2-1 Senses.** Encourage them to notice:",
+      "- **5 things they can see**: the color of the walls, the number of lights in the room, or the details on their desk.\n- **4 things they can feel**: the texture of their clothing, the chair beneath them, the pen in their hand.\n- **3 things they can hear**: the ticking of a clock, the shuffle of papers, the hum of the lights.\n- **2 things they can smell**: the scent of paper, their own perfume or aftershave.\n- **1 thing they can taste**: perhaps a mint or simply the taste of their own mouth.",
+      "This exercise pulls focus away from the racing thoughts and back to the physical world, easing the mind into a state of calm. It’s a way to remind the brain that it’s safe, that there’s no immediate threat, and that they are in control.",
+      "As they practice grounding, remind your teen that it's okay to take a moment to breathe, to find their center. Academic pressure is intense, but by learning to manage the stress, it becomes just another part of the process, not a barrier. Encourage them to practice this in low-stakes situations until it becomes second nature.",
+      "By equipping your teenager with tools like grounding, you're not just helping them to perform better on tests; you're giving them lifelong skills to manage stress and anxiety. It's a gentle way to remind them that they have the power to move from panic to poise, one breath at a time.",
+    ],
+  },
+  {
     slug: "the-5-minute-body-scan-for-teens",
     date: "2026-07-17",
     readingTime: "5 min read",
