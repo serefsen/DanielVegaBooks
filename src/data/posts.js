@@ -1,5 +1,23 @@
 export const posts = [
   {
+    slug: "supporting-your-anxious-teen-with-empathy",
+    date: "2026-07-21",
+    readingTime: "4 min read",
+    tag: "Anxiety",
+    title: "Supporting Your Anxious Teen with Empathy",
+    excerpt: "Learn to support your anxious teen without the urge to fix them, fostering a safe space for open communication.",
+    body: [
+      "It's a quiet evening in the living room, and your teen is curled up on the couch, their eyes fixed on a book but clearly not reading. You see their fingers tapping a nervous rhythm on their thigh, a silent SOS you recognize well. Your instinct is to jump in with solutions, to fix whatever is making them anxious, but something holds you back.",
+      "Anxiety can feel like an unwanted guest, showing up at the worst times and refusing to leave. For your teen, it's not just about the immediate fix but understanding that they have the power to handle their feelings. The key is learning to support them without trying to swoop in and solve everything.",
+      "One powerful tool from Cognitive Behavioral Therapy (CBT) is the 'Curiosity Approach.' Instead of offering solutions, ask open-ended questions that encourage your teen to explore their feelings and thoughts. This method empowers them to become more aware of their anxiety triggers and develop their problem-solving skills.",
+      "For instance, if your teen is anxious about an upcoming school presentation, instead of saying, \"Just practice more, and you'll be fine,\" you might ask, \"What part of the presentation worries you the most?\" or \"How do you think you might handle that feeling if it comes up?\" These questions not only express your interest in their experience but also help them to break down their anxiety into manageable parts.",
+      "The goal is to be a sounding board, not a fixer. Sometimes, simply having a non-judgmental space to voice their concerns can alleviate a significant amount of stress for your teen. By doing this, you're teaching them to approach their anxiety with curiosity rather than fear or avoidance.",
+      "Remember, your role is not to eliminate their anxiety but to help them navigate it. Offer empathy and understanding, reassuring them that it's okay to feel anxious and that you're there to support them through it. This approach not only builds their confidence in managing their emotions but also strengthens your relationship.",
+      "As you practice the Curiosity Approach, you might notice a shift in your teen. They may start to open up more, feeling safe in the knowledge that they won't be immediately met with solutions but rather with someone who listens and understands.",
+      "By fostering this environment, you're not only helping your teen cope with anxiety but also equipping them with valuable life skills. It's a gentle, yet profound way to show them that while anxiety might be a part of their life, it doesn't have to control it.",
+    ],
+  },
+  {
     slug: "when-test-anxiety-freezes-your-teen",
     date: "2026-07-19",
     readingTime: "4 min read",
