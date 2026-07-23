@@ -1,5 +1,25 @@
 export const posts = [
   {
+    slug: "understanding-intense-teenage-emotions",
+    date: "2026-07-23",
+    readingTime: "4 min read",
+    tag: "Self-esteem",
+    title: "Understanding Intense Teenage Emotions",
+    excerpt: "Explore why teenagers often experience emotions with such intensity and learn a practical CBT tool to help them manage these feelings.",
+    body: [
+      "You're sitting at the dinner table, and out of nowhere, your teenager slams their fork down, tears welling up over what seemed like a harmless comment. You blink, trying to decipher the sudden storm of emotion. Why do teenagers feel things so deeply, and how can we help them navigate these turbulent waters?",
+      "Teenagers are in a unique developmental stage where their brains are still under construction. The prefrontal cortex, responsible for decision making and emotional regulation, is still maturing. Meanwhile, the amygdala, the brain's emotional hotspot, is in full swing. This can create a perfect storm for intense feelings, where emotions can feel overwhelming and all-consuming.",
+      "It's easy to label these bouts of emotion as drama or overreaction, but what's really happening is a heightened sensitivity to the world around them. This sensitivity can translate into intense joy, profound sadness, or explosive anger, often catching adults off guard.",
+      "One effective tool from cognitive behavioral therapy (CBT) that can help is the \"Feeling Identification\" exercise. This exercise encourages teenagers to slow down and identify the specific emotions they're experiencing. Here's how it works:",
+      "1. **Pause and Breathe**: When emotions are running high, encourage your teen to take a moment. A few deep breaths can help create a space between the feeling and the reaction.",
+      "2. **Name the Emotion**: Ask them to identify what they're feeling. Is it anger, frustration, disappointment, or something else? Naming the emotion can reduce its intensity and bring clarity.",
+      "3. **Reflect on the Source**: Once they've named the emotion, guide them to think about what might have triggered it. Was it a comment, an event, or maybe something internal like fatigue?",
+      "4. **Consider the Response**: Encourage them to think about how they'd like to respond. What action or words would best serve the situation now that they have a clearer understanding of their feelings?",
+      "By practicing this tool, teenagers can learn to manage their emotions rather than being swept away by them. This doesn't mean they'll stop feeling things intensely, but it can help them navigate these feelings with more confidence and control.",
+      "As parents, counselors, or teachers, our role isn't to dismiss these intense emotions but to provide a supportive space where teenagers can explore and understand them. By doing so, we help them build emotional resilience and self-esteem, equipping them with skills that will serve them well into adulthood.",
+    ],
+  },
+  {
     slug: "supporting-your-anxious-teen-with-empathy",
     date: "2026-07-21",
     readingTime: "4 min read",
