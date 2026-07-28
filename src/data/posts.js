@@ -1,5 +1,24 @@
 export const posts = [
   {
+    slug: "understanding-teen-silence-and-rebuilding-conversations",
+    date: "2026-07-28",
+    readingTime: "5 min read",
+    tag: "Communication",
+    title: "Understanding Teen Silence and Rebuilding Conversations",
+    excerpt: "Teenagers often retreat into silence, leaving parents puzzled. Learn how to foster open communication with your teen again.",
+    body: [
+      "You’re in the car, driving home from practice, and the silence is almost palpable. Your teenager is next to you, earbuds firmly in place, staring out the window. You try to remember the last time they really talked to you about their day, but all you can recall are brief, one-word responses and the occasional shrug. It’s hard not to take it personally, but this change is more common than you might think.",
+      "Teenagers, with their whirlwind of emotions and experiences, often retreat into silence for a variety of reasons. Sometimes it’s the pressure of school, other times it’s friendships or the need to carve out their own identity. Silence can be a shield, protecting them from judgment or perceived disappointment. Rather than seeing it as a wall, consider it a signpost pointing to the complex landscape of their inner world.",
+      "The first step to bridging this gap is creating a space where they feel genuinely heard. This doesn’t mean prying or forcing a conversation. Instead, try to offer opportunities for them to speak on their terms. A casual comment about their favorite show, or even a shared activity like cooking dinner can open doors to unexpected conversations. These activities allow your teen to share without the pressure of a direct Q&amp;A, making it easier for them to express themselves.",
+      "Another approach is to reflect on your responses in past interactions. Have there been times when you might have dismissed their feelings, even unintentionally? Or perhaps rushed to solve their problems instead of listening? By showing that you’re willing to listen without judgment or immediate solutions, you can create a more welcoming environment for them to voice their concerns.",
+      "Timing also plays a crucial role. Sometimes, the moment they walk in from school isn’t the best time to ask about their day. Pay attention to when they seem more relaxed, such as after dinner or during a quiet weekend afternoon, and use these moments to check in. Also, be patient; it might take several attempts before they start opening up.",
+      "When they do begin to talk, remember to provide feedback that shows you’re engaged. Simple acknowledgments like \"That sounds tough,\" or \"I hadn’t thought about it that way,\" can encourage them to continue sharing. Avoid jumping in with advice unless they explicitly ask for it. Sometimes, just knowing you’re there to listen is all they need.",
+      "If you find that their silence is coupled with other troubling signs like changes in sleep patterns or increased isolation, it might be worth reading more about <a href=\"/blog/when-anxiety-wears-the-mask-of-laziness/\">when anxiety wears the mask of laziness</a>, as this can sometimes explain their behavior. Understanding these signs can help in approaching the issue with empathy and awareness.",
+      "Ultimately, fostering open communication with your teen is about showing up consistently and being present. It’s about letting them know that their voice matters and that you’re there, ready to listen whenever they’re ready to speak.",
+      "For more insights on understanding and supporting your teen during these silent phases, consider exploring <a href=\"https://www.amazon.com/dp/B0H5926917\" target=\"_blank\" rel=\"noopener\">Your Alarm Isn't Broken</a>, which delves into the nuances of anxiety and how it affects teenagers in ways we might not always expect.",
+    ],
+  },
+  {
     slug: "navigating-a-teens-friendship-breakup",
     date: "2026-07-28",
     readingTime: "4 min read",
