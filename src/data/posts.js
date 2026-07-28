@@ -1,5 +1,24 @@
 export const posts = [
   {
+    slug: "navigating-a-teens-friendship-breakup",
+    date: "2026-07-28",
+    readingTime: "4 min read",
+    tag: "Social anxiety",
+    title: "Navigating a Teen's Friendship Breakup",
+    excerpt: "Your teen's world can feel shattered by the end of a friendship. Here's how to support them through the emotional aftermath.",
+    body: [
+      "You're sitting at the dinner table, and your teenager is pushing food around their plate without taking a bite. You notice their phone, face down, as if it's a silent witness to an unspoken argument. Just last week, they couldn't stop texting their best friend between bites, laughter punctuating every other sentence. But tonight, there's only silence and a heaviness in the air.",
+      "Friendship breakups can be as devastating, if not more so, than romantic ones. For teens, friends are their world, their confidants, and their support system. When a friendship ends, it can feel like the ground beneath them has shifted, leaving them unsteady and unsure.",
+      "The first step in helping your teenager through this is acknowledging their pain. It might be tempting to say, \"You'll find new friends,\" but right now, that isn't what they need to hear. Instead, try saying, \"I can see this is really hard for you, and I'm here to listen if you want to talk about it.\" This opens the door for them to share their feelings without the fear of being minimized or rushed to move on.",
+      "Encourage them to express their emotions, whether through talking, writing, or another creative outlet. Journaling can be particularly helpful as it allows them to process their thoughts at their own pace. You might gently suggest, \"Writing about what you're feeling can sometimes help make sense of things. If you want, I can get you a journal.\"",
+      "Help your teen understand that it's okay to grieve the loss of a friendship. Explain that relationships can change, and sometimes people grow apart. It doesn't mean that the time spent together was any less valuable or that they did something wrong. You could say, \"It's natural for friendships to evolve and sometimes end, but it doesn't take away from the good times you had together.\"",
+      "As they navigate this emotional terrain, consider suggesting activities that could fill their time and help them feel connected in other ways. It might be joining a club, taking up a new hobby, or spending time with other friends or family members. The goal isn't to replace what was lost but to remind them of the broader support network they have.",
+      "Sometimes, after a friendship breakup, teenagers might worry about facing their former friend in social settings. Encourage them to think ahead about how they want to handle potential encounters. Discussing and role-playing different scenarios can provide them with a sense of control and confidence.",
+      "Finally, keep an eye on their overall well-being. If you notice signs of prolonged sadness or withdrawal, it might be worth exploring further support. <a href=\"/blog/reaching-out-to-a-silent-teenager/\">Reaching Out to a Silent Teenager</a> can offer insights into how to engage them if they become particularly withdrawn.",
+      "For more on helping your teenager navigate the social intricacies of their world, <a href=\"https://danielvegabooks.com/books/\">Your Awkward Isn't Showing</a> offers guidance on managing social anxiety and building strong, healthy friendships.",
+    ],
+  },
+  {
     slug: "understanding-the-teens-im-fine",
     date: "2026-07-28",
     readingTime: "4 min read",
