@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-const OPENROUTER_MODEL   = process.env.OPENROUTER_MODEL ?? "openai/gpt-4o";
+const OPENROUTER_MODEL   = process.env.OPENROUTER_MODEL || "openai/gpt-4o";
 const GITHUB_TOKEN       = process.env.GITHUB_TOKEN;
 const REPO_OWNER     = "serefsen";
 const REPO_NAME      = "DanielVegaBooks";
