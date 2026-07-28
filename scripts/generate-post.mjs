@@ -4,8 +4,9 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const GITHUB_TOKEN   = process.env.GITHUB_TOKEN;
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+const OPENROUTER_MODEL   = process.env.OPENROUTER_MODEL ?? "openai/gpt-4o";
+const GITHUB_TOKEN       = process.env.GITHUB_TOKEN;
 const REPO_OWNER     = "serefsen";
 const REPO_NAME      = "DanielVegaBooks";
 const FILE_PATH      = "src/data/posts.js";
@@ -72,14 +73,16 @@ OUTPUT — return ONLY a JSON object with these exact keys:
 
   const userPrompt = `Write a blog post on this idea: "${topic}"`;
 
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
+      Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+      "HTTP-Referer": "https://danielvegabooks.com",
+      "X-Title": "Daniel Vega Books",
     },
     body: JSON.stringify({
-      model: "gpt-4o",
+      model: OPENROUTER_MODEL,
       temperature: 0.7,
       response_format: { type: "json_object" },
       messages: [
@@ -91,7 +94,7 @@ OUTPUT — return ONLY a JSON object with these exact keys:
 
   if (!res.ok) {
     const err = await res.text();
-    throw new Error(`OpenAI error ${res.status}: ${err}`);
+    throw new Error(`OpenRouter error ${res.status}: ${err}`);
   }
 
   const data = await res.json();
@@ -175,8 +178,8 @@ ${bodyEntries}
 }
 
 async function main() {
-  if (!OPENAI_API_KEY) throw new Error("OPENAI_API_KEY is not set");
-  if (!GITHUB_TOKEN)   throw new Error("GITHUB_TOKEN is not set");
+  if (!OPENROUTER_API_KEY) throw new Error("OPENROUTER_API_KEY is not set");
+  if (!GITHUB_TOKEN)       throw new Error("GITHUB_TOKEN is not set");
 
   const topicsPath = path.join(__dirname, "topics.json");
   const topics     = JSON.parse(readFileSync(topicsPath, "utf-8"));
@@ -198,7 +201,7 @@ async function main() {
   const topic = topics[index];
   console.log(`Topic ${index + 1} of ${topics.length}: ${topic}`);
 
-  console.log("Calling OpenAI...");
+  console.log("Calling OpenRouter...");
   const generated = await generatePost(topic);
 
   const tag  = TAGS.includes(generated.tag) ? generated.tag : "Anxiety";
