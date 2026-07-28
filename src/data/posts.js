@@ -15,7 +15,7 @@ export const posts = [
       "When they do begin to talk, remember to provide feedback that shows you’re engaged. Simple acknowledgments like \"That sounds tough,\" or \"I hadn’t thought about it that way,\" can encourage them to continue sharing. Avoid jumping in with advice unless they explicitly ask for it. Sometimes, just knowing you’re there to listen is all they need.",
       "If you find that their silence is coupled with other troubling signs like changes in sleep patterns or increased isolation, it might be worth reading more about <a href=\"/blog/when-anxiety-wears-the-mask-of-laziness/\">when anxiety wears the mask of laziness</a>, as this can sometimes explain their behavior. Understanding these signs can help in approaching the issue with empathy and awareness.",
       "Ultimately, fostering open communication with your teen is about showing up consistently and being present. It’s about letting them know that their voice matters and that you’re there, ready to listen whenever they’re ready to speak.",
-      "For more insights on understanding and supporting your teen during these silent phases, consider exploring <a href=\"https://www.amazon.com/dp/B0H5926917\" target=\"_blank\" rel=\"noopener\">Your Alarm Isn't Broken</a>, which delves into the nuances of anxiety and how it affects teenagers in ways we might not always expect.",
+      "For more insights on understanding and supporting your teen during these silent phases, consider exploring Your Alarm Isn't Broken, which delves into the nuances of anxiety and how it affects teenagers in ways we might not always expect.",
     ],
   },
   {
@@ -34,7 +34,7 @@ export const posts = [
       "As they navigate this emotional terrain, consider suggesting activities that could fill their time and help them feel connected in other ways. It might be joining a club, taking up a new hobby, or spending time with other friends or family members. The goal isn't to replace what was lost but to remind them of the broader support network they have.",
       "Sometimes, after a friendship breakup, teenagers might worry about facing their former friend in social settings. Encourage them to think ahead about how they want to handle potential encounters. Discussing and role-playing different scenarios can provide them with a sense of control and confidence.",
       "Finally, keep an eye on their overall well-being. If you notice signs of prolonged sadness or withdrawal, it might be worth exploring further support. <a href=\"/blog/reaching-out-to-a-silent-teenager/\">Reaching Out to a Silent Teenager</a> can offer insights into how to engage them if they become particularly withdrawn.",
-      "For more on helping your teenager navigate the social intricacies of their world, <a href=\"https://danielvegabooks.com/books/\">Your Awkward Isn't Showing</a> offers guidance on managing social anxiety and building strong, healthy friendships.",
+      "For more on helping your teenager navigate the social intricacies of their world, Your Awkward Isn't Showing offers guidance on managing social anxiety and building strong, healthy friendships.",
     ],
   },
   {
