@@ -1,5 +1,23 @@
 export const posts = [
   {
+    slug: "understanding-the-teens-im-fine",
+    date: "2026-07-28",
+    readingTime: "4 min read",
+    tag: "Communication",
+    title: "Understanding the Teen's 'I'm Fine'",
+    excerpt: "Teenagers often say 'I'm fine' when they're not. Learn how to recognize the signs and use CBT to help them open up.",
+    body: [
+      "You ask your teenager how their day was. Without missing a beat or looking up from their phone, they mutter, \"I'm fine.\" It's a phrase that can mean anything from 'I had a great day' to 'I'm overwhelmed but don't know how to talk about it.' For parents, teachers, and counselors, decoding this often-used phrase can be like trying to solve a puzzle without all the pieces.",
+      "When teenagers say \"I'm fine,\" it can sometimes be a protective shield. It's easier to give a quick response than to dive into a complex sea of emotions. This automatic reply might mask feelings of anxiety, stress, or self-doubt. Recognizing that \"I'm fine\" might not truly mean everything is okay is the first step.",
+      "One practical tool you can use to help teens open up is the \"Feelings Wheel.\" This simple yet effective CBT tool encourages them to identify specific emotions beyond just 'fine.' The wheel, which is divided into various segments of emotions like anger, fear, joy, and sadness, can help teens pinpoint exactly what they are feeling.",
+      "Start by sitting down with your teenager in a comfortable setting. Introduce the Feelings Wheel gently. You might say, \"I know things can sometimes be hard to talk about. This wheel can help put a name to what you're feeling.\" Show them how the wheel works, and ask them to consider which segment resonates most with their current state of mind.",
+      "For instance, if they identify with the 'fear' segment, probe a little gently by asking, \"Can you tell me more about what might be making you feel this way?\" This can lead to a more open conversation about what's truly happening beneath the surface.",
+      "Encouraging them to use the wheel regularly can build their emotional vocabulary over time. As they become more comfortable identifying their feelings, they'll likely feel more empowered to communicate them without relying on the catch-all \"I'm fine.\"",
+      "Remember, the goal isn't to push them to talk before they're ready, but to create a safe and supportive environment where they know it's okay to express what they're truly feeling. Listening without judgment, validating their feelings, and showing empathy can pave the way for more meaningful conversations.",
+      "Helping teenagers articulate their emotions not only strengthens your relationship but also equips them with essential life skills. It's about moving from \"I'm fine\" to a more honest dialogue about what they're experiencing. In doing so, we're not just hearing them; we're truly understanding them.",
+    ],
+  },
+  {
     slug: "understanding-intense-teenage-emotions",
     date: "2026-07-23",
     readingTime: "4 min read",
