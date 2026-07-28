@@ -13,12 +13,28 @@ const next = sorted[idx + 1];
 function fmt(d) {
   return new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 }
+const postUrl = "https://danielvegabooks.com/blog/" + post.slug + "/";
+const postSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.title,
+  "description": post.excerpt,
+  "datePublished": post.date,
+  "dateModified": post.date,
+  "url": postUrl,
+  "mainEntityOfPage": { "@type": "WebPage", "@id": postUrl },
+  "author": { "@type": "Person", "name": "Daniel Vega" },
+  "publisher": { "@type": "Person", "name": "Daniel Vega" },
+  "image": "https://danielvegabooks.com/image/og-image.png",
+  "keywords": post.tag,
+};
 ---
 <Layout title={post.title + " — Daniel Vega"} description={post.excerpt}>
+  <script type="application/ld+json" set:html={JSON.stringify(postSchema)} />
   <div class="bl-progress" id="blProgress"></div>
   <article class="post">
     <div class="container post-inner">
-      <a href="/blog" class="post-back"><span class="ba">&larr;</span> All posts</a>
+      <a href="/blog/" class="post-back"><span class="ba">&larr;</span> All posts</a>
       <span class="post-tag">{post.tag}</span>
       <h1 class="post-title">{post.title}</h1>
       <p class="post-meta">{fmt(post.date)} · {post.readingTime}</p>
@@ -40,9 +56,9 @@ function fmt(d) {
       </div>
 
       <div class="post-foot">
-        <a href="/blog" class="post-back"><span class="ba">&larr;</span> Back to all posts</a>
+        <a href="/blog/" class="post-back"><span class="ba">&larr;</span> Back to all posts</a>
         {next && (
-          <a href={"/blog/" + next.slug} class="post-next">
+          <a href={"/blog/" + next.slug + "/"} class="post-next">
             <span class="pn-label">Next read</span>
             <span class="pn-title">{next.title} <span class="pn-arrow">&rarr;</span></span>
           </a>

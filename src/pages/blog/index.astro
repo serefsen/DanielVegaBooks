@@ -18,7 +18,7 @@ function fmt(d) {
 
       <div class="bl-list">
         {sorted.map((post) => (
-          <a href={"/blog/" + post.slug} class="bl-card reveal">
+          <a href={"/blog/" + post.slug + "/"} class="bl-card reveal">
             <span class="bl-tag">{post.tag}</span>
             <h2 class="bl-title"><span class="bl-title-inner">{post.title}</span></h2>
             <p class="bl-meta">{fmt(post.date)} · {post.readingTime}</p>

@@ -45,7 +45,7 @@ AMAZON = "https://www.amazon.com/dp/B0H5926917"
 
 # --- Pinterest ---
 PIN_TITLE = YT_TITLE
-PIN_LINK = "https://danielvegabooks.com/books"   # claimli domain; amazon direkt linki Pinterest spam filtresine takildi
+PIN_LINK = "https://danielvegabooks.com/books/"   # claimli domain; amazon direkt linki Pinterest spam filtresine takildi
 PIN_ALT = "A short video on why teen anxiety isn't broken - from Your Alarm Isn't Broken by Daniel Vega."
 PINTEREST_BOARD_ID = ""   # bos = otomatik (ilk board). Belirli board icin ID yaz.
 PINTEREST_ENABLED = True   # acik: her calismada video Pinterest'e de gider (gunde 3)
