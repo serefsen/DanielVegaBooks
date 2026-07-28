@@ -43,32 +43,88 @@ function todayISO() {
   return new Date().toISOString().split("T")[0];
 }
 
-async function generatePost(topic) {
+function extractExistingPosts(fileContent) {
+  const re = /slug:\s*"([^"]+)"[\s\S]*?title:\s*"((?:[^"\\]|\\.)*)"/g;
+  const posts = [];
+  let m;
+  while ((m = re.exec(fileContent)) !== null) {
+    posts.push({ slug: m[1], title: JSON.parse(`"${m[2]}"`) });
+  }
+  return posts;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function resolveAllowedHref(url, validSlugs) {
+  if (url === "https://danielvegabooks.com/books/") return url;
+  const m = url.match(/^\/blog\/([a-z0-9-]+)\/?$/);
+  if (m && validSlugs.includes(m[1])) return `/blog/${m[1]}/`;
+  return null;
+}
+
+function linkifyParagraph(raw, validSlugs) {
+  const linkRe = /\[([^\]\[]+)\]\(([^()\s]+)\)/g;
+  let result = "";
+  let lastIndex = 0;
+  let m;
+  while ((m = linkRe.exec(raw)) !== null) {
+    result += escapeHtml(raw.slice(lastIndex, m.index));
+    const text = escapeHtml(m[1]);
+    const href = resolveAllowedHref(m[2], validSlugs);
+    result += href ? `<a href="${href}">${text}</a>` : text;
+    lastIndex = linkRe.lastIndex;
+  }
+  result += escapeHtml(raw.slice(lastIndex));
+  return result;
+}
+
+async function generatePost(topic, existingPosts) {
+  const existingPostsList = existingPosts
+    .map((p) => `- ${p.title} → /blog/${p.slug}/`)
+    .join("\n");
+
   const systemPrompt = `You write blog posts for a website called DanielVegaBooks.
-The site sells CBT workbooks for teenagers. Your audience is parents, school counselors, and teachers.
+The site sells CBT-based anxiety workbooks for teenagers. Your audience is parents, school counselors, and teachers — the adults who buy the books and want to help a teenager. Write TO this adult reader, in second person, about their teenager. Never address the teenager directly.
 
 BRAND VOICE RULES:
-- Open with a scene (a moment a parent or counselor would recognize)
-- Name and reframe the anxiety without clinical jargon
-- Explain ONE concrete CBT tool clearly
-- Close softly — no hard sell
-- Tone: warm, direct, practical. Never preachy.
+- Open with a scene an adult reader would recognize from their own life with a teenager — the kitchen table, a closed bedroom door, a phone screen the kid won't look up from, a car ride home from practice. Keep it concrete and specific, never generic or cliché.
+- Name and reframe what's going on in plain, warm language — no clinical or textbook framing.
+- Walk through ONE practical thing the adult can actually do or say, in everyday language. You may describe a technique in detail, but do not give it a brand name or capitalized title (no "the X Method", no "the Y Tool", no "the Z Wheel").
+- Close by connecting, in one natural sentence, to whichever of the three workbooks below best fits this topic, linking to the books page. This is a soft mention, not a pitch — no "buy now", no urgency, no promise of guaranteed results.
+- Tone: warm, direct, practical, honest. Never preachy. Never promise a fix, a cure, or a guarantee.
 
 EXAMPLE OPENING 1:
-"Walk into a room a little late, say the wrong thing in class, trip on a step — and suddenly it feels like a stadium of eyes swung over and locked onto you."
+"Your kid used to tell you everything on the walk home from school. Lately you get the door closing, the headphones going in before their coat's even off, and a 'fine' that ends the conversation before it starts."
 
 EXAMPLE OPENING 2:
-"Right before something that matters — a test, a tryout, raising your hand — your heart starts slamming, your breath goes shallow."
+"You're standing in the kitchen when you hear it through the wall — the sharp inhale before a phone call, the pacing, the same sentence rehearsed three times before your kid finally dials the number."
 
 EXAMPLE OPENING 3:
-"There's a specific kind of awful that mostly lives at 3 a.m.: lying in the dark while your brain lines up every cringe memory."
+"It's 11 p.m. and the light under their door is still on. You know without asking that they're not doing homework — they're replaying every awkward thing they said today, for the fourth night in a row."
+
+LANGUAGE THAT IS NEVER ALLOWED, in any form:
+- "calm down", "just relax", "just breathe", "you've got this", "believe in yourself", "you are enough", "buy now"
+- clinical/textbook terms: "disorder", "symptoms", "amygdala", "prefrontal cortex", "diagnosis", "CBT tool" (describe a technique, just don't label it that way)
+- any claim of a guaranteed outcome or a miracle fix
+
+BOOKS (pick the ONE that best matches this post's topic, and reference it naturally at the close):
+- "Your Alarm Isn't Broken" — panic, 3 a.m. spirals, avoidance, physical anxiety symptoms, sleep
+- "Your Awkward Isn't Showing" — social anxiety, embarrassment, friendships, feeling watched
+- "Your Pressure Isn't Proof" — performance anxiety, tests, perfectionism, fear of letting people down
+Link format: [natural phrase mentioning the book or its idea](https://danielvegabooks.com/books/) — exactly one such link, near the end of the post. Never link to Amazon.
+
+EXISTING POSTS ON THIS SITE (for internal linking):
+${existingPostsList}
+If — and only if — one or two of these are genuinely relevant to this topic, link to them naturally inline using [anchor text](/blog/<slug>/) with the exact slug from the list above (note the trailing slash). Do not force a link if none of them truly fit. Never invent a slug that isn't in the list above.
 
 OUTPUT — return ONLY a JSON object with these exact keys:
 {
   "title": "string (compelling, 6-10 words, no quotation marks around it)",
   "excerpt": "string (1-2 sentences summarizing the post)",
   "tag": "string (choose exactly one of: ${TAGS.join(", ")})",
-  "content": "string (the full post, 400-550 words, paragraphs separated by a blank line / double newline)"
+  "content": "string (the full post, 700-900 words, paragraphs separated by a blank line / double newline)"
 }`;
 
   const userPrompt = `Write a blog post on this idea: "${topic}"`;
@@ -201,21 +257,27 @@ async function main() {
   const topic = topics[index];
   console.log(`Topic ${index + 1} of ${topics.length}: ${topic}`);
 
-  console.log("Calling OpenRouter...");
-  const generated = await generatePost(topic);
+  const existingPosts = extractExistingPosts(fileContent);
+  const validSlugs    = existingPosts.map((p) => p.slug);
 
-  const tag  = TAGS.includes(generated.tag) ? generated.tag : "Anxiety";
-  const body = String(generated.content)
+  console.log("Calling OpenRouter...");
+  const generated = await generatePost(topic, existingPosts);
+
+  const tag     = TAGS.includes(generated.tag) ? generated.tag : "Anxiety";
+  const rawBody = String(generated.content)
     .split(/\n\s*\n/)
     .map((s) => s.trim())
     .filter(Boolean);
 
-  if (body.length === 0) throw new Error("Generated content was empty");
+  if (rawBody.length === 0) throw new Error("Generated content was empty");
+
+  const postReadingTime = readingTime(rawBody);
+  const body = rawBody.map((p) => linkifyParagraph(p, validSlugs));
 
   const post = {
     slug:        slugify(generated.title),
     date:        todayISO(),
-    readingTime: readingTime(body),
+    readingTime: postReadingTime,
     tag,
     title:       generated.title,
     excerpt:     generated.excerpt,

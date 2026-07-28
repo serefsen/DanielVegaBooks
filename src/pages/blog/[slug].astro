@@ -39,7 +39,7 @@ const postSchema = {
       <h1 class="post-title">{post.title}</h1>
       <p class="post-meta">{fmt(post.date)} · {post.readingTime}</p>
       <div class="post-body">
-        {post.body.map((para) => <p>{para}</p>)}
+        {post.body.map((para) => <p set:html={para} />)}
       </div>
 
       <div class="tk-card">
@@ -82,6 +82,8 @@ const postSchema = {
   .post-meta { font-size: 14px; color: var(--ink-soft); font-weight: 600; margin: 0 0 32px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
 
   .post-body p { font-size: 18px; line-height: 1.85; color: var(--ink); margin: 0 0 24px; }
+  .post-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  .post-body a:hover { color: var(--accent-dark); }
 
   /* Free toolkit box (inline lead magnet) */
   .tk-card { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; padding: 32px 30px; box-shadow: 0 18px 44px rgba(80,60,40,.10); margin-top: 48px; }
