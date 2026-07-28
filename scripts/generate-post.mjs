@@ -57,11 +57,22 @@ function escapeHtml(str) {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+const ALLOWED_AMAZON_URLS = [
+  "https://www.amazon.com/dp/B0H5926917",
+  "https://www.amazon.com/dp/B0H5L55D31",
+  "https://www.amazon.com/dp/B0H65LW8SN",
+];
+
 function resolveAllowedHref(url, validSlugs) {
   if (url === "https://danielvegabooks.com/books/") return url;
+  if (ALLOWED_AMAZON_URLS.includes(url)) return url;
   const m = url.match(/^\/blog\/([a-z0-9-]+)\/?$/);
   if (m && validSlugs.includes(m[1])) return `/blog/${m[1]}/`;
   return null;
+}
+
+function isExternalHref(href) {
+  return /^https?:\/\//.test(href) && !href.startsWith("https://danielvegabooks.com");
 }
 
 function linkifyParagraph(raw, validSlugs) {
@@ -73,7 +84,12 @@ function linkifyParagraph(raw, validSlugs) {
     result += escapeHtml(raw.slice(lastIndex, m.index));
     const text = escapeHtml(m[1]);
     const href = resolveAllowedHref(m[2], validSlugs);
-    result += href ? `<a href="${href}">${text}</a>` : text;
+    if (href) {
+      const attrs = isExternalHref(href) ? ` target="_blank" rel="noopener"` : "";
+      result += `<a href="${href}"${attrs}>${text}</a>`;
+    } else {
+      result += text;
+    }
     lastIndex = linkRe.lastIndex;
   }
   result += escapeHtml(raw.slice(lastIndex));
@@ -92,7 +108,7 @@ BRAND VOICE RULES:
 - Open with a scene an adult reader would recognize from their own life with a teenager — the kitchen table, a closed bedroom door, a phone screen the kid won't look up from, a car ride home from practice. Keep it concrete and specific, never generic or cliché.
 - Name and reframe what's going on in plain, warm language — no clinical or textbook framing.
 - Walk through ONE practical thing the adult can actually do or say, in everyday language. You may describe a technique in detail, but do not give it a brand name or capitalized title (no "the X Method", no "the Y Tool", no "the Z Wheel").
-- Close by connecting, in one natural sentence, to whichever of the three workbooks below best fits this topic, linking to the books page. This is a soft mention, not a pitch — no "buy now", no urgency, no promise of guaranteed results.
+- Close by connecting, in one natural sentence, to whichever of the three workbooks below best fits this topic, linking to that book's Amazon page. This is a soft mention, not a pitch — no "buy now", no urgency, no promise of guaranteed results.
 - Tone: warm, direct, practical, honest. Never preachy. Never promise a fix, a cure, or a guarantee.
 
 EXAMPLE OPENING 1:
@@ -110,10 +126,10 @@ LANGUAGE THAT IS NEVER ALLOWED, in any form:
 - any claim of a guaranteed outcome or a miracle fix
 
 BOOKS (pick the ONE that best matches this post's topic, and reference it naturally at the close):
-- "Your Alarm Isn't Broken" — panic, 3 a.m. spirals, avoidance, physical anxiety symptoms, sleep
-- "Your Awkward Isn't Showing" — social anxiety, embarrassment, friendships, feeling watched
-- "Your Pressure Isn't Proof" — performance anxiety, tests, perfectionism, fear of letting people down
-Link format: [natural phrase mentioning the book or its idea](https://danielvegabooks.com/books/) — exactly one such link, near the end of the post. Never link to Amazon.
+- "Your Alarm Isn't Broken" (https://www.amazon.com/dp/B0H5926917) — panic, 3 a.m. spirals, avoidance, physical anxiety symptoms, sleep
+- "Your Awkward Isn't Showing" (https://www.amazon.com/dp/B0H5L55D31) — social anxiety, embarrassment, friendships, feeling watched
+- "Your Pressure Isn't Proof" (https://www.amazon.com/dp/B0H65LW8SN) — performance anxiety, tests, perfectionism, fear of letting people down
+Link format: [natural phrase mentioning the book or its idea](that book's Amazon URL above) — exactly one such link, near the end of the post, pointing to that specific book's Amazon page.
 
 EXISTING POSTS ON THIS SITE (for internal linking):
 ${existingPostsList}
