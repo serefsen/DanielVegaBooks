@@ -1,5 +1,24 @@
 export const posts = [
   {
+    slug: "unraveling-teen-anxiety-behind-stomachaches",
+    date: "2026-07-29",
+    readingTime: "5 min read",
+    tag: "Anxiety",
+    title: "Unraveling Teen Anxiety Behind Stomachaches",
+    excerpt: "Explore how teen anxiety can manifest as stomachaches and learn practical ways to support your teenager.",
+    body: [
+      "It's Saturday morning, and you've just set the breakfast table. The smell of pancakes fills the room, but your teenager isn't at the table. Instead, they're upstairs, curled up with a stomachache that seems to come out of nowhere. This scene is becoming familiar, and you're starting to wonder if there's more to these tummy troubles than meets the eye.",
+      "Teenagers often experience anxiety in ways that might surprise you, and stomachaches are one of those unexpected manifestations. It can be confusing as a parent to see your teen physically uncomfortable and not immediately connect it to their emotional state. After all, you might be used to thinking of anxiety in terms of worry or fear, but it can also show up in the body, like a knot in the stomach.",
+      "So, what's going on here? When your teen says their stomach hurts, it might be their way of expressing anxiety without even realizing it. The body and mind are intricately connected, and stress or anxiety can lead to physical symptoms, such as stomachaches or headaches. This isn't unusual, and knowing this can help you approach the situation with empathy and understanding.",
+      "First, take a moment to validate their experience. You might feel tempted to dismiss the stomachache as \"just stress,\" but that can come off as minimizing their feelings. Instead, you could say something like, \"I know your stomach's been bothering you a lot lately. It must be uncomfortable. Do you want to talk about anything that's been on your mind?\" This opens the door for them to share what's going on emotionally, without dismissing their physical discomfort.",
+      "Next, consider creating a routine that helps ease both the physical and emotional tension. Encourage a small daily practice that focuses on relaxation. You might suggest a gentle activity, like a short walk after meals or some deep breathing exercises. These simple actions can help calm the mind and, in turn, ease the stomach.",
+      "Another approach is to gently explore what's happening around them that might be contributing to their anxiety. Are they feeling pressure at school? Is there tension in friendships or social circles? Sometimes talking about <a href=\"/blog/understanding-teen-silence-and-rebuilding-conversations/\">Understanding Teen Silence and Rebuilding Conversations</a> can lead to breakthroughs and give them a chance to voice concerns.",
+      "You could also try the approach of journaling. Writing can be a powerful way for teens to express themselves and sort through their thoughts. Encourage your teenager to jot down what they're feeling when their stomach starts acting up. This might help them identify patterns or triggers, giving both of you more insight into what's going on beneath the surface.",
+      "Remember, it's important to be patient. Anxiety-related stomachaches won't disappear overnight, but with consistent support and understanding, you can help your teen develop coping mechanisms that work for them. It's all about creating a safe space where they feel comfortable sharing their feelings and knowing that they're being heard.",
+      "For more insights and practical strategies for helping your teen navigate anxiety, 'Your Alarm Isn't Broken' explores how anxiety can manifest in various physical ways and offers guidance on how to manage them. It's a gentle reminder that there's no single solution, but rather a journey of discovery and support.",
+    ],
+  },
+  {
     slug: "understanding-teen-silence-and-rebuilding-conversations",
     date: "2026-07-28",
     readingTime: "5 min read",
