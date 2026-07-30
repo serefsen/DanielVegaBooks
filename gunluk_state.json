@@ -1,6 +1,5 @@
 {
  "son_hooklar": [
-  "hook17",
   "hook11",
   "hook08",
   "hook05",
@@ -28,38 +27,39 @@
   "hook15",
   "hook13",
   "hook18",
-  "hook07"
+  "hook07",
+  "hook26"
  ],
  "govde": {
   "soguk": [
-   "kaygi04",
-   "kaygi12",
    "kaygi07",
-   "kaygi09"
+   "kaygi09",
+   "kaygi02",
+   "kaygi11"
   ],
   "gecis": [
-   "donusum18",
-   "donusum17"
+   "donusum11",
+   "donusum19"
   ],
   "sicak": [
-   "donusum21",
    "donusum15",
-   "donusum16"
+   "donusum16",
+   "donusum14"
   ]
  },
  "son_kapanis": [
-  "kapanis02",
   "kapanis03",
   "kapanis08",
-  "kapanis05"
+  "kapanis05",
+  "kapanis07"
  ],
  "son_vo": [
-  4,
   3,
   6,
   0,
   1,
   7,
-  2
+  2,
+  5
  ]
 }
