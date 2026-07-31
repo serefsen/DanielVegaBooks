@@ -1,5 +1,25 @@
 export const posts = [
   {
+    slug: "helping-your-teen-answer-who-am-i",
+    date: "2026-07-31",
+    readingTime: "4 min read",
+    tag: "Self-esteem",
+    title: "Helping Your Teen Answer 'Who Am I?'",
+    excerpt: "Explore how the question of identity influences your teenager's behavior and how you can support them in finding their answer.",
+    body: [
+      "You’re driving your teenager home from another late-night practice, the glow of streetlights flickering across their face through the window. You ask how practice went, but their answer is a noncommittal ‘fine.’ You’ve noticed this trend growing: the vagueness, the disconnect, the sense that something else is weighing on them beyond the usual teenage fatigue.",
+      "Beneath the surface, your teenager is grappling with a question as old as adolescence itself: ‘Who am I?’ It’s a question that can be both exhilarating and terrifying. The teenage years are a time of exploration and change, and your child is in the midst of figuring out their identity. They’re testing boundaries, trying on different personas, and seeking out what feels true to them.",
+      "This quest for identity can manifest in various ways. Maybe they’ve started dressing differently, hanging out with new friends, or diving into hobbies they previously ignored. These changes can feel sudden and bewildering to you as a parent, but they’re all part of the process.",
+      "So, how can you support your teenager as they navigate this complex terrain?",
+      "Start by creating space for open conversations. Let them know you’re genuinely interested in their thoughts and feelings, not just the events of their day. You might say, ‘I’ve noticed you’ve been a bit quiet lately. Is there anything on your mind that you’d like to share?’ This invites them to speak without pressure, showing them that you’re there to listen and not to judge.",
+      "Encourage their exploration by being curious and supportive of their interests. If they’ve picked up a new hobby or joined a club, ask them about it. Show enthusiasm for their passions, even if they’re different from yours. This helps affirm their choices and reinforces their growing sense of self.",
+      "It’s also important to respect their privacy. Adolescents need room to process on their own. Sometimes, they might not be ready to discuss what’s happening internally. Demonstrating respect for their space while remaining available can strike a balance between support and independence.",
+      "Help them understand that it’s okay to not have all the answers right now. Identity is fluid, and it’s normal to evolve over time. Share stories from your own adolescence, highlighting how you too were uncertain and how your identity has shifted over time. This can provide comfort that they’re not alone in their journey.",
+      "Finally, be mindful of the impact of social media on their self-image. Teens often compare themselves to the perceived perfection they see online, which can fuel self-doubt. Encourage them to focus on their unique qualities rather than measuring themselves against others. <a href=\"/blog/escaping-the-social-media-comparison-trap/\">Escaping the Social Media Comparison Trap</a> offers insights into how to help your teen navigate this.",
+      "In helping your teen answer ‘Who am I?’, patience and empathy are key. It’s a question they’ll revisit many times, and your support can make this exploration less daunting. For more on understanding these intense teenage emotions, consider the workbook \"Your Awkward Isn't Showing\", designed to help teens navigate social anxiety and the quest for identity.",
+    ],
+  },
+  {
     slug: "unraveling-teen-anxiety-behind-stomachaches",
     date: "2026-07-29",
     readingTime: "5 min read",
