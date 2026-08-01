@@ -1,5 +1,24 @@
 export const posts = [
   {
+    slug: "breaking-your-teens-rumination-cycle",
+    date: "2026-08-01",
+    readingTime: "4 min read",
+    tag: "Anxiety",
+    title: "Breaking Your Teen's Rumination Cycle",
+    excerpt: "Help your teen escape the loop of overthinking with simple, practical steps to refocus their energy.",
+    body: [
+      "It's a quiet evening at home, and you notice your teenager sitting at the kitchen table. Their homework is open, but the pencil hasn't moved in a while. Instead, they're staring off into space, lost in a world of their own thoughts. You've seen this look before—the one that tells you they're replaying something over and over in their mind, like a song stuck on repeat.",
+      "This cycle of overthinking, or rumination, can be a common trap for teenagers. It often starts with a small worry—a less-than-perfect grade, a misunderstood comment from a friend, or an awkward moment at school. And then, without warning, it spirals into an overwhelming loop of 'what ifs' and 'should haves.'",
+      "Rumination can feel like trying to get out of a maze with no exit in sight. At its core, it's an attempt to solve a problem by thinking about it from every possible angle. But instead of finding solutions, your teen might be digging themselves deeper into the pit of anxiety.",
+      "To help your teenager break this cycle, start by acknowledging what they're experiencing. You might say, \"I can see you're really deep in thought. Want to talk about what's on your mind?\" This gentle invitation can give them the chance to voice their worries, which is often the first step in finding a way out of the loop.",
+      "Next, introduce the idea of shifting focus. Encourage your teen to take a mental break from the thoughts swirling in their head by engaging in a different activity. This doesn't have to be anything complicated—sometimes, a simple change of scenery is enough. Suggest going for a walk together, playing a quick game, or even listening to some music. Activities that involve movement or creativity can be especially effective at redirecting attention away from the rumination cycle.",
+      "Another practical approach is to teach your teen about setting boundaries with their own thoughts. You can guide them in setting a specific time to think about their worries intentionally. Suggest, \"How about we set aside ten minutes after dinner to think about this?\" This way, they have a structured time to process their thoughts, which can prevent them from taking over the entire evening.",
+      "For some teens, writing things down can be a helpful way to release the thoughts trapped in their head. Encourage them to keep a journal or jot down their worries on paper. This act of externalizing thoughts can sometimes make them feel more manageable and less consuming.",
+      "Lastly, remind your teen that it's okay not to have all the answers right away. Sometimes, the best thing they can do is to take a step back and let things unfold naturally. Reassure them that you're there to support them through the process, no matter what.",
+      "If you find that your teen is frequently caught in the cycle of rumination, it might be helpful to explore techniques to manage these spirals together. \"Your Alarm Isn't Broken\" offers insights and strategies specifically tailored to help teens navigate the physical and emotional symptoms of anxiety, including breaking free from those persistent thought loops.",
+    ],
+  },
+  {
     slug: "helping-your-teen-answer-who-am-i",
     date: "2026-07-31",
     readingTime: "4 min read",
