@@ -1,5 +1,25 @@
 export const posts = [
   {
+    slug: "supporting-your-teen-when-school-feels-overwhelming",
+    date: "2026-08-03",
+    readingTime: "5 min read",
+    tag: "Anxiety",
+    title: "Supporting Your Teen When School Feels Overwhelming",
+    excerpt: "When your teen refuses to go to school, it can be frustrating and worrying. Here's a practical approach to understand and support them without escalating the situation.",
+    body: [
+      "It's a typical weekday morning, and you're at the breakfast table. Your teenager's cereal is going soggy as they stare blankly at their phone, not touching their backpack. The school bus is due any minute, but all you hear is their quiet, resolute, \"I'm not going today.\" You've heard it before, and you know this isn't just a case of the Monday blues.",
+      "Refusing to go to school can be a complex issue, often rooted in anxiety, stress, or social discomfort. It's not just about skipping classes; it's about what's underneath the surface. As a parent or guardian, your instinct might be to push them out the door, but understanding what's going on is key.",
+      "First, take a deep breath and remind yourself that your teen's refusal is not a personal attack or rebellion against you. It's an expression of something deeper. Begin by having a calm conversation, perhaps not at the breakfast table when emotions might be high. Try later in the day, during a car ride or a quiet moment when they're more receptive.",
+      "Start by expressing your observations in a non-judgmental way. You might say, \"I've noticed that school seems really tough for you lately. I'm here to listen and help if you want to talk about it.\" This approach shows your teen that you're not there to criticize, but to understand and support.",
+      "Listen actively to what they share. Sometimes, the issues might be academic pressure, fear of not fitting in, or something happening with friends. Other times, it might be more about internal struggles, like anxiety about being away from home or fears about their performance in class.",
+      "Once you have a better understanding of their concerns, work together to brainstorm solutions. If anxiety is a core issue, talk about strategies they can try, such as breaking their day into smaller, manageable parts or focusing on one class at a time. Encourage them to identify a trusted adult at school they can check in with, like a counselor or teacher.",
+      "You can also suggest practical steps like preparing their school bag the night before or setting a morning routine that includes something calming, like listening to music or a quick walk outside. If the issue is social, discuss ways they might feel more comfortable, such as joining a club or group where they share similar interests.",
+      "Remember, it’s important to validate their feelings. Let them know that it's okay to feel overwhelmed and that seeking help is a sign of strength, not weakness. This reassurance can help reduce the pressure they might feel to handle everything on their own.",
+      "Finally, remind yourself that progress might be slow, and setbacks are a natural part of the process. Be patient with your teenager and with yourself as you navigate this together. If their resistance to school persists and you feel it's beyond what you can handle, don't hesitate to seek professional guidance. Sometimes, an external perspective from a counselor or therapist can provide both you and your teen with valuable support and strategies.",
+      "For more insights on this topic, you might find the strategies in \"Your Alarm Isn't Broken\" helpful as they offer practical ways to address anxiety and stress that often underlie school refusal.",
+    ],
+  },
+  {
     slug: "breaking-your-teens-rumination-cycle",
     date: "2026-08-01",
     readingTime: "4 min read",
