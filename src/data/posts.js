@@ -1,5 +1,24 @@
 export const posts = [
   {
+    slug: "unmasking-anxiety-hiding-behind-teen-anger",
+    date: "2026-08-05",
+    readingTime: "4 min read",
+    tag: "Anxiety",
+    title: "Unmasking Anxiety Hiding Behind Teen Anger",
+    excerpt: "Explore how anxiety often masquerades as anger in teens and learn practical ways to address the underlying stress.",
+    body: [
+      "You’re in the car, the engine idling in the driveway, waiting for your teen to join you. They slide into the passenger seat, slam the door a little harder than necessary, and offer a terse 'Just drive' before you can even ask how their day went. You feel the tension in the air, thick enough to cut with a knife. You might wonder, \"Why are they so angry all the time?\"",
+      "While it might seem like your teenager is just perpetually angry, it’s worth considering that anxiety often wears anger as a disguise. When teens are feeling overwhelmed, stressed, or anxious, they might not have the skills to articulate those emotions, so it comes out as irritability or anger instead.",
+      "Recognizing this pattern is the first step. Think about a time when you were stressed at work or dealing with a personal issue and snapped at someone who didn’t deserve it. Teens are dealing with a whirlwind of emotions, school pressures, social dynamics, and the ongoing journey of self-discovery. Sometimes, anger is the quickest outlet for all the unspoken, tangled feelings inside.",
+      "One practical thing you can do is create a safe space for your teen to express what's really going on beneath the surface. This doesn’t require a formal sit-down talk, which might feel confrontational. Instead, try a casual setting, like during a car ride when you’re both looking ahead rather than at each other, or while doing a shared activity like cooking dinner together.",
+      "Start by sharing a small piece of your day or something that’s been on your mind. This opens the door and shows them it’s okay to talk about feelings. You might say, \"You know, today I was feeling really overwhelmed at work. How about you? Was there anything that felt a bit much today?\" This approach can make it easier for your teen to share their own experiences without feeling put on the spot.",
+      "Also, pay attention to patterns. Does the anger flare up before a big test, after a social event, or when they’re spending a lot of time on social media? These patterns can give you clues about the underlying anxiety. Once you have some insight, you can help your teen find healthier ways to manage stress, whether it's through physical activity, creative outlets, or simply more downtime.",
+      "If they’re open to it, you might explore relaxation techniques together, like deep breathing or a simple meditation exercise. You can suggest trying it out together, framing it as a way to unwind rather than a solution to a problem. \"Hey, I read about this quick breathing exercise that might help us both chill out a bit. Want to try it with me?\"",
+      "Remember, the goal isn’t to fix your teen’s emotions or make them go away, but to help them understand and manage them. In doing so, you’re not only addressing the anger that’s on the surface but the anxiety beneath it.",
+      "For more on understanding and addressing anxiety that manifests in different ways, our workbook \"Your Alarm Isn't Broken\" may offer additional support and strategies for both you and your teen.",
+    ],
+  },
+  {
     slug: "supporting-your-teen-when-school-feels-overwhelming",
     date: "2026-08-03",
     readingTime: "5 min read",
