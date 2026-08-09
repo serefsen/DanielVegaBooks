@@ -1,5 +1,24 @@
 export const posts = [
   {
+    slug: "why-your-teens-thoughts-amplify-at-3-am",
+    date: "2026-08-09",
+    readingTime: "5 min read",
+    tag: "Sleep",
+    title: "Why Your Teen's Thoughts Amplify at 3 a.m.",
+    excerpt: "Explore why your teenager's mind races at night and discover a simple way to help them find calm.",
+    body: [
+      "It's 3 a.m., and the house is quiet. You should be asleep, but instead, you're awake, realizing that the light is on under your teenager's door. It's the fourth night in a row. You know without asking that they're not studying or reading a book. More likely, they're replaying every awkward thing they said today, spiraling into worry about tomorrow, or fixating on the 'what ifs' that seem to echo louder in the stillness of the night.",
+      "Nighttime can be a tricky time for teens. During the day, they're busy with school, friends, and activities. But when the night falls and everything quiets down, their minds can shift into overdrive. Without the distractions that daylight brings, worries, fears, and insecurities have room to grow and take center stage. The brain, in its attempt to process the day's events, often amplifies these thoughts, making them seem more significant than they might during the day.",
+      "It's important to understand that this isn't just your teen being dramatic or overreacting. At this hour, their brain isn't as equipped to rationally analyze these thoughts. The exhaustion of the day can make everything seem bigger, more urgent. And while it's tempting to dismiss these nighttime concerns as just a phase or a figment of nighttime imagination, they feel very real to your teenager.",
+      "So, what can you do to help your teen find some peace during these late-night hours? Start by creating a space for them to talk about their worries during the day. Encourage open conversations at a time when their mind is clearer and more balanced. Ask simple, open-ended questions like, \"What's been on your mind lately?\" This allows them to share without feeling pressured or judged.",
+      "Another practical step is to help them develop a bedtime routine that promotes relaxation. This doesn't have to be elaborate. It can be as simple as encouraging them to wind down with a book, listen to calming music, or practice deep breathing exercises before bed. The key is consistency. A routine signals to their brain that it's time to shift gears from the day's activities to rest.",
+      "You might also introduce them to the idea of writing their thoughts down before bed. Journaling can be a powerful way to clear the mind and process emotions. Suggest they keep a notebook by their bed where they can jot down any nagging thoughts or worries. This act of transferring thoughts from mind to paper can help diminish their power.",
+      "If your teen is open to it, guide them through a simple reflection exercise. Before bed, have them think of three positive things that happened during the day or three things they're grateful for. This small shift in focus can help reframe their mindset, setting a more positive tone for the night.",
+      "Remember, the goal isn't to eliminate their worries altogether but to help them manage their thoughts in a way that feels less overwhelming. It's about providing them with tools to navigate those late-night spirals and find a sense of calm.",
+      "For more insights on managing nighttime anxiety, you might find the book \"Your Alarm Isn't Broken\" helpful. It's filled with practical suggestions for understanding and addressing those 3 a.m. spirals, helping both you and your teen find more restful nights.",
+    ],
+  },
+  {
     slug: "building-a-resilience-toolkit-with-your-teen",
     date: "2026-08-07",
     readingTime: "5 min read",
