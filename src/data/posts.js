@@ -1,5 +1,24 @@
 export const posts = [
   {
+    slug: "comforting-your-teen-after-a-panic-attack",
+    date: "2026-08-13",
+    readingTime: "5 min read",
+    tag: "Anxiety",
+    title: "Comforting Your Teen After a Panic Attack",
+    excerpt: "Discover how to support your teenager in the moments following a panic attack with empathy and practical steps to help them regain calm and confidence.",
+    body: [
+      "The car ride home is quiet. Your teenager is in the passenger seat, staring out the window. You can still feel the echo of their panic attack from earlier — the heavy breaths, the trembling hands, the words you struggled to find. You want to help, to say something that makes it all better, but you're not sure where to start.",
+      "First, it's important to acknowledge what your teen has just experienced. Panic attacks can feel overwhelming, both physically and emotionally. It's like being caught in a storm you can't escape from, and even after it's passed, the fear of it happening again can linger like dark clouds.",
+      "In moments like these, one of the most helpful things you can do is create a sense of safety and understanding. Begin by acknowledging how frightening the experience must have been. You might say, \"I can't imagine how scary that must have felt. I'm here with you, and we're going to get through this together.\" By doing this, you're letting them know that you recognize their struggle and that they're not alone.",
+      "Once you're home or in a safe space, suggest a simple grounding exercise. This isn't about fixing the panic attack — it's about helping them reconnect with the present and regain a sense of stability. Invite your teen to sit with you. Together, you can try an exercise where you focus on the five senses. Ask them to name five things they can see, four things they can touch, three things they can hear, two things they can smell, and one thing they can taste. This activity can help shift their focus from the internal chaos to the tangible world around them.",
+      "Silence can be powerful too. If your teen doesn't feel like talking, that's okay. Sometimes, just sitting together quietly is enough. Let them lead the way in terms of conversation, and reassure them that you're there for them, no matter what they need.",
+      "Encourage them to rest if they feel tired. Panic attacks are exhausting, both mentally and physically. Offer them a cozy blanket or their favorite pillow, and suggest they take some time to relax. The goal is to provide comfort without pressure, allowing their mind and body to recover at their own pace.",
+      "Later, when they're feeling a bit more settled, gently discuss what might help them in the future. Maybe there's a particular technique they find soothing, like listening to music or going for a walk. Encourage them to think about what feels supportive and reassuring for them. This conversation can empower them to feel more in control should another panic attack occur.",
+      "Finally, it's important to remember that your role isn't to fix the situation but to be a steady, comforting presence. Let your teen know that seeking additional support, like talking to a counselor or therapist, is a strong and positive step, not a weakness. It's okay to reach out for help, and it's a sign of strength to take such steps.",
+      "For more insights on helping your teenager understand and manage these experiences, consider exploring \"Your Alarm Isn't Broken,\" a workbook designed to support teens in navigating the physical and emotional waves that come with anxiety and panic. By providing them with tools and understanding, you're helping them build resilience for the future.",
+    ],
+  },
+  {
     slug: "the-hidden-loneliness-behind-a-teens-busy-social-life",
     date: "2026-08-11",
     readingTime: "5 min read",
