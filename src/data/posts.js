@@ -1,5 +1,24 @@
 export const posts = [
   {
+    slug: "screen-time-isnt-the-enemy-habits-are",
+    date: "2026-08-15",
+    readingTime: "5 min read",
+    tag: "Communication",
+    title: "Screen Time Isn't the Enemy: Habits Are",
+    excerpt: "It's not screens that cause problems for teens, but the habits that develop around their use. Here's how you can help your teen build healthier habits.",
+    body: [
+      "You're sitting across from your teenager at the dinner table. Their phone sits propped up against a glass of water, and you notice their gaze flickering down every few seconds. It's not the device itself that's the issue, but the habits that have formed around it—the constant checking, the need for notifications, the distraction from the world right in front of them.",
+      "It's easy to point fingers at the screen, but the real culprit is how your teenager interacts with it. These habits, not the technology itself, can lead to distractions, sleep disruptions, and even social anxiety. Let's talk about how you can guide your teen toward healthier screen habits without making technology the enemy.",
+      "First, acknowledge the role screens play. They're not just tools for entertainment—they're gateways to social lives, news, and education. Demonizing these devices can make your teen defensive, so instead, focus on balance. You might say, \"I notice you're on your phone a lot during dinner. How about we try leaving them in the other room while we eat, so we can catch up on each other's day?\"",
+      "This approach isn't about policing screen time but about creating spaces where real-world interactions take precedence. Encourage your teen to establish specific \"screen-free\" zones or times in your home, like during meals or in the hour before bed. This small change can help them learn to be present and engaged in the moment.",
+      "Another habit to address is the content scrolling. It's easy for teens to get caught in an endless loop of information and comparison. Help them become mindful of what they're consuming. Ask them about their favorite online content, and show genuine interest in learning about what they find engaging or informative. You might discover a YouTuber they follow who inspires them in a positive way or a subreddit that fuels their curiosity about a specific hobby.",
+      "Guide them to reflect on how different types of content make them feel. You can gently suggest, \"I noticed you seemed a bit down after spending a lot of time on Instagram. Do you think it could be the accounts you're following? Maybe we can find some that focus on positive messages or funny content that makes you laugh.\"",
+      "Another practical step is to encourage them to take regular breaks from their screens. Suggest fun, offline activities to do together, like going for a walk, playing a board game, or cooking a new recipe. These breaks not only reduce screen fatigue but also foster connection and open communication between you and your teen.",
+      "Lastly, talk to your teen about setting digital boundaries. Encourage them to turn off unnecessary notifications or set \"do not disturb\" times when they need to focus on homework or unwind. Help them see that these boundaries aren't restrictions, but choices that protect their time and mental space.",
+      "Remember, it's not about removing screens but about reshaping the habits around their use. With patience and open dialogue, you can support your teen in developing a healthier relationship with technology. For more insights on navigating these challenges, consider exploring \"Your Awkward Isn't Showing,\" a resource that touches on the nuances of social anxiety and how it relates to teens' digital lives.",
+    ],
+  },
+  {
     slug: "comforting-your-teen-after-a-panic-attack",
     date: "2026-08-13",
     readingTime: "5 min read",
