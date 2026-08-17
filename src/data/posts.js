@@ -1,5 +1,24 @@
 export const posts = [
   {
+    slug: "helping-your-teen-differentiate-nervousness-from-anxiety",
+    date: "2026-08-17",
+    readingTime: "5 min read",
+    tag: "Anxiety",
+    title: "Helping Your Teen Differentiate Nervousness from Anxiety",
+    excerpt: "Understanding the difference between nervousness and anxiety can empower your teenager to handle their feelings more effectively. Here's how you can guide them.",
+    body: [
+      "You’re sitting across from your teenager at the dinner table. They've picked at their food more than they've eaten it, and their eyes flicker between their plate and their phone. You ask about their day, and they mumble something about an upcoming presentation or a big game. You know there's more going on behind that quiet demeanor.",
+      "It's not unusual for teenagers to feel nervous or anxious, especially with the pressures of school, social dynamics, and extracurricular activities. But how can you tell when it’s just everyday nerves versus something more concerning?",
+      "Nervousness is a natural, temporary response to a specific situation. It's that flutter in the stomach before speaking in front of the class or the jittery anticipation before a big game. This feeling usually fades once the event is over. Anxiety, however, can feel more overwhelming and persistent. It lingers even when there's no clear cause or after the event has passed, often accompanied by thoughts that spiral into worst-case scenarios.",
+      "To help your teenager recognize the difference, start by acknowledging their feelings without judgment. Let them know it’s okay to feel nervous or anxious, and that you’re there to support them. You might say something like, _\"It sounds like you’re feeling a bit uneasy about your presentation. Do you think it's just nerves, or do you feel like it's something more?\"_ This opens the door for them to explore and articulate their feelings.",
+      "Once they start to differentiate between the two, you can guide them through practical steps to manage each. For example, when dealing with nervousness, encourage them to prepare and practice as much as possible. This might mean rehearsing their presentation in front of a mirror or running through plays before a game. Remind them that it's normal to feel a little nervous, and it's often a sign that they care about what they’re doing.",
+      "For anxiety, the approach might be a bit different. It's about helping them find ways to calm their mind and body. Breathing exercises or a short walk can help break the cycle of anxious thoughts. Encourage them to take a few deep breaths, focusing on inhaling slowly through the nose and exhaling through the mouth. This can help ground them in the present moment and ease the tension.",
+      "It's also crucial to create a supportive environment where they feel comfortable expressing their feelings. Let them know that you're always there to listen, whether they want advice or simply need to vent. Sometimes, sharing what’s on their mind is enough to lighten the load.",
+      "If you notice that anxiety is starting to interfere with their daily life — like avoiding certain situations or struggling to focus on schoolwork — it might be time to explore further support options. This could mean speaking with a school counselor or considering a workbook that offers practical strategies to manage anxiety.",
+      "By helping your teenager distinguish between nervousness and anxiety, you're giving them the tools to understand and manage their emotions better. This awareness can empower them to handle life's challenges with greater resilience. For more insights and strategies, you might find the workbook _\"Your Alarm Isn't Broken\"_ particularly helpful, especially if sleep and avoidance are part of the picture.",
+    ],
+  },
+  {
     slug: "screen-time-isnt-the-enemy-habits-are",
     date: "2026-08-15",
     readingTime: "5 min read",
