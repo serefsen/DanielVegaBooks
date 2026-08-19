@@ -8,9 +8,17 @@ on:
 permissions:
   contents: write
 
+# Ayni anda iki run birbirinin commit'ini bogmasin
+concurrency:
+  group: auto-blog
+  cancel-in-progress: false
+
 jobs:
   generate:
     runs-on: ubuntu-latest
+    # Varsayilan 6 saatlik timeout yerine hizli hata.
+    # apt-get mirror'a takilirsa workflow 6 saat surup "cancelled" olmasin.
+    timeout-minutes: 15
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -28,9 +36,16 @@ jobs:
         run: node scripts/generate-post.mjs
 
       # ---------- Pin pipeline (yeni yazi icin otomatik pin) ----------
-      - name: Install pin deps + chromium
+      - name: Install pin deps + chromium (apt hang-proof)
         working-directory: scripts/pins
-        run: npm install && npx playwright install --with-deps chromium
+        run: |
+          npm install
+          # apt-get mirror'a takilmasin: kisa zaman asimi + 1 retry, sonra hizli hata.
+          # APT_CONFIG sadece bu adimda gecerli.
+          printf 'Acquire::Retries "1";\nAcquire::http::Timeout "20";\nAcquire::https::Timeout "20";\nAcquire::ftp::Timeout "20";\n' > /tmp/apt.conf
+          export APT_CONFIG=/tmp/apt.conf
+          # Ilk deneme gecici mirror sorununa takilirsa ikinci deneme halleder.
+          npx playwright install --with-deps chromium || npx playwright install --with-deps chromium
 
       - name: Generate pin (OpenRouter copy + render)
         env:
@@ -48,6 +63,7 @@ jobs:
             git pull --rebase origin main && git push && break
             echo "push carpismasi, deneme $i/5 - 10sn bekleniyor"; sleep 10
           done
+
       - name: Schedule pin to Tailwind
         env:
           TAILWIND_API_KEY: ${{ secrets.TAILWIND_API_KEY }}
