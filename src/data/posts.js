@@ -1,5 +1,25 @@
 export const posts = [
   {
+    slug: "understanding-homework-paralysis-in-teens",
+    date: "2026-08-19",
+    readingTime: "5 min read",
+    tag: "Academic stress",
+    title: "Understanding Homework Paralysis in Teens",
+    excerpt: "When your teen stares at their homework but doesn't start, it's not laziness. Discover how to help them overcome this common struggle.",
+    body: [
+      "It's 7 p.m. on a school night, and your teen is sitting at the kitchen table, surrounded by notebooks and textbooks. You notice their gaze is fixed on the math homework in front of them, but the pencil in their hand remains still. You can see the tension in their shoulders as they stare, seemingly unable to start. It's a scene that's all too familiar — the homework is out, but nothing is getting done.",
+      "Before jumping to conclusions, it's important to understand that this isn't laziness. It's something many teens face: the overwhelming feeling of not knowing where or how to begin. When the work seems insurmountable, the brain can freeze up, making it difficult for them to take that first step.",
+      "Your teen might be experiencing what we can call homework paralysis. It's the frustration of wanting to get things done but feeling so overwhelmed by the task that they can't even start. This paralysis often stems from the pressure to perform perfectly or from a fear of making mistakes. They're not being lazy; they're stuck in a loop of self-doubt and uncertainty.",
+      "So how can you help your teen navigate this? Start by acknowledging how they're feeling without judgment or pressure. A simple, \"I see you're having a tough time getting started,\" can open the door to a conversation. Let them know it's okay to feel stuck and that you're there to support them.",
+      "Once you've acknowledged their feelings, encourage them to break the task into smaller, more manageable pieces. This can be as straightforward as focusing on the first problem or even just writing their name on the top of the paper to get them moving. Sometimes, taking a tiny step forward can help build the momentum they need to tackle the rest.",
+      "Another practical tip is to set a timer for a short, dedicated work session — say, 10 or 15 minutes. Let them know they only need to focus for that amount of time before taking a break. The pressure of working for a shorter period can feel less overwhelming and might help them get started.",
+      "If your teen is open to it, sitting with them during these short sessions can be comforting. Your presence can provide reassurance that they're not facing this task alone. However, always be sure to follow their lead — some teens may feel more at ease working solo once the initial hurdle is cleared.",
+      "Additionally, make sure the environment is conducive to focus. This might mean reducing distractions, like turning off a TV in the background or ensuring their phone is in another room during homework time. Creating a calm, focused environment can often help alleviate some of the anxiety they feel.",
+      "Remember, the goal isn't to have them finish all their homework in one sitting, but to help them take that first step. Over time, as they see they can begin and make progress, their confidence will grow. They might still face moments of paralysis, but with practice and support, they'll learn how to navigate them more effectively.",
+      "For more insights on how to support your teen with academic stress and performance anxiety, you might find \"Your Pressure Isn't Proof\" helpful as it offers practical strategies for dealing with these challenges.",
+    ],
+  },
+  {
     slug: "when-teens-lose-interest-in-their-passions",
     date: "2026-08-19",
     readingTime: "4 min read",
