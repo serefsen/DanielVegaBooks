@@ -1,5 +1,23 @@
 export const posts = [
   {
+    slug: "when-teens-lose-interest-in-their-passions",
+    date: "2026-08-19",
+    readingTime: "4 min read",
+    tag: "Depression",
+    title: "When Teens Lose Interest in Their Passions",
+    excerpt: "When your teenager suddenly stops doing activities they used to love, it can be puzzling and concerning. Here's a practical way to approach the situation with empathy and understanding.",
+    body: [
+      "You're in the car, on the way home from what used to be their favorite after-school activity. The passenger seat is quiet, no excited chatter about the day's practice or plans for the next match. Instead, there's a shrug when you ask how it went, and a quiet \"It was fine.\" You can't help but feel something has shifted.",
+      "When a teenager suddenly loses interest in activities they once loved, it can be concerning and puzzling. You might find yourself wondering if it's just a phase or if there's something deeper going on. The truth is, it could be a bit of both. Teens experience changes in interest for various reasons, ranging from natural development to more complex feelings of anxiety or depression.",
+      "The first step is to acknowledge the change without jumping to conclusions. Approach the topic gently. You might say, \"I've noticed you haven't been as excited about soccer lately. I just want to check in and see how you're feeling about it.\" This kind of open-ended question invites them to share without feeling pressured to defend their feelings.",
+      "It's important to listen more than you speak in these moments. Your teenager may not have all the answers, and that's okay. They might feel overwhelmed by expectations or simply burned out. Alternatively, they may be experiencing <a href=\"/blog/inside-the-fog-of-teen-depression/\">anxiety or depression</a> that they're unsure how to articulate.",
+      "One practical way to help is to encourage exploration without pressure. Suggest trying something new together, perhaps a different sport, a new hobby, or even a creative project at home. The goal is to reignite curiosity and joy, not to replace what was lost. You might say, \"I've heard about this new art class in town. It sounds like fun, and I thought it might be nice for us to check it out together.\"",
+      "Also, keep an eye on other changes that might signal deeper issues, such as shifts in sleeping patterns, eating habits, or social interactions. If your teen seems withdrawn or you notice persistent changes in their mood, it might be time to seek additional support. Professional guidance can provide a safe space for them to explore their feelings and develop strategies to cope with whatever they’re experiencing.",
+      "Remember, it's not about fixing the situation immediately but about supporting them through it. Be patient and reassuring, letting them know it's okay to feel the way they do and that you're there for them no matter what.",
+      "For more insights into understanding and addressing these shifts, the workbook \"Your Pressure Isn't Proof\" can offer supportive strategies for navigating performance anxiety and the fear of letting people down, which might be contributing to their change in interest.",
+    ],
+  },
+  {
     slug: "helping-your-teen-differentiate-nervousness-from-anxiety",
     date: "2026-08-17",
     readingTime: "5 min read",
