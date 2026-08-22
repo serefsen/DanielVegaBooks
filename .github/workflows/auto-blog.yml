@@ -34,37 +34,3 @@ jobs:
           OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/generate-post.mjs
-
-      # ---------- Pin pipeline (yeni yazi icin otomatik pin) ----------
-      - name: Install pin deps + chromium (apt hang-proof)
-        working-directory: scripts/pins
-        run: |
-          npm install
-          # apt-get mirror'a takilmasin: kisa zaman asimi + 1 retry, sonra hizli hata.
-          # APT_CONFIG sadece bu adimda gecerli.
-          printf 'Acquire::Retries "1";\nAcquire::http::Timeout "20";\nAcquire::https::Timeout "20";\nAcquire::ftp::Timeout "20";\n' > /tmp/apt.conf
-          export APT_CONFIG=/tmp/apt.conf
-          # Ilk deneme gecici mirror sorununa takilirsa ikinci deneme halleder.
-          npx playwright install --with-deps chromium || npx playwright install --with-deps chromium
-
-      - name: Generate pin (OpenRouter copy + render)
-        env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
-        run: node scripts/pins/generate-pins.mjs
-
-      - name: Commit pin image
-        run: |
-          git config user.name "pin-bot"
-          git config user.email "actions@github.com"
-          git add public/pins
-          git commit -m "Add pin image [skip ci]" || echo "no changes to commit"
-          for i in 1 2 3 4 5; do
-            git pull --rebase origin main && git push && break
-            echo "push carpismasi, deneme $i/5 - 10sn bekleniyor"; sleep 10
-          done
-
-      - name: Schedule pin to Tailwind
-        env:
-          TAILWIND_API_KEY: ${{ secrets.TAILWIND_API_KEY }}
-        run: node scripts/pins/post-pins.mjs
