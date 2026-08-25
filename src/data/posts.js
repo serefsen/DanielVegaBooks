@@ -1,5 +1,25 @@
 export const posts = [
   {
+    slug: "recognizing-anxiety-in-your-quiet-teen",
+    date: "2026-08-25",
+    readingTime: "5 min read",
+    tag: "Anxiety",
+    title: "Recognizing Anxiety in Your Quiet Teen",
+    excerpt: "Your teenager's silence might be masking anxiety. Learn how to gently reach out and support them.",
+    body: [
+      "It's a typical Saturday afternoon, and there you are, moving through the house, tidying up or preparing lunch. Your teenager is in their usual spot — their bedroom, door slightly ajar, the glow of a screen casting a soft hue. They’re quiet, as they usually are, not causing any trouble, but not engaging with the world either. It’s easy to assume they’re simply introverted or just having some downtime. But sometimes, that quiet can be a mask for something deeper.",
+      "In a world that often celebrates the loud and the outgoing, quiet teens can easily go unnoticed. They might not voice their worries, but that doesn’t mean they aren’t feeling them. Anxiety doesn’t always look like a meltdown or a panic attack. It can be silent, simmering beneath the surface, unnoticed even by those who care deeply.",
+      "You might catch glimpses of it in the small things: the way they hesitate before joining family meals, the reluctance to make plans or leave the house, or the way they seem to retreat into their shell when faced with new experiences. These can be subtle signs that your teen’s quiet nature is more than just a personality trait.",
+      "One practical thing you can do is to create a safe space for conversation. It’s about signaling to them that you’re there, ready to listen whenever they’re ready to talk. Find a moment when you're doing something together that doesn't require intense eye contact, like driving or taking a walk. These are opportunities for them to open up without the pressure of a direct conversation.",
+      "Start by sharing something about your day or a thought you've had. This can sometimes invite them to share in return. It might sound like, \"I was thinking about how I felt when I started high school and how unsettling it was at times,\" and then leave space for them to chime in. They might not jump in right away, but you’re planting the seed that it’s safe to share thoughts and feelings.",
+      "Another approach is to gently address their behavior without putting them on the spot. You might say, \"I've noticed you've been more quiet than usual, and I just wanted to check in and see how you're feeling about things.\" This opens up the conversation without making them feel like they’re under scrutiny.",
+      "Also, be mindful of providing reassurance without pressure. Avoid phrases that might shut down their ability to express themselves, like \"You have nothing to worry about,\" or \"Just be more outgoing.\" Instead, offer understanding and empathy, reinforcing the idea that you’re there to support them, not to change who they are.",
+      "Sometimes, helping your teen might mean seeking additional resources or support. It could be useful to explore strategies together that help manage feelings of anxiety, such as journaling, creative outlets, or even mindfulness exercises that can be done in the privacy of their room.",
+      "If you suspect your teen’s quietness is tied to anxiety, consider exploring \"Your Alarm Isn't Broken,\" a workbook designed to help teens understand and manage the physical and emotional symptoms of anxiety. It could provide a gentle way for them to start addressing what they're experiencing.",
+      "Remember, reaching out to a quiet teen requires patience and sensitivity. It's about gradually building a bridge of understanding and communication. The goal is to let them know you’re there, ready to support them whenever they’re ready to step forward.",
+    ],
+  },
+  {
     slug: "understanding-teen-overwhelm-in-a-world-of-plenty",
     date: "2026-08-23",
     readingTime: "4 min read",
