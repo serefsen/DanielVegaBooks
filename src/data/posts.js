@@ -1,5 +1,24 @@
 export const posts = [
   {
+    slug: "recognizing-rejection-sensitivity-in-your-teen",
+    date: "2026-08-29",
+    readingTime: "4 min read",
+    tag: "Anxiety",
+    title: "Recognizing Rejection Sensitivity in Your Teen",
+    excerpt: "Explore the subtle signs of rejection sensitivity in teenagers and learn a practical approach to support them through it.",
+    body: [
+      "You're in the car with your teenager, driving back from another day at school. It's a familiar drive, but today the silence feels different. You notice their gaze fixed out the window, a slight frown pulling at the corners of their mouth. You ask about their day, and you get the usual 'fine,' but there's a weight to it, as if 'fine' is doing heavy lifting for a hundred unsaid words.",
+      "Rejection sensitivity can be an invisible burden for teenagers, shaping how they interpret the world and their place in it. It's not just about the big, obvious rejections—like not making the team or being turned down for a date. It's the smaller, often unnoticed moments that can sting just as sharply: a friend who doesn't respond to a text right away, a teacher's offhand comment, or a group photo they weren't invited to join. These instances can feel intensely personal, even when they're not intended that way.",
+      "You might see signs in the way your teen reacts to social interactions. Maybe they’re quick to assume the worst in ambiguous situations or withdraw after what seems like a minor slight. Small comments can lead to big feelings, and they might ruminate on these perceived rejections long after others would have moved on. It’s not about being overly dramatic; it’s about how intensely they feel these moments.",
+      "So, what can you do to help your teen navigate these feelings? Start by creating a safe space for them to express what they’re experiencing. Let them know it’s okay to feel hurt, and that their feelings are valid, even if the situation seems small from an outside perspective. You can say something like, \"I can see that really bothered you. Want to talk about what happened?\"",
+      "Listen actively when they choose to open up. Reflect back what you hear without judgment. \"It sounds like it was really tough when your friend didn’t text back. That must have been frustrating and a bit confusing.\" This approach helps your teen feel heard and understood, and it opens the door for them to explore their feelings further.",
+      "Next, gently help them reframe their thoughts. This isn't about dismissing their feelings but about offering another perspective. You might suggest, \"Sometimes friends get busy, and they don't mean to ignore us.\" Encouraging them to consider less negative interpretations can reduce the sting of perceived rejection over time.",
+      "Encourage your teen to engage in activities that build their confidence and resilience. Whether it’s a hobby, a sport, or a club, involvement in something they enjoy can reinforce a sense of belonging and self-worth, independent of their social interactions.",
+      "Rejection sensitivity is often tied to deeper concerns about self-worth and belonging, so reinforcing their strengths and the unique value they bring to their relationships can provide comfort and confidence. Acknowledging their efforts and achievements, no matter how small, helps reinforce a positive self-image.",
+      "For more insights into these social challenges your teen may face, \"Your Awkward Isn't Showing\" offers supportive strategies that align perfectly with understanding and navigating social anxiety and sensitivities.",
+    ],
+  },
+  {
     slug: "navigating-disagreements-with-your-teen",
     date: "2026-08-27",
     readingTime: "5 min read",
