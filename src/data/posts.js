@@ -1,5 +1,23 @@
 export const posts = [
   {
+    slug: "rebuilding-after-a-teens-social-world-collapses",
+    date: "2026-09-03",
+    readingTime: "4 min read",
+    tag: "Social anxiety",
+    title: "Rebuilding After a Teen's Social World Collapses",
+    excerpt: "When your teenager's social circle crumbles, it can feel like the ground has shifted beneath their feet. Here's how to support them with empathy and patience.",
+    body: [
+      "The car ride home from school is unusually quiet today. You glance in the rearview mirror and catch a glimpse of your teenager, staring out the window, eyes clouded with thoughts they aren't sharing. You remember they were all smiles just a few days ago, surrounded by friends. But today, their social world seems to have shifted dramatically, leaving them in an uncomfortable silence.",
+      "It's not uncommon for teenagers to experience sudden changes in their social circles. A group chat gone silent, a lunch table suddenly full without them, or whispers that seem to follow them down the hallway—any of these can make their social world feel like it's crumbling overnight. As a parent or guardian, watching this unfold can be heart-wrenching, especially when you're unsure how to help.",
+      "The first step in supporting your teenager is to acknowledge their feelings without trying to fix them immediately. You might say, \"I've noticed things have been different with your friends lately. I'm here if you want to talk about it.\" This simple gesture shows that you're available and willing to listen, without pushing them to open up before they're ready.",
+      "If your teenager does start to share, practice active listening. This means focusing entirely on what they're saying, without planning your response while they're mid-sentence. Sometimes, the most supportive thing you can offer is your undivided attention. Resist the urge to jump in with solutions or platitudes like \"It'll get better\"—these can inadvertently make them feel like their emotions are being dismissed.",
+      "Once you've listened, gently help them explore possible ways to cope with the situation. You might ask, \"Is there someone at school you feel comfortable talking to about this?\" or \"What do you think might help right now?\" Encouraging them to think about solutions or alternative social activities can empower them to take small steps forward, even when it feels like their world is standing still.",
+      "Consider suggesting they reconnect with a hobby or interest outside of their usual social circle. Whether it's joining a club, volunteering, or picking up an old hobby, these activities can provide a sense of belonging and achievement independent of their current social dynamics. It's not about replacing their friendships but reminding them that their identity is not solely tied to their social group.",
+      "It's also important to check in with them regularly, even if they initially seem reluctant to talk. A simple \"How's everything going today?\" can open the door for them to share more when they're ready. Be patient; rebuilding social confidence takes time and can be a gradual process.",
+      "For further insights on how to support your teenager through social challenges, consider exploring \"Your Awkward Isn't Showing,\" which can offer deeper understanding and practical strategies tailored to navigating social anxiety and the complexities of teenage friendships.",
+    ],
+  },
+  {
     slug: "unraveling-the-confidence-myth-in-teens",
     date: "2026-09-01",
     readingTime: "4 min read",
