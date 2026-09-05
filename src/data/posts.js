@@ -1,5 +1,22 @@
 export const posts = [
   {
+    slug: "spotting-the-overlap-between-sleep-deprivation-and-teen-depr",
+    date: "2026-09-05",
+    readingTime: "4 min read",
+    tag: "Depression",
+    title: "Spotting the Overlap Between Sleep Deprivation and Teen Depression",
+    excerpt: "Teenagers who are sleep-deprived often display similar behaviors to those experiencing depression. Understanding the difference can help you support your teen more effectively.",
+    body: [
+      "It's Saturday morning, and the only sign of life from your teenager's room is the faint glow of a forgotten screen. Last night's lights-out was more of a suggestion than a rule. As you knock gently and enter, you find them buried in a pile of blankets, eyes barely open, grumbling a half-hearted 'morning.' If this scene feels all too familiar, you might wonder whether you're seeing the effects of too little sleep or something more concerning, like depression.",
+      "Teenagers are notorious for their irregular sleep patterns. Add to this the pressures of school, social life, and the lure of endless scrolling on their phones, and it's no surprise they don't always get the rest they need. Yet, the line between sleep deprivation and depression can blur alarmingly, as both can manifest in similar ways—irritability, a lack of motivation, and withdrawal from activities they used to enjoy.",
+      "First, let's reframe what's happening. When your teen is sleep-deprived, their body and brain aren't getting the chance to reset and recharge. This leads to a foggy state of mind that can mimic depression. They're not just tired; they're exhausted in a way that impacts their mood and behavior. And just like depression, sleep deprivation can make it difficult for them to engage with the world around them.",
+      "One practical step you can take is to gently encourage a bedtime routine. This isn't about switching off the lights and demanding sleep, but rather creating a calming environment that signals to their body it's time to wind down. Suggest they start with small changes, like dimming the lights, putting away screens at least 30 minutes before bed, or listening to calming music. These small cues can help their internal clock recognize when it's time to start shutting down for the night.",
+      "It's also helpful to have an open conversation about how they're feeling, without jumping to conclusions or offering solutions too quickly. You might say, 'I've noticed you've been really tired lately, and I wonder if there's anything you'd like to talk about or if there's a way we can make your evenings more restful.' This shows you're there to support them, without adding pressure.",
+      "Remember, the goal isn't to diagnose but to understand and offer support when needed. If you find that despite improving their sleep habits, your teen's mood and behavior don't improve, consider reaching out to a professional for guidance.",
+      "For more insights into how sleep and anxiety affect your teen, and practical steps to support them, you might find 'Your Alarm Isn't Broken' a helpful resource.",
+    ],
+  },
+  {
     slug: "rebuilding-after-a-teens-social-world-collapses",
     date: "2026-09-03",
     readingTime: "4 min read",
