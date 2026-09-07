@@ -1,5 +1,25 @@
 export const posts = [
   {
+    slug: "the-cost-of-being-the-strong-one-in-your-teens-life",
+    date: "2026-09-07",
+    readingTime: "5 min read",
+    tag: "Anxiety",
+    title: "The Cost of Being the 'Strong One' in Your Teen's Life",
+    excerpt: "Your teenager might be the glue holding their friend group together. But being the 'strong one' comes with its own hidden cost.",
+    body: [
+      "It's a typical evening, and you're in the kitchen when your teenager walks in, phone buzzing with notifications. They've just returned from another long day at school, followed by hours of helping friends navigate their own dramas. You watch as they juggle messages, offering advice and comfort, their own needs seemingly on the backburner. It’s not just tonight; it’s most nights. Your teen has become the go-to confidant, the one who holds everyone else together.",
+      "In every group, there's often someone who takes on the role of the caretaker, the peacemaker. It's a role your teen seems to slip into naturally. They’re the one friends turn to when they’re upset, the one who smooths over disagreements, the one who seems to have it all figured out. But while this role can be fulfilling, it also comes with a hidden cost — one that may not be immediately visible.",
+      "The weight of being the 'strong one' can be heavy. It often means putting others' needs before their own, setting aside their own feelings to prioritize someone else’s. This self-imposed responsibility can lead to emotional exhaustion and anxiety. Your teen might feel like they can't afford to show their own vulnerabilities, fearing it could let someone else down.",
+      "So what can you do to support them? Start by acknowledging their efforts and the emotional labor that goes into being the supportive friend. Let them know you see how much they care and how hard they work to be there for others. This validation can be incredibly freeing.",
+      "Next, create a safe space for them to express their own feelings. You might say, \"I notice you’re always there for your friends. It’s really generous, but I want to make sure you know it’s okay to focus on yourself too. How are you feeling about everything?\" This opens up a conversation without pressure, inviting them to share what might be weighing on their mind.",
+      "Encourage them to set boundaries with their friends. This doesn’t mean they have to stop being supportive; rather, it’s about finding a balance that allows them to take care of themselves as well. You might suggest, \"It’s okay to tell your friends you need some time for yourself. They’ll understand and probably have felt the same way at times.\"",
+      "Help them prioritize self-care. Encourage activities that recharge their energy, whether it’s a hobby, quiet time with a book, or simply a walk outside. Remind them that taking care of themselves isn't selfish — it’s necessary. You can model this behavior by setting your own boundaries and practicing self-care, showing them it's okay to prioritize personal well-being.",
+      "Finally, remind them that being strong doesn't mean being invincible. It’s okay to lean on others, including you. Offer your support in a way that affirms their strength but also allows for their humanity. You could say, \"I’m here to help too. We can figure things out together if you ever need to talk.\"",
+      "Being the 'strong one' can sometimes mask underlying <a href=\"/blog/recognizing-anxiety-in-your-quiet-teen/\">anxiety or stress</a>. It's important to keep an eye out for signs that your teen is struggling under the surface. If you notice changes in their mood, sleeping patterns, or social interactions, it might be time to delve deeper into how they're really feeling.",
+      "For more insights on how to support a teenager who might be internalizing pressure to perform and support everyone else, our workbook \"Your Pressure Isn't Proof\" offers guidance on managing performance anxiety and the fear of letting others down. Remember, every strong person needs a little support sometimes, even if they’re not asking for it outright.",
+    ],
+  },
+  {
     slug: "spotting-the-overlap-between-sleep-deprivation-and-teen-depr",
     date: "2026-09-05",
     readingTime: "4 min read",
