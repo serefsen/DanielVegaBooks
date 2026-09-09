@@ -1,5 +1,25 @@
 export const posts = [
   {
+    slug: "understanding-your-teens-catastrophic-thinking",
+    date: "2026-09-09",
+    readingTime: "5 min read",
+    tag: "Anxiety",
+    title: "Understanding Your Teen's Catastrophic Thinking",
+    excerpt: "Explore how a teen's catastrophic thinking may be a defense mechanism and learn practical steps to support them.",
+    body: [
+      "The car ride home from the mall is quiet. Your teen is staring out the window, their mind clearly somewhere else. You try to start a conversation, but their responses are clipped. As you pull into the driveway, you ask if everything is okay, and the dam breaks. They start listing everything that could go wrong tomorrow, from failing a math test to losing a friend over a misunderstood comment. You're left wondering how everything spiraled from a simple question.",
+      "Catastrophic thinking is familiar territory for many teens. It's that tendency to jump to the worst-case scenario, even when there's little evidence to support it. While it can be frustrating to witness, it's important to recognize that this pattern of thinking isn't just about being negative. It's often a protective mechanism, a way for your teen to prepare for potential dangers and feel a sense of control over the unknown.",
+      "When your teen engages in catastrophic thinking, what they might really be doing is trying to shield themselves from disappointment. By anticipating the worst, they hope to avoid the sting of an unexpected setback. This mindset can also be a way of managing anxiety. If they expect the worst, any outcome less severe feels like a victory.",
+      "So how can you help them navigate this? Start by acknowledging their feelings. Let them know you understand why they might be feeling this way, and reassure them that it's okay to have these thoughts. Sometimes, just knowing that someone else sees and understands their pain can make a big difference.",
+      "Next, try guiding them toward a more balanced perspective. Encourage them to explore the evidence for and against their catastrophic thoughts. You can ask questions like, \"What are the chances, really?\" or \"Has this happened before?\" Helping them weigh different outcomes may gradually shift their focus from the worst-case scenario to more realistic possibilities.",
+      "Another practical step is to encourage them to identify the underlying fear driving their catastrophic thinking. Ask them to consider what they are most afraid of in the situation and why. Sometimes, understanding the root fear can make it easier to address it directly.",
+      "It's also helpful to teach your teen to focus on what they can control. Encourage them to make a list of actionable steps they can take to prepare for whatever is worrying them. This could mean studying a little more for that math test or having an open conversation with a friend to clear up any misunderstandings. Focusing on what they can do, rather than what they fear might happen, can empower them and reduce feelings of helplessness.",
+      "Remember, it's not about dismissing their fears but helping them see that not every thought needs to be acted upon as if it's a certainty. This balance can be tricky to achieve but is crucial in managing anxiety.",
+      "If catastrophic thinking is affecting your teen's day-to-day life, it might be worth exploring broader strategies for managing anxiety. Our workbook, \"Your Alarm Isn't Broken,\" offers insights and exercises designed to help teens understand and manage their anxiety more effectively.",
+      "By taking these steps, you're not just helping your teen address their catastrophic thinking; you're offering them tools to navigate uncertainty with more confidence and resilience.",
+    ],
+  },
+  {
     slug: "the-cost-of-being-the-strong-one-in-your-teens-life",
     date: "2026-09-07",
     readingTime: "5 min read",
