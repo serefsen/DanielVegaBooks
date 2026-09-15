@@ -1,5 +1,24 @@
 export const posts = [
   {
+    slug: "unpacking-the-anxiety-behind-teen-procrastination",
+    date: "2026-09-15",
+    readingTime: "4 min read",
+    tag: "Anxiety",
+    title: "Unpacking the Anxiety Behind Teen Procrastination",
+    excerpt: "Discover why your teenager's procrastination might be masking deeper anxiety and learn a practical approach to support them.",
+    body: [
+      "You're sitting in the car, waiting for your teenager to finish up at practice. They slide into the passenger seat and, as you drive home, you bring up the project due next week. You notice their shoulders tense up, and they give a light shrug, muttering something about 'getting to it later.' It's the third time this week you've had this conversation, and each time, the deadline seems to loom larger.",
+      "It's easy to label this as procrastination, but there's often more beneath the surface than meets the eye. What looks like putting things off might actually be your teenager wrestling with anxiety. The anxiety of starting, of not meeting expectations, or of facing potential failure can paralyze them into inaction.",
+      "Imagine the pressure they feel, the weight of wanting to excel but fearing they might fall short. It's a cycle that can be tough to break — the more they avoid, the higher the stakes seem when they finally face the task. As a parent, teacher, or counselor, you can help your teenager navigate this hidden anxiety.",
+      "Start by shifting the conversation. Instead of focusing solely on the deadline or the task itself, try to create a space where they feel safe to express what's really going on. On your next drive, or while setting the table, you might say something like, \"I noticed that project is still on your list. How are you feeling about it?\" Open-ended questions can invite them to share their feelings without the fear of judgment.",
+      "Once they open up, validate their emotions. It might be tempting to jump into problem-solving mode, but first, let them know that it's okay to feel the way they do. You could say, \"It's understandable to feel overwhelmed. Projects like this can seem daunting.\" Acknowledging their anxiety can help them feel heard and less isolated in their struggle.",
+      "Next, help them break the task into smaller, more manageable pieces. This not only makes the work feel less overwhelming but also gives your teen a sense of control over the situation. You could sit down together and map out a timeline with mini-deadlines for each step. This approach can transform the looming project into a series of achievable goals, reducing the anxiety associated with a single, massive deadline.",
+      "Encourage them to celebrate small victories along the way. Whether it's completing a paragraph or finishing research, recognizing these accomplishments can build momentum and confidence. It's a practical way to shift their focus from what remains undone to what has been achieved.",
+      "Remember that this is a journey, and change won't happen overnight. Be patient and consistent in your support. If your teen continues to struggle despite these efforts, it might be worth exploring additional resources or support, possibly even professional help if needed.",
+      "For more insights on understanding the nuances of anxiety and practical strategies to help your teenager manage it, you might find 'Your Pressure Isn't Proof' particularly helpful in guiding them through anxiety-related challenges.",
+    ],
+  },
+  {
     slug: "a-gentle-approach-to-boosting-teen-confidence",
     date: "2026-09-13",
     readingTime: "4 min read",
